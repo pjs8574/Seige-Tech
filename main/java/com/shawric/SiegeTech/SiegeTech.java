@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "SiegeTech", name = "Siege Tech Mod", version = "0.5_MC_1.7.10")
+@Mod(modid = "SiegeTech", name = "Siege Tech Mod", version = "0.7 MC_1.7.10")
 
 public class SiegeTech {
 
