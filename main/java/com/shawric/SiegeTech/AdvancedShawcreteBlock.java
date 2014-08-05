@@ -31,14 +31,14 @@ public class AdvancedShawcreteBlock extends Block {
 	//sets the block texture stored in \src\main\resources\assets\shawric_seigetech\textures\blocks
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerBlockIcons(IIconRegister p_149651_1_)
+	public void registerBlockIcons(IIconRegister ireg)
 	{
-	blockIcon = p_149651_1_.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5));
+	blockIcon = ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
+	public IIcon getIcon(int side, int meta)
 	{
 	return blockIcon;
 	}
