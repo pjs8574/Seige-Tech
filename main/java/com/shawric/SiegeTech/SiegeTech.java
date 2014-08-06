@@ -36,6 +36,7 @@ public class SiegeTech {
 	
 	public static final int basicPandaNadeEntityId = 1337;
 	public static final int advancedPandaNadeEntityId = 1338;
+	public static final int basicSeitersonicExplosiveEntityPrimedId = 1339;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -60,17 +61,19 @@ public class SiegeTech {
 	@EventHandler
 	public void Init(FMLInitializationEvent event){
 	
-		//Blocks
+		//Register the Blocks
 		GameRegistry.registerBlock(basicShawcrete, modid + (basicShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(advancedShawcrete, modid + (advancedShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(basicSeitersonicExplosive, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)));
 		
-	    //Items
+	        //Register the Items
 		GameRegistry.registerItem(basicPandaNade, modid + (basicPandaNade.getUnlocalizedName().substring(5)));
-		EntityRegistry.registerModEntity(BasicPandaNadeEntity.class, modid + (basicPandaNade.getUnlocalizedName().substring(5)) + "entity", basicPandaNadeEntityId, this, 80, 3, true);
-		
 		GameRegistry.registerItem(advancedPandaNade, modid + (advancedPandaNade.getUnlocalizedName().substring(5)));
+		
+		//register the Entitys
+		EntityRegistry.registerModEntity(BasicPandaNadeEntity.class, modid + (basicPandaNade.getUnlocalizedName().substring(5)) + "entity", basicPandaNadeEntityId, this, 80, 3, true);
 		EntityRegistry.registerModEntity(AdvancedPandaNadeEntity.class, modid + (advancedPandaNade.getUnlocalizedName().substring(5)) + "entity", advancedPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(basicSeitersonicExplosive.class, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		
 		//recipe for basic shawcrete
 		ItemStack gravelStack = new ItemStack(Blocks.gravel);
