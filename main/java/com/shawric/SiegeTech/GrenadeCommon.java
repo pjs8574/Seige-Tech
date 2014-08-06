@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 
 public class GrenadeCommon
 {
-public void registerRenderThings(Class entityClass, Item advancedPandaNade) {}
+public void registerRenderGrenade(Class entityClass, Item grenadeToRender) {}
 public void registerSounds() {}
 
 }
