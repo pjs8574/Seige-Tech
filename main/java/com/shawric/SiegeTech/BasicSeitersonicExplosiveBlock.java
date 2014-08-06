@@ -5,8 +5,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
@@ -53,25 +58,25 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 3, 2);
 	        	blockDirectionInt = 3; //SOUTH
-	        	Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is South: " + blockDirectionInt);
+	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is South: " + blockDirectionInt);
 	    	}
 	    	if(l == 1)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 4, 2);
 	        	blockDirectionInt = 4;//WEST
-	        	Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is West: " + blockDirectionInt);
+	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is West: " + blockDirectionInt);
 	    	}
 	    	if(l == 2)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 2, 2);
 	        	blockDirectionInt = 2;//NORTH
-	        	Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is North: " + blockDirectionInt);
+	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is North: " + blockDirectionInt);
 	    	}
 	    	if(l == 3)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 5, 2);
 	        	blockDirectionInt = 5;//EAST
-	        	Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is East: " + blockDirectionInt);
+	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is East: " + blockDirectionInt);
 	    	}
 	    	
 	    	
@@ -153,5 +158,86 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 	*/
 	
 	}
+	
+	
+	public boolean canDropFromExplosion(Explosion expl)
+    {
+        return false;
+    }
+	
+	public boolean onBlockActivated(World world1, int x, int y, int z, EntityPlayer playerEnt, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+    {
+        if (playerEnt.getCurrentEquippedItem() != null && playerEnt.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
+        {
+            this.func_150114_a(world1, x, y, z, 1, playerEnt);
+            world1.setBlockToAir(x, y, z);
+            playerEnt.getCurrentEquippedItem().damageItem(1, playerEnt);
+            return true;
+        }
+        else
+        {
+            return super.onBlockActivated(world1, x, y, z, playerEnt, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
+        }
+    }
+	
+	
+	//Called right before the block is destroyed by a player.  Args: world, x, y, z, metaData
+	public void onBlockDestroyedByPlayer(World world1, int x, int y, int z, int meta)
+    {
+        this.func_150114_a(world1, x, y, z, meta, (EntityLivingBase)null);
+    }
+
+    public void func_150114_a(World world1, int x, int y, int z, int meta, EntityLivingBase p_150114_6_)
+    {
+        if (!world1.isRemote)
+        {
+            if ((meta & 1) == 1)
+            {
+            	
+            	Minecraft.getMinecraft().thePlayer.sendChatMessage("ActivatedBlockmetadata  is: " + world1.getBlockMetadata(x, y, z));
+            	
+            	BasicSeitersonicExplosiveEntityPrimed entitytntprimed = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z));
+                world1.spawnEntityInWorld(entitytntprimed);
+                world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
+            }
+        }
+        
+    }
+	
+    public void onBlockDestroyedByExplosion(World world1, int x, int y, int z, Explosion Expl) 
+    {	
+    	if (!world1.isRemote)
+        {
+ 	
+            	Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadaya is: " + world1.getBlockMetadata(x, y, z));
+            	
+            	BasicSeitersonicExplosiveEntityPrimed entitytntprimed = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), Expl.getExplosivePlacedBy(), world1.getBlockMetadata(x, y, z));
+                world1.spawnEntityInWorld(entitytntprimed);
+                world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
+         
+        }
+    	
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
