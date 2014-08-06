@@ -108,7 +108,7 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     	
     	Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion. Dir is: " + this.explosionDirection);
     	
-    	
+    	/*
     	if(this.explosionDirection == 2)
     	{
     		Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
@@ -131,6 +131,28 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     	{
     		Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
     		this.worldObj.createExplosion(this, this.posX+10, this.posY, this.posZ, this.explosionPower, true);	
+    	}
+    	
+    	*/
+    	
+    	switch(this.explosionDirection)
+    	{
+    	    case: 2 
+    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
+    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-10, this.explosionPower, true);
+    	        break;
+    	    case: 3 
+    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
+    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+10, this.explosionPower, true);
+    	        break;
+    	    case: 4 
+    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
+    		this.worldObj.createExplosion(this, this.posX-10, this.posY, this.posZ, this.explosionPower, true);
+    	        break;
+    	    case: 5  
+    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
+    		this.worldObj.createExplosion(this, this.posX+10, this.posY, this.posZ, this.explosionPower, true);
+    	        break;
     	}
     	
     	
