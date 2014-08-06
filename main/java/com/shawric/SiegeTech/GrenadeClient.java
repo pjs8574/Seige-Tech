@@ -10,7 +10,7 @@ public class GrenadeClient extends GrenadeCommon
 
 	
 @Override
-public void registerRenderThings(Class entityClass, Item grenade)
+public void registerRenderGrenade(Class entityClass, Item grenade)
 {		
 //OLD CODE - always renders a basic nade
 //RenderingRegistry.registerEntityRenderingHandler(BasicPandaNadeEntity.class, new RenderSnowball(SeigeTech.basicPandaNade));			
