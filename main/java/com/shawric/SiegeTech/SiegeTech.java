@@ -77,15 +77,14 @@ public class SiegeTech {
 		ItemStack sandStack = new ItemStack(Blocks.sand);
 		ItemStack cobblestoneStack = new ItemStack(Blocks.cobblestone);
 	
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicShawcrete,4), new Object[] {"XCY", "XCY", "XCY", 'X', gravelStack, 'C', cobblestoneStack, 'Y', sandStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicShawcrete,8), new Object[] {"XCY", "XCY", "XCY", 'X', gravelStack, 'C', cobblestoneStack, 'Y', sandStack});
 	   
 		//recipe for advanced shawcrete 
 		ItemStack basicShawcreteStack = new ItemStack(SiegeTech.basicShawcrete);
 		ItemStack obsidianStack = new ItemStack(Blocks.obsidian);
 		
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicShawcrete,4), new Object[] {"SOS", "SOS", "SOS", 'S', basicShawcreteStack, 'O', obsidianStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicShawcrete,8), new Object[] {"SOS", "SOS", "SOS", 'S', basicShawcreteStack, 'O', obsidianStack});
 	   
-		
 		//recipe for basic PandaNade
 		ItemStack flintStack =new ItemStack(Items.flint);
 		ItemStack stringStack =new ItemStack(Items.string);
@@ -98,6 +97,9 @@ public class SiegeTech {
 		ItemStack blazerodStack =new ItemStack(Items.blaze_rod);
 		
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedPandaNade,2), new Object[] {"POP", "PBP", "POP", 'P', basicPandaNadeStack, 'O', obsidianStack, 'B', blazerodStack});
+		
+		//recipe for basic Seitersonciexplosive
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicSeitersonicExplosive,1), new Object[] {"TTT", "OBO", "TTT", 'T', tntStack, 'O', obsidianStack, 'B', blazerodStack});
 		
 		proxy.registerRenderThings(BasicPandaNadeEntity.class, basicPandaNade);
 		proxy.registerRenderThings(AdvancedPandaNadeEntity.class, advancedPandaNade);
