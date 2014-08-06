@@ -104,8 +104,8 @@ public class SiegeTech {
 		//recipe for basic Seitersonciexplosive
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicSeitersonicExplosive,1), new Object[] {"TTT", "OBO", "TTT", 'T', tntStack, 'O', obsidianStack, 'B', blazerodStack});
 		
-		proxy.registerRenderThings(BasicPandaNadeEntity.class, basicPandaNade);
-		proxy.registerRenderThings(AdvancedPandaNadeEntity.class, advancedPandaNade);
+		proxy.registerRenderGrenade(BasicPandaNadeEntity.class, basicPandaNade);
+		proxy.registerRenderGrenade(AdvancedPandaNadeEntity.class, advancedPandaNade);
 		proxy.registerSounds();
 		
 	}
