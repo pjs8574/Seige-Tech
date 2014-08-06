@@ -107,19 +107,25 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 		{		
 			case 0:
 				return bottom;
+				break;
 			case 1:
 				if(meta == 2){return topN;}
 				if(meta == 3){return topS;}
 				if(meta == 4){return topW;}
-				if(meta == 5){return topE;}	
+				if(meta == 5){return topE;}
+				break;
 			case 2:
 				return blockSide;
+				break;
 			case 3:
 				return blockSide;
+				break;
 			case 4:
 				return blockSide;
+				break;
 			case 5:
 				return blockSide;
+				break;
 		}
 		
 				return blockSide;
