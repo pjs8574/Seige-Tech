@@ -10,61 +10,37 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BasicShawcreteBlock extends Block {
+public class BasicShawcreteBlockOld extends Block {
 
-	
-	private int blockHP;
-	
-	@SideOnly(Side.CLIENT)
-	private IIcon normalHP;
-	@SideOnly(Side.CLIENT)
-	private IIcon damagedHP;
-	
 	boolean blockExploded;
 	
-	public BasicShawcreteBlock() {
+	public BasicShawcreteBlockOld() {
 		super(Material.rock);
 		this.setHardness(2);
 		this.setResistance(10);
 		this.setCreativeTab(SiegeTech.tabMyMod);
-		this.blockHP = 15;
+
 	}
-	@Override
-	 public void onBlockAdded(World world, int x, int y, int z)
-	    {
-	        	world.setBlockMetadataWithNotify(x, y, z, blockHP, 2);
-	        	Minecraft.getMinecraft().thePlayer.sendChatMessage("New block is places with HP of " + world.getBlockMetadata(x, y, z));
-	    }
+	
 
 	//sets the block texture stored in \src\main\resources\assets\shawric_seigetech\textures\blocks
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerBlockIcons(IIconRegister icReg)
+	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		
-		
-	normalHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5));
-	damagedHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "damaged");
-	
+	blockIcon = p_149651_1_.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public IIcon getIcon(int side, int meta)
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
-		
-	if((meta <= 7) && (meta > 0))
-	{	
-	return damagedHP;
-	}else return normalHP;
-	
-	
+	return blockIcon;
 	}
 	
 	//concrete won't drop itself from being exploded.
@@ -83,7 +59,7 @@ public class BasicShawcreteBlock extends Block {
 
 
 	//WHERE THE MAGIC HAPPENS	
-	public void onBlockExploded(World par1World, int par2, int par3, int par4, Explosion par5Explosion)
+	public void onBlockDestroyedByExplosion(World par1World, int par2, int par3, int par4, Explosion par5Explosion)
     {
         if (!par1World.isRemote)
         {
@@ -93,9 +69,9 @@ public class BasicShawcreteBlock extends Block {
         	//Might come back to haunt me, dunno howto fix. Try catch block maybe?
         	
         	String explodeCause = par5Explosion.exploder.getClass().getSimpleName();
-        	
+
         	//send info my checking method to see if the block gets destroyed or not
-        	this.shawcreteExploded(par1World, explodeCause, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4));
+        	this.shawcreteExploded(par1World, explodeCause, par2, par3, par4);
         
         }
         
@@ -108,7 +84,7 @@ public class BasicShawcreteBlock extends Block {
 	* pass in the world object, string of the  exploding entity, coordinates of the destroyed block X Y Z
 	*/
 	
-	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ, int HP)
+	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ)
     {
 
 		//list of valid exploders and the chance of them breaking the Basic shawcrete
@@ -126,37 +102,26 @@ public class BasicShawcreteBlock extends Block {
 			//if exploder is valid, then do the roll, otherwise replace the block
 			if(validExploderEntitys.containsKey(exploder))
 			{
-				
-				int newHP;
+				//i had this variable for some reason i forget why
+				this.blockExploded = true;
 				Random rand = new Random(); 
-				int i = rand.nextInt((Integer)validExploderEntitys.get(exploder));
-				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("i roll was: " + i);
-				
-				
-				newHP = (HP-i);
-				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("New Hp for block is " + newHP);
-				
-				if(newHP > 0)
+				int i = rand.nextInt(100); 
+	
+				//See if the roll beats the shawcrete, if so, then the shawcrete degrades to cobble stone
+				if(i < (Integer)validExploderEntitys.get(exploder))
 				{
-				
-				par1World.setBlock(blockX, blockY, blockZ, this);
-				par1World.setBlockMetadataWithNotify(blockX, blockY, blockZ, newHP, 2);
-				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("newly place block health is " + par1World.getBlockMetadata(blockX, blockY, blockZ));
+					par1World.setBlock(blockX, blockY, blockZ, Blocks.cobblestone);
+					//Minecraft.getMinecraft().thePlayer.sendChatMessage("Shawcrete Damaged By: " + exploder + " Roll was: " + i);
 				}
-				else if(newHP <=0)
+				else
 				{
 					//the roll fails, reset the block to shawcrete
-					
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block Health below zero, becomes cobble.");
-					
-					par1World.setBlock(blockX, blockY, blockZ, Blocks.cobblestone);
-					
+					par1World.setBlock(blockX, blockY, blockZ, this);
+					this.blockExploded = false;
 					//this was to fix a potential rendering thing with grenades, might not need it anymore
 					//Minecraft.getMinecraft().renderGlobal.markBlockForUpdate(blockX, blockY, blockZ);
-				}		
+				}
+		
 			}else
 			{
 				//Not a valid explosion entity, replace the shawcrete block.
