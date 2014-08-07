@@ -94,7 +94,9 @@ public class BasicShawcreteBlock extends Block {
         	
         	String explodeCause = par5Explosion.exploder.getClass().getSimpleName();
         	
-        	//send info my checking method to see if the block gets destroyed or not
+        	/*send info my checking method to see if the shawcrete block gets destroyed or not. 
+        	* pass in the world obhect, name of hte entity that cause the explosion, x y z of the block that was blown up, and the Metadata of that block
+        	*/
         	this.shawcreteExploded(par1World, explodeCause, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4));
         
         }
@@ -146,17 +148,13 @@ public class BasicShawcreteBlock extends Block {
 				
 				Minecraft.getMinecraft().thePlayer.sendChatMessage("newly place block health is " + par1World.getBlockMetadata(blockX, blockY, blockZ));
 				}
-				else if(newHP <=0)
+				else if(newHP <=0 && newHP >= (-15)) //if block recives so much damage that its HP is 0 or less, but greater than its negative  full HP turn it into cobble
 				{
-					//the roll fails, reset the block to shawcrete
-					
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block Health below zero, becomes cobble.");
+					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block HP below zero,but not ahniliated, becomes cobble.");
 					
 					par1World.setBlock(blockX, blockY, blockZ, Blocks.cobblestone);
 					
-					//this was to fix a potential rendering thing with grenades, might not need it anymore
-					//Minecraft.getMinecraft().renderGlobal.markBlockForUpdate(blockX, blockY, blockZ);
-				}		
+				}else{/*if block recives so much damage that its  at negative max HP, do nothing. The block was utterly destroyed*/}		
 			}else
 			{
 				//Not a valid explosion entity, replace the shawcrete block.
