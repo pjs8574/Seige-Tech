@@ -29,12 +29,16 @@ SO a Tier 4 vs a Tier 1 is a difference of 3 tiers so a T4 grenade vs a T1 Concr
 Each Concrete has a hash table of potential damaging entities
 Each explsion entity has a Percentage Chance of degrading the concrete into a cobblestone block
 
-Pros - Random, Performant because no use of block metadata to track HP
+Pros - Random - gambling is fun, Performant because no use of block metadata to track HP
 
 Cons - Potential for a long Run of Lucky rolls or Unlucky Rolls that may bypass the concrete Easily or Not at all
 
 -- The Potential concrete Hitpoint mechanic --
-Since metadata is limits to a Bittle --4 Bits (0 to 15 int) 
+Since metadata is limits to a Bittle --4 Bits (0 to 15 int)-- The hit point mechanic would potentially use the metadata as a percentage of overall damage.
+
+The block's HP would be a calculated number.  SO, on a newly made block the meta of 15 is set -- the block is at full HP. 
+
+When the block takes daamge from an explosive -- the Meta value is retrieved,  multiplied by Tier+1 (Potentialy), to give the code the Block's current HP value.  The Tier of the explosive used is then compared to tier of the concrete block,  to create a damage multiplier.  Too add some sense of randomness (so no one person can say I NEED exactly X type of explosives to break this), the base damage of the explosive is randomly rolled in a range, then multipled by the Tier modifier, the damage is then applied to teh Current HP of the block.  A check is made to see if the HP drops low enough to degrade int cobblestone -- or if so much damage is applied the block just vaporizes.  Vaporizing occurs if the damage takes twice its Make HP in damage. (Basica concrete's base HP is 30 (15*(tier1+1)))  If it takes 60 damage in one explosion it just turns into an air block.  
 
 
 
