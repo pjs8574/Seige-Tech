@@ -68,14 +68,12 @@ public class AdvancedShawcreteBlock extends Block {
         	//fixed it by making the block more resistant so teh ghast ball diesnt kill it 
         	//Might come back to haunt me, dunno howto fix. Try catch block maybe?
         	String explodeCause = par5Explosion.exploder.getClass().getSimpleName();
-
+        	
         	//send info my checking method to see if the block gets destroyed or not
         	this.shawcreteExploded(par1World, explodeCause, par2, par3, par4);
         
         }
         
-        
-    
     }
 	
 	
@@ -92,9 +90,9 @@ public class AdvancedShawcreteBlock extends Block {
 		validExploderEntitys.put("BasicPandaNadeEntity", new Integer(0));
 		validExploderEntitys.put("EntityCreeper", new Integer(5));
 		validExploderEntitys.put("AdvancedPandaNadeEntity", new Integer(5));
-		validExploderEntitys.put("BasicSeitersonicExplosive", new Integer(10));
+		validExploderEntitys.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(10));
 		
-		
+		Minecraft.getMinecraft().thePlayer.sendChatMessage("Adv Shawcrete Damaged By: " + exploder);
 		//server or no?
 		if (!par1World.isRemote)
         {

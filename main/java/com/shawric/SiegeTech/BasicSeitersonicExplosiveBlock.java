@@ -45,42 +45,42 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 	
 	}	
 	
+	 @Override
 	 public void onBlockAdded(World world, int i, int j, int k)
 	    {
-	        super.onBlockAdded(world, i, j, k);
-	        Minecraft.getMinecraft().thePlayer.sendChatMessage("added:");
+	        //super.onBlockAdded(world, i, j, k);
 	        
-	        
-	        
+	        //Minecraft.getMinecraft().thePlayer.sendChatMessage("added:");
+
 	        // ALL THIS SHIT GETS THE DIRECTION THE PLAYER IS FACING WHEN PLACING THE BLOCK AND SAVES IT
 	        int l = MathHelper.floor_double((double)((Minecraft.getMinecraft().thePlayer.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 	        if(l == 0)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 3, 2);
-	        	blockDirectionInt = 3; //SOUTH
+	        	this.setblockDirectionInt(3); //SOUTH
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is South: " + blockDirectionInt);
 	    	}
 	    	if(l == 1)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 4, 2);
-	        	blockDirectionInt = 4;//WEST
+	        	this.setblockDirectionInt(4);//WEST
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is West: " + blockDirectionInt);
 	    	}
 	    	if(l == 2)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 2, 2);
-	        	blockDirectionInt = 2;//NORTH
+	        	this.setblockDirectionInt(2);//NORTH
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is North: " + blockDirectionInt);
 	    	}
 	    	if(l == 3)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 5, 2);
-	        	blockDirectionInt = 5;//EAST
+	        	this.setblockDirectionInt(5);//EAST
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is East: " + blockDirectionInt);
 	    	}
 	    	
 	    	
-	    	switch(blockDirectionInt)
+	    	switch(this.blockDirectionInt)
 			{
 	    	case 2: blockDirectionString = "N";
 	    	case 3: blockDirectionString = "S";
@@ -96,6 +96,17 @@ public class BasicSeitersonicExplosiveBlock extends Block {
     * block from being re-rendered, if this is a client world. Flags can be added together.
     */
 	
+	private void setblockDirectionInt(int i)
+	{
+		this.blockDirectionInt = i;
+	
+	}
+	
+	private int getblockDirectionInt()
+	{
+		return this.blockDirectionInt;
+	
+	}
 	
 	
 	@SideOnly(Side.CLIENT)
@@ -112,33 +123,23 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 		{		
 			case 0:
 				return bottom;
-				break;
 			case 1:
 				if(meta == 2){return topN;}
 				if(meta == 3){return topS;}
 				if(meta == 4){return topW;}
 				if(meta == 5){return topE;}
-				break;
 			case 2:
 				return blockSide;
-				break;
 			case 3:
 				return blockSide;
-				break;
 			case 4:
 				return blockSide;
-				break;
 			case 5:
 				return blockSide;
-				break;
+			default: return blockSide;
 		}
-		
-				return blockSide;
-	
+
 	}
-	
-	
-	
 	
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister Ireg)
@@ -165,6 +166,18 @@ public class BasicSeitersonicExplosiveBlock extends Block {
         return false;
     }
 	
+	
+	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_)
+    {
+        if (p_149695_1_.isBlockIndirectlyGettingPowered(p_149695_2_, p_149695_3_, p_149695_4_))
+        {
+            this.onBlockDestroyedByPlayer(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, 1);
+            p_149695_1_.setBlockToAir(p_149695_2_, p_149695_3_, p_149695_4_);
+        }
+    }
+	
+	
+	
 	public boolean onBlockActivated(World world1, int x, int y, int z, EntityPlayer playerEnt, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
     {
         if (playerEnt.getCurrentEquippedItem() != null && playerEnt.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
@@ -184,36 +197,34 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 	//Called right before the block is destroyed by a player.  Args: world, x, y, z, metaData
 	public void onBlockDestroyedByPlayer(World world1, int x, int y, int z, int meta)
     {
-        this.func_150114_a(world1, x, y, z, meta, (EntityLivingBase)null);
+		this.func_150114_a(world1, x, y, z, meta, (EntityLivingBase)null);
     }
 
     public void func_150114_a(World world1, int x, int y, int z, int meta, EntityLivingBase p_150114_6_)
     {
         if (!world1.isRemote)
         {
-            if ((meta & 1) == 1)
-            {
-            	
-            	Minecraft.getMinecraft().thePlayer.sendChatMessage("ActivatedBlockmetadata  is: " + world1.getBlockMetadata(x, y, z));
-            	
+            	Minecraft.getMinecraft().thePlayer.sendChatMessage("EXPLOSIVE ACTIVATED META IS: " + world1.getBlockMetadata(x, y, z));
+            	if ((meta & 1) == 1)
+                {
             	BasicSeitersonicExplosiveEntityPrimed entitytntprimed = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z));
                 world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
-            }
+                }
         }
         
     }
 	
-    public void onBlockDestroyedByExplosion(World world1, int x, int y, int z, Explosion Expl) 
+    public void onBlockExploded(World world1, int x, int y, int z, Explosion Expl) 
     {	
     	if (!world1.isRemote)
         {
- 	
-            	Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadaya is: " + world1.getBlockMetadata(x, y, z));
-            	
+
+            	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadaya is: " + world1.getBlockMetadata(x, y, z));
             	BasicSeitersonicExplosiveEntityPrimed entitytntprimed = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), Expl.getExplosivePlacedBy(), world1.getBlockMetadata(x, y, z));
                 world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
+                world1.setBlockToAir(x, y, z);
          
         }
     	

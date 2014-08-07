@@ -73,7 +73,7 @@ public class SiegeTech {
 		//register the Entitys
 		EntityRegistry.registerModEntity(BasicPandaNadeEntity.class, modid + (basicPandaNade.getUnlocalizedName().substring(5)) + "entity", basicPandaNadeEntityId, this, 80, 3, true);
 		EntityRegistry.registerModEntity(AdvancedPandaNadeEntity.class, modid + (advancedPandaNade.getUnlocalizedName().substring(5)) + "entity", advancedPandaNadeEntityId, this, 80, 3, true);
-		EntityRegistry.registerModEntity(basicSeitersonicExplosive.class, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(BasicSeitersonicExplosiveEntityPrimed.class, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		
 		//recipe for basic shawcrete
 		ItemStack gravelStack = new ItemStack(Blocks.gravel);
@@ -106,6 +106,7 @@ public class SiegeTech {
 		
 		proxy.registerRenderGrenade(BasicPandaNadeEntity.class, basicPandaNade);
 		proxy.registerRenderGrenade(AdvancedPandaNadeEntity.class, advancedPandaNade);
+		proxy.registerRenderExplosive();
 		proxy.registerSounds();
 		
 	}

@@ -1,5 +1,6 @@
 package com.shawric.SiegeTech;
 
+import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.item.Item;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -16,6 +17,16 @@ public void registerRenderGrenade(Class entityClass, Item grenade)
 //RenderingRegistry.registerEntityRenderingHandler(BasicPandaNadeEntity.class, new RenderSnowball(SeigeTech.basicPandaNade));			
 RenderingRegistry.registerEntityRenderingHandler(entityClass, new RenderSnowball(grenade));
 }
+
+@Override
+public void registerRenderExplosive()
+{		
+		
+RenderingRegistry.registerEntityRenderingHandler(BasicSeitersonicExplosiveEntityPrimed.class, new RenderBasicSeitersonicExplosiveEntityPrimed());
+}
+
+
+
 
 @Override
 public void registerSounds() {}

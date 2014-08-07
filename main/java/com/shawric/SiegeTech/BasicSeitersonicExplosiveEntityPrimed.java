@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 public class BasicSeitersonicExplosiveEntityPrimed extends Entity
 {
     /** How long the fuse is */
-    public int fuse;
-    private EntityLivingBase tntPlacedBy;
+    public int fuse = 80;
+    private EntityLivingBase explosivePlacedBy;
     private static final String __OBFID = "CL_00001681";
     private int explosionDirection;  //KEY : 0 bottom, 1 top , 2 North. 3 South, 4 West ,5 East
     private float explosionPower = 3.5F;
@@ -26,7 +26,7 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
         this.yOffset = this.height / 2.0F;
     }
 
-    public BasicSeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase p_i1730_8_, int explDir)
+    public BasicSeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase placingEntity, int explDir)
     {
         this(wordl1);
         this.setPosition(x, y, z);
@@ -38,7 +38,7 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
         this.prevPosX = x;
         this.prevPosY = y;
         this.prevPosZ = z;
-        this.tntPlacedBy = p_i1730_8_;
+        this.explosivePlacedBy = placingEntity;
         
         this.explosionDirection = explDir;
         
@@ -134,29 +134,29 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     	
     	switch(this.explosionDirection)
     	{
-    	    case: 2 
+    	    case 2: 
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
+    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-3, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-6, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-9, this.explosionPower, true);
     	        break;
-    	    case: 3 
+    	    case 3:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
+    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+3, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+6, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+9, this.explosionPower, true);
     	        break;
-    	    case: 4 
+    	    case 4: 
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
+    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX-3, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX-6, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX-9, this.posY, this.posZ, this.explosionPower, true);
     	        break;
-    	    case: 5  
+    	    case 5:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
+    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX+3, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX+6, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX+9, this.posY, this.posZ, this.explosionPower, true);
     	        break;
     	}
     	
@@ -188,8 +188,8 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     /**
      * returns null or the entityliving it was placed or ignited by
      */
-    public EntityLivingBase getTntPlacedBy()
+    public EntityLivingBase getExplosivePlacedBy()
     {
-        return this.tntPlacedBy;
+        return this.explosivePlacedBy;
     }
 }

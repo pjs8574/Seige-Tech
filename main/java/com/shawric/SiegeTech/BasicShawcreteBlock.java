@@ -93,7 +93,7 @@ public class BasicShawcreteBlock extends Block {
 		validExploderEntitys.put("BasicPandaNadeEntity", new Integer(5));
 		validExploderEntitys.put("EntityCreeper", new Integer(20));
 		validExploderEntitys.put("AdvancedPandaNadeEntity", new Integer(20));
-		validExploderEntitys.put("BasicSeitersonicExplosive", new Integer(25));
+		validExploderEntitys.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(50));
 		
 		//server or no?
 		if (!par1World.isRemote)
@@ -102,20 +102,16 @@ public class BasicShawcreteBlock extends Block {
 			//if exploder is valid, then do the roll, otherwise replace the block
 			if(validExploderEntitys.containsKey(exploder))
 			{
-		
 				//i had this variable for some reason i forget why
 				this.blockExploded = true;
-		
 				Random rand = new Random(); 
 				int i = rand.nextInt(100); 
 	
 				//See if the roll beats the shawcrete, if so, then the shawcrete degrades to cobble stone
 				if(i < (Integer)validExploderEntitys.get(exploder))
 				{
-						
 					par1World.setBlock(blockX, blockY, blockZ, Blocks.cobblestone);
 					//Minecraft.getMinecraft().thePlayer.sendChatMessage("Shawcrete Damaged By: " + exploder + " Roll was: " + i);
-				
 				}
 				else
 				{
