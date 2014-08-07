@@ -10,7 +10,7 @@ public class ImprovedPandaNadeItem extends Item
 {
 public ImprovedPandaNadeItem()
 {
-this.setUnlocalizedName("advancedPandaNade"); //Sets the name of this item, Has to be unique!
+this.setUnlocalizedName("improvedPandaNade"); //Sets the name of this item, Has to be unique!
 this.setCreativeTab(SiegeTech.tabMyMod);; //This Item will be in the Combat Creative Tab!
 this.setTextureName(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5)); //The texture for this item is the Grenade!
 }

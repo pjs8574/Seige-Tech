@@ -128,6 +128,7 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 				if(meta == 3){return topS;}
 				if(meta == 4){return topW;}
 				if(meta == 5){return topE;}
+				if(meta != 2 && meta != 3 && meta != 4 && meta != 5){return bottom;}
 			case 2:
 				return blockSide;
 			case 3:
@@ -136,7 +137,7 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 				return blockSide;
 			case 5:
 				return blockSide;
-			default: return blockSide;
+			default: return bottom;
 		}
 
 	}
@@ -204,9 +205,11 @@ public class BasicSeitersonicExplosiveBlock extends Block {
     {
         if (!world1.isRemote)
         {
-            	Minecraft.getMinecraft().thePlayer.sendChatMessage("EXPLOSIVE ACTIVATED META IS: " + world1.getBlockMetadata(x, y, z));
-            	if ((meta & 1) == 1)
+            	
+            	if (meta == 1)
                 {
+            		Minecraft.getMinecraft().thePlayer.sendChatMessage("EXPLOSIVE ACTIVATED META IS: " + world1.getBlockMetadata(x, y, z));
+            		
             	BasicSeitersonicExplosiveEntityPrimed entitytntprimed = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z));
                 world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
