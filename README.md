@@ -20,6 +20,7 @@ Another Theme should be the use of lower tiered items to make upper tier resourc
 
 
 ----Blocks:
+
 Shawcrete -- concrete block for defense. Has all 4 tiers (partially implemented)
 
 Seitersonic Explosive -- TnT block that is similar to a breaching charge. Has a direcitonal explosion. Supposed to be more   powerful at breaking concrete.  Has all 4 Tiers (Partially Implemented)
@@ -37,11 +38,11 @@ Hunter's Compass  -- Compass that vaugey points in the direction of the nearest 
 
 ----Devices:
 
-Proximity Detector -- emits redstone signal when a player is near.  Each tier adds features, such as adjustale range , white list, etc
+Proximity Detector -- emits redstone signal when a player is near.  Each tier adds features, such as adjustale range , white list, etc (concept stage)
 
-Hunter's Detector -- emits a redstone signal only when a specificly named player is online. No aditional tiers
+Hunter's Detector -- emits a redstone signal only when a specificly named player is online. No aditional tiers (concept stage)
 
-Siege Laser -- Multiblock top tier device. Fires a laser that ahnnilates everything in its path for 64 blocks. Takes a nether star to power it. Long charge up time.
+Siege Laser -- Multiblock top tier device. Fires a laser that ahnnilates everything in its path for 64 blocks. Takes a nether star to power it. Long charge up time.  (concept stage)
 
 
 
