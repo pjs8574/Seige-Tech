@@ -7,7 +7,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
-public class AdvancedPandaNadeEntity extends EntityThrowable {
+public class ImprovedPandaNadeEntity extends EntityThrowable {
 	/*
 	* If you're wondering why I have all of
 	* these constructors for no reason, It's
@@ -15,15 +15,15 @@ public class AdvancedPandaNadeEntity extends EntityThrowable {
 	* don't have these, your minecraft is going
 	* to crash!
 	*/
-	public AdvancedPandaNadeEntity(World par1World, double par2, double par4, double par6)
+	public ImprovedPandaNadeEntity(World par1World, double par2, double par4, double par6)
 	{
 	super(par1World, par2, par4, par6);
 	}
-	public AdvancedPandaNadeEntity(World par1World, EntityLivingBase par2EntityLivingBase)
+	public ImprovedPandaNadeEntity(World par1World, EntityLivingBase par2EntityLivingBase)
 	{
 	super(par1World, par2EntityLivingBase);
 	}
-	public AdvancedPandaNadeEntity(World par1World)
+	public ImprovedPandaNadeEntity(World par1World)
 	{
 	super(par1World);
 	}

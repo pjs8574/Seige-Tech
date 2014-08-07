@@ -6,9 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 
-public class AdvancedPandaNadeItem extends Item
+public class ImprovedPandaNadeItem extends Item
 {
-public AdvancedPandaNadeItem()
+public ImprovedPandaNadeItem()
 {
 this.setUnlocalizedName("advancedPandaNade"); //Sets the name of this item, Has to be unique!
 this.setCreativeTab(SiegeTech.tabMyMod);; //This Item will be in the Combat Creative Tab!
@@ -31,7 +31,7 @@ public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, Enti
 	* the EntityGrenade class
 	*/
 	
-	par2World.spawnEntityInWorld(new AdvancedPandaNadeEntity(par2World, par3EntityPlayer));
+	par2World.spawnEntityInWorld(new ImprovedPandaNadeEntity(par2World, par3EntityPlayer));
 	
 
 	//Decrease an item from the stack because you just used it!

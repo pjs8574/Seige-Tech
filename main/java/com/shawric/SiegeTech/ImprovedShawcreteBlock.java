@@ -15,11 +15,11 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class AdvancedShawcreteBlock extends Block {
+public class ImprovedShawcreteBlock extends Block {
 
 	boolean blockExploded;
 	
-	public AdvancedShawcreteBlock() {
+	public ImprovedShawcreteBlock() {
 		super(Material.rock);
 		this.setHardness(2);
 		this.setResistance(10);
@@ -89,7 +89,7 @@ public class AdvancedShawcreteBlock extends Block {
 		validExploderEntitys.put("EntityTNTPrimed", new Integer(0));
 		validExploderEntitys.put("BasicPandaNadeEntity", new Integer(0));
 		validExploderEntitys.put("EntityCreeper", new Integer(5));
-		validExploderEntitys.put("AdvancedPandaNadeEntity", new Integer(5));
+		validExploderEntitys.put("ImprovedPandaNadeEntity", new Integer(5));
 		validExploderEntitys.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(10));
 		
 		Minecraft.getMinecraft().thePlayer.sendChatMessage("Adv Shawcrete Damaged By: " + exploder);

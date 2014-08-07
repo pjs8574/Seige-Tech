@@ -27,15 +27,15 @@ public class SiegeTech {
 	public static final String modid = "Shawric_Siegetech";
 	public static CreativeTabs tabMyMod = new SiegetechCreativeTab("tabSiegeTech");
 	public static Block basicShawcrete;
-	public static Block advancedShawcrete;
+	public static Block improvedShawcrete;
 	
 	public static Block basicSeitersonicExplosive;
 	
 	public static Item basicPandaNade;
-	public static Item advancedPandaNade;
+	public static Item improvedPandaNade;
 	
 	public static final int basicPandaNadeEntityId = 1337;
-	public static final int advancedPandaNadeEntityId = 1338;
+	public static final int improvedPandaNadeEntityId = 1338;
 	public static final int basicSeitersonicExplosiveEntityPrimedId = 1339;
 	
 	@EventHandler
@@ -44,13 +44,13 @@ public class SiegeTech {
 	
 		//Blocks
 		basicShawcrete = new BasicShawcreteBlock().setBlockName("basicShawcrete");
-		advancedShawcrete = new AdvancedShawcreteBlock().setBlockName("advancedShawcrete");
+		improvedShawcrete = new ImprovedShawcreteBlock().setBlockName("improvedShawcrete");
 		
 		basicSeitersonicExplosive = new BasicSeitersonicExplosiveBlock().setBlockName("basicSeitersonicExplosive");
 		
 		//items
 		basicPandaNade = new BasicPandaNadeItem();		
-		advancedPandaNade = new AdvancedPandaNadeItem();
+		improvedPandaNade = new ImprovedPandaNadeItem();
 	
 		
 		
@@ -63,16 +63,16 @@ public class SiegeTech {
 	
 		//Register the Blocks
 		GameRegistry.registerBlock(basicShawcrete, modid + (basicShawcrete.getUnlocalizedName().substring(5)));
-		GameRegistry.registerBlock(advancedShawcrete, modid + (advancedShawcrete.getUnlocalizedName().substring(5)));
+		GameRegistry.registerBlock(improvedShawcrete, modid + (improvedShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(basicSeitersonicExplosive, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)));
 		
 	        //Register the Items
 		GameRegistry.registerItem(basicPandaNade, modid + (basicPandaNade.getUnlocalizedName().substring(5)));
-		GameRegistry.registerItem(advancedPandaNade, modid + (advancedPandaNade.getUnlocalizedName().substring(5)));
+		GameRegistry.registerItem(improvedPandaNade, modid + (improvedPandaNade.getUnlocalizedName().substring(5)));
 		
 		//register the Entitys
 		EntityRegistry.registerModEntity(BasicPandaNadeEntity.class, modid + (basicPandaNade.getUnlocalizedName().substring(5)) + "entity", basicPandaNadeEntityId, this, 80, 3, true);
-		EntityRegistry.registerModEntity(AdvancedPandaNadeEntity.class, modid + (advancedPandaNade.getUnlocalizedName().substring(5)) + "entity", advancedPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(ImprovedPandaNadeEntity.class, modid + (improvedPandaNade.getUnlocalizedName().substring(5)) + "entity", improvedPandaNadeEntityId, this, 80, 3, true);
 		EntityRegistry.registerModEntity(BasicSeitersonicExplosiveEntityPrimed.class, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		
 		//recipe for basic shawcrete
@@ -99,13 +99,13 @@ public class SiegeTech {
 		ItemStack basicPandaNadeStack =new ItemStack(SiegeTech.basicPandaNade);
 		ItemStack blazerodStack =new ItemStack(Items.blaze_rod);
 		
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedPandaNade,2), new Object[] {"POP", "PBP", "POP", 'P', basicPandaNadeStack, 'O', obsidianStack, 'B', blazerodStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedPandaNade,2), new Object[] {"POP", "PBP", "POP", 'P', basicPandaNadeStack, 'O', obsidianStack, 'B', blazerodStack});
 		
 		//recipe for basic Seitersonciexplosive
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicSeitersonicExplosive,1), new Object[] {"TTT", "OBO", "TTT", 'T', tntStack, 'O', obsidianStack, 'B', blazerodStack});
 		
 		proxy.registerRenderGrenade(BasicPandaNadeEntity.class, basicPandaNade);
-		proxy.registerRenderGrenade(AdvancedPandaNadeEntity.class, advancedPandaNade);
+		proxy.registerRenderGrenade(ImprovedPandaNadeEntity.class, improvedPandaNade);
 		proxy.registerRenderExplosive();
 		proxy.registerSounds();
 		

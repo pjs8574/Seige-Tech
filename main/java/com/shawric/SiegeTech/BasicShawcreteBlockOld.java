@@ -92,7 +92,7 @@ public class BasicShawcreteBlockOld extends Block {
 		validExploderEntitys.put("EntityTNTPrimed", new Integer(10));
 		validExploderEntitys.put("BasicPandaNadeEntity", new Integer(5));
 		validExploderEntitys.put("EntityCreeper", new Integer(20));
-		validExploderEntitys.put("AdvancedPandaNadeEntity", new Integer(20));
+		validExploderEntitys.put("ImprovedPandaNadeEntity", new Integer(20));
 		validExploderEntitys.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(50));
 		
 		//server or no?
