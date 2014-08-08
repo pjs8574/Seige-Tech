@@ -40,12 +40,12 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 	private String blockDirectionString;
 	
 	
-	public BasicSeitersonicExplosiveBlock() {
+	public BasicSeitersonicExplosiveBlock(String name) {
 		super(Material.tnt);
 		this.setHardness(2);
 		this.setResistance(10);
 		this.setCreativeTab(SiegeTech.tabMyMod);
-	
+		this.setBlockName(name);
 	}	
 	
 	 @Override

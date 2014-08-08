@@ -48,9 +48,9 @@ public class SiegeTech {
 	{
 	
 		//Blocks
-		basicShawcrete = new BasicShawcreteBlock().setBlockName("basicShawcrete");
-		improvedShawcrete = new ImprovedShawcreteBlock().setBlockName("improvedShawcrete");
-		basicSeitersonicExplosive = new BasicSeitersonicExplosiveBlock().setBlockName("basicSeitersonicExplosive");
+		basicShawcrete = new ShawcreteBlock("basicShawcrete", 1);
+		improvedShawcrete = new ShawcreteBlock("improvedShawcrete", 2);
+		basicSeitersonicExplosive = new BasicSeitersonicExplosiveBlock("basicSeitersonicExplosive");
 		
 		//items
 		basicPandaNade = new BasicPandaNadeItem();		
@@ -96,6 +96,8 @@ public class SiegeTech {
 		ItemStack blazerodStack =new ItemStack(Items.blaze_rod);
 		ItemStack diamondStack = new ItemStack(Items.diamond);
 		ItemStack netherQuartzStack = new ItemStack(Items.quartz);
+		ItemStack redstoneBlockStack = new ItemStack(Blocks.redstone_block);
+		
 		ItemStack enderPearlStack = new ItemStack(Items.ender_pearl);
 		ItemStack endstoneStack = new ItemStack(Blocks.end_stone);
 		ItemStack nethreciteStack = new ItemStack(SiegeTech.tierCraftingItemNethercite);
@@ -125,7 +127,7 @@ public class SiegeTech {
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedPandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', basicPandaNadeStack, 'O', obsidianStack, 'N', nethreciteStack});
 		
 		//recipe for basic Seitersonciexplosive
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicSeitersonicExplosive,1), new Object[] {"TTT", "OBO", "TTT", 'T', tntStack, 'O', obsidianStack, 'B', blazerodStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicSeitersonicExplosive,1), new Object[] {"TTT", "ORO", "TTT", 'T', tntStack, 'O', obsidianStack, 'R', redstoneBlockStack});
 		
 		
 

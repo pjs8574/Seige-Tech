@@ -16,11 +16,11 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BasicShawcreteBlock extends Block {
+public class ShawcreteBlock extends Block {
 
 	
 	private int blockHP;
-	private int tier;
+	private int blockTier;
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon normalHP;
@@ -29,13 +29,15 @@ public class BasicShawcreteBlock extends Block {
 	
 	boolean blockExploded;
 	
-	public BasicShawcreteBlock() {
+	public ShawcreteBlock(String name, int tier) {
 		super(Material.rock);
 		this.setHardness(2);
 		this.setResistance(10);
 		this.setCreativeTab(SiegeTech.tabMyMod);
 		this.blockHP = 15;
-		this.tier = 1;
+		
+		this.setBlockName(name);
+		this.blockTier = tier;
 	}
 	@Override
 	 public void onBlockAdded(World world, int x, int y, int z)
@@ -157,7 +159,7 @@ public class BasicShawcreteBlock extends Block {
 				Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage Dealt: " + i);
 				
 				//adjust HP for the Tier of the concrete
-				int tierAdjustedHP = (HP*(this.tier+1));
+				int tierAdjustedHP = (HP*(this.blockTier+1));
 				
 				Minecraft.getMinecraft().thePlayer.sendChatMessage("Tier Adjsuted HP: " + tierAdjustedHP);
 				
@@ -168,7 +170,7 @@ public class BasicShawcreteBlock extends Block {
 				
 				//turn it back into metadata value, rounded down
 				double newHpDoub = newHP;
-				newHP = (int) Math.floor(newHpDoub/(this.tier+1));
+				newHP = (int) Math.floor(newHpDoub/(this.blockTier+1));
 				
 				Minecraft.getMinecraft().thePlayer.sendChatMessage("New Metadata for block is " + newHP);
 				
