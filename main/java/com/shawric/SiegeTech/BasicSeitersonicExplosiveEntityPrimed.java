@@ -42,7 +42,7 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
         
         this.explosionDirection = explDir;
         
-        Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity!");
+        //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity!");
         
     }
 
@@ -138,25 +138,21 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-3, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-6, this.explosionPower, true);
     	        break;
     	    case 3:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+3, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+6, this.explosionPower, true);
     	        break;
     	    case 4: 
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX-3, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX-6, this.posY, this.posZ, this.explosionPower, true);
     	        break;
     	    case 5:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
     		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
     		this.worldObj.createExplosion(this, this.posX+3, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX+6, this.posY, this.posZ, this.explosionPower, true);
     	        break;
     	}
     	

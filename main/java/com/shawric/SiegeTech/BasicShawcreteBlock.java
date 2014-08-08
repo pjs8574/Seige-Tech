@@ -20,6 +20,7 @@ public class BasicShawcreteBlock extends Block {
 
 	
 	private int blockHP;
+	private int tier;
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon normalHP;
@@ -34,24 +35,22 @@ public class BasicShawcreteBlock extends Block {
 		this.setResistance(10);
 		this.setCreativeTab(SiegeTech.tabMyMod);
 		this.blockHP = 15;
+		this.tier = 1;
 	}
 	@Override
 	 public void onBlockAdded(World world, int x, int y, int z)
 	    {
 	        	world.setBlockMetadataWithNotify(x, y, z, blockHP, 2);
-	        	Minecraft.getMinecraft().thePlayer.sendChatMessage("New block is places with HP of " + world.getBlockMetadata(x, y, z));
+	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("New block is places with HP of " + world.getBlockMetadata(x, y, z));
 	    }
 
 	//sets the block texture stored in \src\main\resources\assets\shawric_seigetech\textures\blocks
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockIcons(IIconRegister icReg)
-	{
-		
-		
+	{	
 	normalHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5));
-	damagedHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "damaged");
-	
+	damagedHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "damaged");	
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -113,32 +112,65 @@ public class BasicShawcreteBlock extends Block {
 	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ, int HP)
     {
 
-		//list of valid exploders and the chance of them breaking the Basic shawcrete
-		Hashtable validExploderEntitys = new Hashtable();
-		validExploderEntitys.put("EntityTNTPrimed", new Integer(10));
-		validExploderEntitys.put("BasicPandaNadeEntity", new Integer(5));
-		validExploderEntitys.put("EntityCreeper", new Integer(20));
-		validExploderEntitys.put("ImprovedPandaNadeEntity", new Integer(20));
-		validExploderEntitys.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(50));
+		//list of valid exploders and the damage they do
+		Hashtable validExploderEntitysDamage = new Hashtable();
+		validExploderEntitysDamage.put("EntityTNTPrimed", new Integer(10));
+		validExploderEntitysDamage.put("EntityCreeper", new Integer(15));
+		validExploderEntitysDamage.put("BasicPandaNadeEntity", new Integer(5));
+		validExploderEntitysDamage.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(15));
+		validExploderEntitysDamage.put("ImprovedPandaNadeEntity", new Integer(10));
+		validExploderEntitysDamage.put("ImprovedSeitersonicExplosiveEntityPrimed", new Integer(25));
+		validExploderEntitysDamage.put("AdvancedPandaNadeEntity", new Integer(15));
+		validExploderEntitysDamage.put("AdvancedSeitersonicExplosiveEntityPrimed", new Integer(40));
+		validExploderEntitysDamage.put("ElitePandaNadeEntity", new Integer(20));
+		validExploderEntitysDamage.put("EliteSeitersonicExplosiveEntityPrimed", new Integer(55));
+		
+		//list of valid exploders and the Tier that they are considered for the multiplier
+		Hashtable validExploderEntitysTier = new Hashtable();
+		validExploderEntitysTier.put("EntityTNTPrimed", new Integer(0));
+		validExploderEntitysTier.put("EntityCreeper", new Integer(0));
+		validExploderEntitysTier.put("BasicPandaNadeEntity", new Integer(1));
+		validExploderEntitysTier.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(1));
+		validExploderEntitysTier.put("ImprovedPandaNadeEntity", new Integer(2));
+		validExploderEntitysTier.put("ImprovedSeitersonicExplosiveEntityPrimed", new Integer(2));
+		validExploderEntitysTier.put("AdvancedPandaNadeEntity", new Integer(3));
+		validExploderEntitysTier.put("AdvancedSeitersonicExplosiveEntityPrimed", new Integer(3));
+		validExploderEntitysTier.put("ElitePandaNadeEntity", new Integer(4));
+		validExploderEntitysTier.put("EliteSeitersonicExplosiveEntityPrimed", new Integer(4));
 		
 		//server or no?
 		if (!par1World.isRemote)
         {
 			
 			//if exploder is valid, then do the roll, otherwise replace the block
-			if(validExploderEntitys.containsKey(exploder))
+			if(validExploderEntitysDamage.containsKey(exploder))
 			{
-				
 				int newHP;
-				Random rand = new Random(); 
-				int i = rand.nextInt((Integer)validExploderEntitys.get(exploder));
+				Random rand = new Random();
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("i roll was: " + i);
+				//Minimum damage is always the Tier + 1
+				int i = (rand.nextInt((Integer)validExploderEntitysDamage.get(exploder))+((Integer)validExploderEntitysTier.get(exploder)+1));
 				
+				//adjust damage for the Tier of the exploder
+				int tierAdjsutedDamage = (i * ((Integer)validExploderEntitysTier.get(exploder)+1));
 				
-				newHP = (HP-i);
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage Dealt: " + i);
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("New Hp for block is " + newHP);
+				//adjust HP for the Tier of the concrete
+				int tierAdjustedHP = (HP*(this.tier+1));
+				
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("Tier Adjsuted HP: " + tierAdjustedHP);
+				
+				//deal damage to that HP
+				newHP = (tierAdjustedHP-tierAdjsutedDamage);
+				
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("Tier Adjsuted HP After Dmg: " + newHP);
+				
+				//turn it back into metadata value, rounded down
+				double newHpDoub = newHP;
+				newHP = (int) Math.floor(newHpDoub/(this.tier+1));
+				
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("New Metadata for block is " + newHP);
 				
 				if(newHP > 0)
 				{

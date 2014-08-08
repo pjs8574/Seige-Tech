@@ -24,7 +24,6 @@ public class ImprovedShawcreteBlock extends Block {
 		this.setHardness(2);
 		this.setResistance(10);
 		this.setCreativeTab(SiegeTech.tabMyMod);
-
 	}
 	
 
