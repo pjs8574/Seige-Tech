@@ -51,6 +51,10 @@ Hunter's Detector -- emits a redstone signal only when a specificly named player
 
 Siege Laser -- Multiblock top tier device. Fires a laser that ahnnilates everything in its path for 64 blocks. Takes a nether star to power it. Long charge up time.  (concept stage)
 
+Combinatrix -- Device for generating Wither skulls by combining Bones and Coal blocks. Take a lot of time, burns diamonds as fuel. Will require Endrite and Nethercite to build. (concept)
+
+Astralium Infused Combinatrix -- 8 Astralium around a combinatix - allows it to create Netherstars from absorbing stupid amounts of RF power.  Makes wither skulls much faster. (concept)
+
 
 -----Other notes
 
