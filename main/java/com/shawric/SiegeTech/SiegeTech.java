@@ -50,7 +50,7 @@ public class SiegeTech {
 		//Blocks
 		basicShawcrete = new ShawcreteBlock("basicShawcrete", 1);
 		improvedShawcrete = new ShawcreteBlock("improvedShawcrete", 2);
-		basicSeitersonicExplosive = new BasicSeitersonicExplosiveBlock("basicSeitersonicExplosive");
+		basicSeitersonicExplosive = new BasicSeitersonicExplosiveBlock("basicSeitersonicExplosive", 1);
 		
 		//items
 		basicPandaNade = new BasicPandaNadeItem();		
