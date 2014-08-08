@@ -25,13 +25,18 @@ Shawcrete -- concrete block for defense. Has all 4 tiers (partially implemented)
 
 Seitersonic Explosive -- TnT block that is similar to a breaching charge. Has a direcitonal explosion. Supposed to be more   powerful at breaking concrete.  Has all 4 Tiers (Partially Implemented)
 
+
+Sandhog -- A tunneling explosive specifically for mining, silk touches all the blocks it drops.  No effect on concrete or obsidian.  Tier affects distence and size of the tunnel.
+
+
+----Items:
+
 Netherite -- Crafting Material for Tier 2 items. Made with Blaze Rod, Nether Quartz and Diamond, and Obsidian (done)
 
 Endrite -- Crafting material for Tier 3 items. Made with Endstone, Ender Eyes, and Netherite.(done)
 
 Astralium -- Crafting Material for Tier 4 items. Made with 4 Endrite and 4 Nethercite surrounding a Nether Star.(done)
 
-----Items:
 PandaNade -- throwable explosive. Has all 4 tiers, Less powerful than Seitersonic explosive at concrete penetration. (Partially Implemented)
 
 Hunter's Compass  -- Compass that vaugey points in the direction of the nearest player that is NOT the player holding it. Each Tier adds a feature - such as a white list, or a vague amount of blocks distence instead of just direction.  (Concept stage)
