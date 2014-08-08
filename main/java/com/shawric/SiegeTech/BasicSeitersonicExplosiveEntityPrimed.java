@@ -15,8 +15,9 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     private EntityLivingBase explosivePlacedBy;
     private static final String __OBFID = "CL_00001681";
     private int explosionDirection;  //KEY : 0 bottom, 1 top , 2 North. 3 South, 4 West ,5 East
-    private float explosionPower = 3.5F;
-    
+    private float explosionPower;
+    private blockTier;
+    private int baseExplosionOffset = 3;
     
     public BasicSeitersonicExplosiveEntityPrimed(World world1)
     {
@@ -26,7 +27,7 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
         this.yOffset = this.height / 2.0F;
     }
 
-    public BasicSeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase placingEntity, int explDir)
+    public BasicSeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
     {
         this(wordl1);
         this.setPosition(x, y, z);
@@ -41,6 +42,10 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
         this.explosivePlacedBy = placingEntity;
         
         this.explosionDirection = explDir;
+        
+        this.blockTier = tier;
+     
+        this.baseExplosionPower = 1.75F;
         
         //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity!");
         
@@ -106,57 +111,52 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     	 // SIDE KEY : 0 bottom, 1 top , 2 North. 3 South, 4 West ,5 East
     	 // Pos X is east Neg X is West Ned Z is north Pos Z is south
     	/*
-    	if(this.explosionDirection == 2)
-    	{
-    		Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-10, this.explosionPower, true);	
-    	}
-    	
-    	if(this.explosionDirection == 3)
-    	{
-    		Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+10, this.explosionPower, true);
-    	}
-    	
-    	if(this.explosionDirection == 4)
-    	{
-    		Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
-    		this.worldObj.createExplosion(this, this.posX-10, this.posY, this.posZ, this.explosionPower, true);
-    	}
-    	
-    	if(this.explosionDirection == 5)
-    	{
-    		Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
-    		this.worldObj.createExplosion(this, this.posX+10, this.posY, this.posZ, this.explosionPower, true);	
-    	}
-    	
     	*/
+    	
+    	int numberOfExplosions = (this.tier + 1);
+    	float tierAdjsutedExplosionPower = (baseExplosionPower * (tier+1));
+    	
+    	
     	
     	switch(this.explosionDirection)
     	{
     	    case 2: 
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-3, this.explosionPower, true);
+    	    int dirAdjustment = 0;
+    	    for(int i = 0; i<numberOfExplosions; i++)
+    	    {
+    	        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-dirAdjustment, this.tierAdjsutedExplosionPower, true);
+    	        dirAdjustment += baseExplosionOffset;
+    	    }
     	        break;
     	    case 3:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+3, this.explosionPower, true);
+    	    int dirAdjustment = 0;
+    	    for(int i = 0; i<numberOfExplosions; i++)
+    	    {
+    	        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+dirAdjustment, this.tierAdjsutedExplosionPower, true);
+    	        dirAdjustment += baseExplosionOffset;
+    	    }
     	        break;
     	    case 4: 
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX-3, this.posY, this.posZ, this.explosionPower, true);
+    	    int dirAdjustment = 0;
+    	    for(int i = 0; i<numberOfExplosions; i++)
+    	    {
+    	        this.worldObj.createExplosion(this, this.posX-dirAdjustment, this.posY, this.posZ, this.tierAdjsutedExplosionPower, true);
+    	        dirAdjustment += baseExplosionOffset;
+    	    }
     	        break;
     	    case 5:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
-    		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionPower, true);
-    		this.worldObj.createExplosion(this, this.posX+3, this.posY, this.posZ, this.explosionPower, true);
+    	    int dirAdjustment = 0;
+    	    for(int i = 0; i<numberOfExplosions; i++)
+    	    {
+    	        this.worldObj.createExplosion(this, this.posX+dirAdjustment, this.posY, this.posZ, this.tierAdjsutedExplosionPower, true);
+    	        dirAdjustment += baseExplosionOffset;
+    	    }
     	        break;
     	}
-    	
-    	
     }
 
     /**
