@@ -95,10 +95,14 @@ public class ShawcreteBlock extends Block {
         	
         	String explodeCause = par5Explosion.exploder.getClass().getSimpleName();
         	
+        	int exploderTier = 0;        	
+        	if(par5Explosion.exploder instanceof SeitersonicExplosiveEntityPrimed){
+        	exploderTier = ((SeitersonicExplosiveEntityPrimed) par5Explosion.exploder).getBlockTier();
+        	}
         	/*send info my checking method to see if the shawcrete block gets destroyed or not. 
         	* pass in the world obhect, name of hte entity that cause the explosion, x y z of the block that was blown up, and the Metadata of that block
         	*/
-        	this.shawcreteExploded(par1World, explodeCause, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4));
+        	this.shawcreteExploded(par1World, explodeCause, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), exploderTier);
         
         }
         
@@ -111,7 +115,7 @@ public class ShawcreteBlock extends Block {
 	* pass in the world object, string of the  exploding entity, coordinates of the destroyed block X Y Z
 	*/
 	
-	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ, int HP)
+	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ, int HP, int exploderTier)
     {
 
 		//list of valid exploders and the damage they do
@@ -119,7 +123,7 @@ public class ShawcreteBlock extends Block {
 		validExploderEntitysDamage.put("EntityTNTPrimed", new Integer(10));
 		validExploderEntitysDamage.put("EntityCreeper", new Integer(15));
 		validExploderEntitysDamage.put("BasicPandaNadeEntity", new Integer(5));
-		validExploderEntitysDamage.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(15));
+		validExploderEntitysDamage.put("SeitersonicExplosiveEntityPrimed", new Integer(15));
 		validExploderEntitysDamage.put("ImprovedPandaNadeEntity", new Integer(10));
 		validExploderEntitysDamage.put("ImprovedSeitersonicExplosiveEntityPrimed", new Integer(25));
 		validExploderEntitysDamage.put("AdvancedPandaNadeEntity", new Integer(15));
@@ -140,6 +144,11 @@ public class ShawcreteBlock extends Block {
 		validExploderEntitysTier.put("ElitePandaNadeEntity", new Integer(4));
 		validExploderEntitysTier.put("EliteSeitersonicExplosiveEntityPrimed", new Integer(4));
 		
+		//TODO CACLULTE DAMAGE BASED ON EXPLODER TIER
+		
+		
+		
+		
 		//server or no?
 		if (!par1World.isRemote)
         {
@@ -149,6 +158,8 @@ public class ShawcreteBlock extends Block {
 			{
 				int newHP;
 				Random rand = new Random();
+				
+				
 				
 				//Minimum damage is always the Tier + 1
 				int i = (rand.nextInt((Integer)validExploderEntitysDamage.get(exploder))+((Integer)validExploderEntitysTier.get(exploder)+1));
@@ -191,6 +202,8 @@ public class ShawcreteBlock extends Block {
 				}else{/*if block recives so much damage that its  at negative max HP, do nothing. The block was utterly destroyed*/}		
 			}else
 			{
+				
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("ENTITY UNKNOWN, DAMAG DENIED " + exploder);
 				//Not a valid explosion entity, replace the shawcrete block.
 				par1World.setBlock(blockX, blockY, blockZ, this);
 			}

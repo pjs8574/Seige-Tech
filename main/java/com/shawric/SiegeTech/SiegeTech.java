@@ -67,6 +67,7 @@ public class SiegeTech {
 		GameRegistry.registerBlock(basicShawcrete, modid + (basicShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(improvedShawcrete, modid + (improvedShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(basicSeitersonicExplosive, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)));
+		GameRegistry.registerBlock(improvedSeitersonicExplosive, modid + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)));
 				
 		//Register the Items
 		GameRegistry.registerItem(basicPandaNade, modid + (basicPandaNade.getUnlocalizedName().substring(5)));

@@ -191,4 +191,9 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     {
         return this.explosivePlacedBy;
     }
+
+	public int getBlockTier() {
+		
+		return this.blockTier;
+	}
 }
