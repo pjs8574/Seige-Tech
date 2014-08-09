@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class BasicSeitersonicExplosiveEntityPrimed extends Entity
+public class SeitersonicExplosiveEntityPrimed extends Entity
 {
     /** How long the fuse is */
     public int fuse = 80;
@@ -16,10 +16,12 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     private static final String __OBFID = "CL_00001681";
     private int explosionDirection;  //KEY : 0 bottom, 1 top , 2 North. 3 South, 4 West ,5 East
     private float explosionPower;
-    private blockTier;
     private int baseExplosionOffset = 3;
+	private static float baseExplosionPower = 1.75F;
+	private int blockTier;
+	float tierAdjsutedExplosionPower;
     
-    public BasicSeitersonicExplosiveEntityPrimed(World world1)
+    public SeitersonicExplosiveEntityPrimed(World world1)
     {
         super(world1);
         this.preventEntitySpawning = true;
@@ -27,7 +29,7 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
         this.yOffset = this.height / 2.0F;
     }
 
-    public BasicSeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
+    public SeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
     {
         this(wordl1);
         this.setPosition(x, y, z);
@@ -44,9 +46,7 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
         this.explosionDirection = explDir;
         
         this.blockTier = tier;
-     
-        this.baseExplosionPower = 1.75F;
-        
+
         //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity!");
         
     }
@@ -113,8 +113,11 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     	/*
     	*/
     	
-    	int numberOfExplosions = (this.tier + 1);
-    	float tierAdjsutedExplosionPower = (baseExplosionPower * (tier+1));
+    	//adjusting the number of explosions that will occur based on tier
+    	int numberOfExplosions = (this.blockTier + 1);
+    	
+    	//adjsuting the power of the explosive based upon Tier
+    	tierAdjsutedExplosionPower = (this.baseExplosionPower * (this.blockTier+1));
     	
     	
     	
@@ -125,35 +128,35 @@ public class BasicSeitersonicExplosiveEntityPrimed extends Entity
     	    int dirAdjustment = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {
-    	        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-dirAdjustment, this.tierAdjsutedExplosionPower, true);
+    	    	this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-dirAdjustment, this.tierAdjsutedExplosionPower, true);
     	        dirAdjustment += baseExplosionOffset;
     	    }
     	        break;
     	    case 3:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
-    	    int dirAdjustment = 0;
+    	    int dirAdjustment1 = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {
-    	        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+dirAdjustment, this.tierAdjsutedExplosionPower, true);
-    	        dirAdjustment += baseExplosionOffset;
+    	        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ+dirAdjustment1, this.tierAdjsutedExplosionPower, true);
+    	        dirAdjustment1 += baseExplosionOffset;
     	    }
     	        break;
     	    case 4: 
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
-    	    int dirAdjustment = 0;
+    	    int dirAdjustment2 = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {
-    	        this.worldObj.createExplosion(this, this.posX-dirAdjustment, this.posY, this.posZ, this.tierAdjsutedExplosionPower, true);
-    	        dirAdjustment += baseExplosionOffset;
+    	        this.worldObj.createExplosion(this, this.posX-dirAdjustment2, this.posY, this.posZ, this.tierAdjsutedExplosionPower, true);
+    	        dirAdjustment2 += baseExplosionOffset;
     	    }
     	        break;
     	    case 5:  
     	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
-    	    int dirAdjustment = 0;
+    	    int dirAdjustment3 = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {
-    	        this.worldObj.createExplosion(this, this.posX+dirAdjustment, this.posY, this.posZ, this.tierAdjsutedExplosionPower, true);
-    	        dirAdjustment += baseExplosionOffset;
+    	        this.worldObj.createExplosion(this, this.posX+dirAdjustment3, this.posY, this.posZ, this.tierAdjsutedExplosionPower, true);
+    	        dirAdjustment3 += baseExplosionOffset;
     	    }
     	        break;
     	}

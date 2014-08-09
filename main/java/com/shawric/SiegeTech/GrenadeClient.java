@@ -1,5 +1,6 @@
 package com.shawric.SiegeTech;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.item.Item;
@@ -19,10 +20,10 @@ RenderingRegistry.registerEntityRenderingHandler(entityClass, new RenderSnowball
 }
 
 @Override
-public void registerRenderExplosive()
+public void registerRenderExplosive(Class expEntityClass, Block blockRender)
 {		
 		
-RenderingRegistry.registerEntityRenderingHandler(BasicSeitersonicExplosiveEntityPrimed.class, new RenderBasicSeitersonicExplosiveEntityPrimed());
+RenderingRegistry.registerEntityRenderingHandler(expEntityClass, new RenderBasicSeitersonicExplosiveEntityPrimed(blockRender));
 }
 
 

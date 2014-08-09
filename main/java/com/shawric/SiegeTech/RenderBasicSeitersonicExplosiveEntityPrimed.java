@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 
-import com.shawric.SiegeTech.BasicSeitersonicExplosiveEntityPrimed;
+import com.shawric.SiegeTech.SeitersonicExplosiveEntityPrimed;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
@@ -22,10 +22,12 @@ public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
 {
     private RenderBlocks blockRenderer = new RenderBlocks();
     private static final String __OBFID = "CL_00001030";
+    private Block blockToRender;
 
-    public RenderBasicSeitersonicExplosiveEntityPrimed()
+    public RenderBasicSeitersonicExplosiveEntityPrimed(Block blockRender)
     {
-        this.shadowSize = 0.5F;    
+        this.shadowSize = 0.5F;   
+        this.blockToRender =  blockRender;
     }
 
     /**
@@ -34,7 +36,7 @@ public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
      * (Render<T extends Entity) and this method has signature public void func_76986_a(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
-    public void doRender(BasicSeitersonicExplosiveEntityPrimed entityToRender, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
+    public void doRender(SeitersonicExplosiveEntityPrimed entityToRender, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
         GL11.glPushMatrix();
         GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
@@ -62,7 +64,7 @@ public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
 
         f2 = (1.0F - ((float)entityToRender.fuse - p_76986_9_ + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(entityToRender);
-        this.blockRenderer.renderBlockAsItem(SiegeTech.basicSeitersonicExplosive, 0, entityToRender.getBrightness(p_76986_9_));
+        this.blockRenderer.renderBlockAsItem(this.blockToRender, 0, entityToRender.getBrightness(p_76986_9_));
 
         if (entityToRender.fuse / 5 % 2 == 0)
         {
@@ -84,7 +86,7 @@ public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(BasicSeitersonicExplosiveEntityPrimed p_110775_1_)
+    protected ResourceLocation getEntityTexture(SeitersonicExplosiveEntityPrimed p_110775_1_)
     {
         
     	//System.out.println("RESOURCE LOC FOR BSSE RENBDER: " + TextureMap.locationBlocksTexture);
@@ -96,7 +98,7 @@ public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
      */
     protected ResourceLocation getEntityTexture(Entity p_110775_1_)
     {
-        return this.getEntityTexture((BasicSeitersonicExplosiveEntityPrimed)p_110775_1_);
+        return this.getEntityTexture((SeitersonicExplosiveEntityPrimed)p_110775_1_);
     }
 
     /**
@@ -107,6 +109,6 @@ public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
      */
     public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
-        this.doRender((BasicSeitersonicExplosiveEntityPrimed)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        this.doRender((SeitersonicExplosiveEntityPrimed)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 }

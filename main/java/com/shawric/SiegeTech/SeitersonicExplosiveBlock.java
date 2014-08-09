@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BasicSeitersonicExplosiveBlock extends Block {
+public class SeitersonicExplosiveBlock extends Block {
 
 	
 	@SideOnly(Side.CLIENT)
@@ -42,7 +42,7 @@ public class BasicSeitersonicExplosiveBlock extends Block {
 	private String blockDirectionString;
 	
 	
-	public BasicSeitersonicExplosiveBlock(String name, int tier) {
+	public SeitersonicExplosiveBlock(String name, int tier) {
 		super(Material.tnt);
 		this.setHardness(2);
 		this.setResistance(10);
@@ -216,7 +216,7 @@ public class BasicSeitersonicExplosiveBlock extends Block {
                 {
             		Minecraft.getMinecraft().thePlayer.sendChatMessage("EXPLOSIVE ACTIVATED META IS: " + world1.getBlockMetadata(x, y, z));
             		
-            	BasicSeitersonicExplosiveEntityPrimed entitytntprimed = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
+            	SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
                 world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 }
@@ -230,7 +230,7 @@ public class BasicSeitersonicExplosiveBlock extends Block {
         {
 
             	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadata is: " + world1.getBlockMetadata(x, y, z));
-            	BasicSeitersonicExplosiveEntityPrimed entitytntprimed = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), Expl.getExplosivePlacedBy(), world1.getBlockMetadata(x, y, z) , this.blockTier);
+            	SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), Expl.getExplosivePlacedBy(), world1.getBlockMetadata(x, y, z) , this.blockTier);
                 world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 world1.setBlockToAir(x, y, z);
