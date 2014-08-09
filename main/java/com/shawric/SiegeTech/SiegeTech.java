@@ -20,8 +20,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class SiegeTech {
 
 	
-	@SidedProxy(clientSide = "com.shawric.SiegeTech.GrenadeClient", serverSide = "com.shawric.SiegeTech.GrenadeCommon")
-	public static GrenadeCommon proxy;
+	@SidedProxy(clientSide = "com.shawric.SiegeTech.Client", serverSide = "com.shawric.SiegeTech.Common")
+	public static Common proxy;
 	
 	
 	public static final String modid = "Shawric_Siegetech";
@@ -78,10 +78,10 @@ public class SiegeTech {
 		GameRegistry.registerItem(tierCraftingItemAstralium, modid + (tierCraftingItemAstralium.getUnlocalizedName().substring(5)));
 				
 		//register the Entitys
-		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + (basicPandaNade.getUnlocalizedName().substring(5)) + "entity", basicPandaNadeEntityId, this, 80, 3, true);
-		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + (improvedPandaNade.getUnlocalizedName().substring(5)) + "entity", improvedPandaNadeEntityId, this, 80, 3, true);
-		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
-		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", improvedSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(basicPandaNade.getUnlocalizedName().substring(5)) + "Entity", basicPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(improvedPandaNade.getUnlocalizedName().substring(5)) + "Entity", improvedPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", improvedSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		
 	}
 	

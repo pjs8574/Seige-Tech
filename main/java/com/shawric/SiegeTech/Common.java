@@ -3,7 +3,7 @@ package com.shawric.SiegeTech;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
-public class GrenadeCommon
+public class Common
 {
 	
 public void registerRenderGrenade(Class entityClass, Item grenadeToRender) {}

@@ -98,7 +98,10 @@ public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
      */
     protected ResourceLocation getEntityTexture(Entity p_110775_1_)
     {
-        return this.getEntityTexture((SeitersonicExplosiveEntityPrimed)p_110775_1_);
+        
+    	System.out.println("GETTING THIS ENT TEXTURE>>>>" + this.getEntityTexture((SeitersonicExplosiveEntityPrimed)p_110775_1_));
+    	System.out.println("FOR THIS ENTITY>>>>" + p_110775_1_);
+    	return this.getEntityTexture((SeitersonicExplosiveEntityPrimed)p_110775_1_);
     }
 
     /**
