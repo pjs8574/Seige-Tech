@@ -5,13 +5,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BasicPandaNadeItem extends Item
+public class PandaNadeItem extends Item
 {
-public BasicPandaNadeItem()
+	
+	private int itemTier;
+	
+	
+public PandaNadeItem(String name, int tier)
 {
-this.setUnlocalizedName("basicPandaNade"); //Sets the name of this item, Has to be unique!
+this.setUnlocalizedName(name); //Sets the name of this item, Has to be unique!
 this.setCreativeTab(SiegeTech.tabMyMod);; //This Item will be in the Combat Creative Tab!
 this.setTextureName(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5)); //The texture for this item is the Grenade!
+
+this.itemTier = tier;
 }
 
 
@@ -27,7 +33,7 @@ public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, Enti
 	* the Entity class, in this case it's
 	* the EntityGrenade class
 	*/
-	par2World.spawnEntityInWorld(new BasicPandaNadeEntity(par2World, par3EntityPlayer));
+	par2World.spawnEntityInWorld(new PandaNadeEntity(par2World, par3EntityPlayer,itemTier));
 	//Decrease an item from the stack because you just used it!
 	         --par1ItemStack.stackSize;
 	}

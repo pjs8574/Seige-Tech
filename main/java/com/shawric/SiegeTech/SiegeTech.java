@@ -56,8 +56,8 @@ public class SiegeTech {
 		improvedSeitersonicExplosive = new SeitersonicExplosiveBlock("improvedSeitersonicExplosive", 2);
 		
 		//items
-		basicPandaNade = new BasicPandaNadeItem();		
-		improvedPandaNade = new ImprovedPandaNadeItem();
+		basicPandaNade = new PandaNadeItem("basicPandaNade", 1);		
+		improvedPandaNade = new PandaNadeItem("improvedPandaNade", 2);
 	
 		tierCraftingItemNethercite = new TierCraftingItem("tierCraftingItemNethercite",2);
 		tierCraftingItemEndrite = new TierCraftingItem("tierCraftingItemEndrite",3);
@@ -78,8 +78,8 @@ public class SiegeTech {
 		GameRegistry.registerItem(tierCraftingItemAstralium, modid + (tierCraftingItemAstralium.getUnlocalizedName().substring(5)));
 				
 		//register the Entitys
-		EntityRegistry.registerModEntity(BasicPandaNadeEntity.class, modid + (basicPandaNade.getUnlocalizedName().substring(5)) + "entity", basicPandaNadeEntityId, this, 80, 3, true);
-		EntityRegistry.registerModEntity(ImprovedPandaNadeEntity.class, modid + (improvedPandaNade.getUnlocalizedName().substring(5)) + "entity", improvedPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + (basicPandaNade.getUnlocalizedName().substring(5)) + "entity", basicPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + (improvedPandaNade.getUnlocalizedName().substring(5)) + "entity", improvedPandaNadeEntityId, this, 80, 3, true);
 		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "entity", improvedSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		
@@ -126,7 +126,7 @@ public class SiegeTech {
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedShawcrete,8), new Object[] {"RRR", "RNR", "RRR", 'R', basicShawcreteStack, 'N', nethreciteStack});
 	   
 		//recipe for basic PandaNade
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicPandaNade,2), new Object[] {" S ", "FTF", "FFF", 'T', tntStack, 'F', flintStack, 'S', stringStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicPandaNade,2), new Object[] {"FSF", "FTF", "FFF", 'T', tntStack, 'F', flintStack, 'S', stringStack});
 		
 		//recipe for advanced PandaNade
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedPandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', basicPandaNadeStack, 'O', obsidianStack, 'N', nethreciteStack});
@@ -137,8 +137,8 @@ public class SiegeTech {
 		
 		
 
-		proxy.registerRenderGrenade(BasicPandaNadeEntity.class, basicPandaNade);
-		proxy.registerRenderGrenade(ImprovedPandaNadeEntity.class, improvedPandaNade);
+		proxy.registerRenderGrenade(PandaNadeEntity.class, basicPandaNade);
+		proxy.registerRenderGrenade(PandaNadeEntity.class, improvedPandaNade);
 		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, basicSeitersonicExplosive);
 		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, improvedSeitersonicExplosive);
 		proxy.registerSounds();

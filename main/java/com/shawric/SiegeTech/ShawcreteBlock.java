@@ -97,8 +97,13 @@ public class ShawcreteBlock extends Block {
         	
         	int exploderTier = 0;        	
         	if(par5Explosion.exploder instanceof SeitersonicExplosiveEntityPrimed){
-        	exploderTier = ((SeitersonicExplosiveEntityPrimed) par5Explosion.exploder).getBlockTier();
+        	exploderTier = ((SeitersonicExplosiveEntityPrimed) par5Explosion.exploder).getTier();
         	}
+        	
+        	if(par5Explosion.exploder instanceof PandaNadeEntity )
+        		{
+            	exploderTier = ((PandaNadeEntity) par5Explosion.exploder).getTier();
+            	}
         	/*send info my checking method to see if the shawcrete block gets destroyed or not. 
         	* pass in the world obhect, name of hte entity that cause the explosion, x y z of the block that was blown up, and the Metadata of that block
         	*/
@@ -118,37 +123,17 @@ public class ShawcreteBlock extends Block {
 	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ, int HP, int exploderTier)
     {
 
-		//list of valid exploders and the damage they do
+		//list of valid exploders and the damage they do (In porcess of making it Minimum damage, which is then adjusted by tier+1)
 		Hashtable validExploderEntitysDamage = new Hashtable();
 		validExploderEntitysDamage.put("EntityTNTPrimed", new Integer(10));
 		validExploderEntitysDamage.put("EntityCreeper", new Integer(15));
-		validExploderEntitysDamage.put("BasicPandaNadeEntity", new Integer(5));
+		validExploderEntitysDamage.put("PandaNadeEntity", new Integer(5));
 		validExploderEntitysDamage.put("SeitersonicExplosiveEntityPrimed", new Integer(15));
 		validExploderEntitysDamage.put("ImprovedPandaNadeEntity", new Integer(10));
-		validExploderEntitysDamage.put("ImprovedSeitersonicExplosiveEntityPrimed", new Integer(25));
 		validExploderEntitysDamage.put("AdvancedPandaNadeEntity", new Integer(15));
-		validExploderEntitysDamage.put("AdvancedSeitersonicExplosiveEntityPrimed", new Integer(40));
 		validExploderEntitysDamage.put("ElitePandaNadeEntity", new Integer(20));
-		validExploderEntitysDamage.put("EliteSeitersonicExplosiveEntityPrimed", new Integer(55));
 		
-		//list of valid exploders and the Tier that they are considered for the multiplier
-		Hashtable validExploderEntitysTier = new Hashtable();
-		validExploderEntitysTier.put("EntityTNTPrimed", new Integer(0));
-		validExploderEntitysTier.put("EntityCreeper", new Integer(0));
-		validExploderEntitysTier.put("BasicPandaNadeEntity", new Integer(1));
-		validExploderEntitysTier.put("BasicSeitersonicExplosiveEntityPrimed", new Integer(1));
-		validExploderEntitysTier.put("ImprovedPandaNadeEntity", new Integer(2));
-		validExploderEntitysTier.put("ImprovedSeitersonicExplosiveEntityPrimed", new Integer(2));
-		validExploderEntitysTier.put("AdvancedPandaNadeEntity", new Integer(3));
-		validExploderEntitysTier.put("AdvancedSeitersonicExplosiveEntityPrimed", new Integer(3));
-		validExploderEntitysTier.put("ElitePandaNadeEntity", new Integer(4));
-		validExploderEntitysTier.put("EliteSeitersonicExplosiveEntityPrimed", new Integer(4));
-		
-		//TODO CACLULTE DAMAGE BASED ON EXPLODER TIER
-		
-		
-		
-		
+	
 		//server or no?
 		if (!par1World.isRemote)
         {
@@ -159,15 +144,12 @@ public class ShawcreteBlock extends Block {
 				int newHP;
 				Random rand = new Random();
 				
-				
+				int exploderMaxDmg = ((exploderTier+1)*(Integer)validExploderEntitysDamage.get(exploder));
 				
 				//Minimum damage is always the Tier + 1
-				int i = (rand.nextInt((Integer)validExploderEntitysDamage.get(exploder))+((Integer)validExploderEntitysTier.get(exploder)+1));
-				
-				//adjust damage for the Tier of the exploder
-				int tierAdjsutedDamage = (i * ((Integer)validExploderEntitysTier.get(exploder)+1));
-				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage Dealt: " + i);
+				int dmg = (rand.nextInt(exploderMaxDmg)+(exploderTier+1));
+
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage Dealt: " + dmg);
 				
 				//adjust HP for the Tier of the concrete
 				int tierAdjustedHP = (HP*(this.blockTier+1));
@@ -175,7 +157,7 @@ public class ShawcreteBlock extends Block {
 				Minecraft.getMinecraft().thePlayer.sendChatMessage("Tier Adjsuted HP: " + tierAdjustedHP);
 				
 				//deal damage to that HP
-				newHP = (tierAdjustedHP-tierAdjsutedDamage);
+				newHP = (tierAdjustedHP-dmg);
 				
 				Minecraft.getMinecraft().thePlayer.sendChatMessage("Tier Adjsuted HP After Dmg: " + newHP);
 				
@@ -191,15 +173,18 @@ public class ShawcreteBlock extends Block {
 				par1World.setBlock(blockX, blockY, blockZ, this);
 				par1World.setBlockMetadataWithNotify(blockX, blockY, blockZ, newHP, 2);
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("newly place block health is " + par1World.getBlockMetadata(blockX, blockY, blockZ));
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("Block is still alive with HP of: " + par1World.getBlockMetadata(blockX, blockY, blockZ));
 				}
 				else if(newHP <=0 && newHP >= (-15)) //if block recives so much damage that its HP is 0 or less, but greater than its negative  full HP turn it into cobble
 				{
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block HP below zero,but not ahniliated, becomes cobble.");
+					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block HP below zero, but not ahniliated, becomes cobble.");
 					
 					par1World.setBlock(blockX, blockY, blockZ, Blocks.cobblestone);
 					
-				}else{/*if block recives so much damage that its  at negative max HP, do nothing. The block was utterly destroyed*/}		
+				}else{
+					/*if block receives so much damage that its  at negative max HP, do nothing. The block was utterly destroyed*/
+					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block ahniliated.");
+					}		
 			}else
 			{
 				

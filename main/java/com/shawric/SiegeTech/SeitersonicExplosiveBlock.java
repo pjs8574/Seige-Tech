@@ -39,7 +39,6 @@ public class SeitersonicExplosiveBlock extends Block {
 	private int blockTier;
 	
 	private int blockDirectionInt; // SIDE KEY : 0 bottom, 1 top , 2 North. 3 South, 4 West ,5 East
-	private String blockDirectionString;
 	
 	
 	public SeitersonicExplosiveBlock(String name, int tier) {
@@ -84,17 +83,6 @@ public class SeitersonicExplosiveBlock extends Block {
 	        	this.setblockDirectionInt(5);//EAST
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is East: " + blockDirectionInt);
 	    	}
-	    	
-	    	
-	    	switch(this.blockDirectionInt)
-			{
-	    	case 2: blockDirectionString = "N";
-	    	case 3: blockDirectionString = "S";
-	    	case 4: blockDirectionString = "E";
-	    	case 5: blockDirectionString = "W";
-			}
-	    	
-	    	//   Minecraft.getMinecraft().thePlayer.sendChatMessage("Roation " + this.rotateBlock(world, i, j, k, ForgeDirection.getOrientation(blockDirectionInt)));
 	    }
 	/*
 	 * for Set setBlockMetadataWithNotify  -- its the 3 coordinates of the block, the MNetadata number adn the last number is a Flag.
