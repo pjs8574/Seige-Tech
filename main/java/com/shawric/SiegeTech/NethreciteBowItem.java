@@ -1,7 +1,10 @@
 package com.shawric.SiegeTech;
 
+import javax.swing.Icon;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -140,7 +143,8 @@ public class NethreciteBowItem extends ItemBow{
 
         for (int i = 0; i < this.iconArray.length; ++i)
         {
-            this.iconArray[i] = p_94581_1_.registerIcon(this.getIconString() + "_" + bowPullIconNameArray[i]);
+            
+        	this.iconArray[i] = p_94581_1_.registerIcon(this.getIconString() + "_" + bowPullIconNameArray[i]);
         }
     }
 
@@ -150,11 +154,27 @@ public class NethreciteBowItem extends ItemBow{
     @SideOnly(Side.CLIENT)
     public IIcon getItemIconForUseDuration(int p_94599_1_)
     {
-        return this.iconArray[p_94599_1_];
+    	//Minecraft.getMinecraft().thePlayer.sendChatMessage("sending icon array" + this.iconArray[p_94599_1_]);
+    	return this.iconArray[p_94599_1_];
     }
 	
 	
-	
+    @Override
+    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    {
+    		 int j = getMaxItemUseDuration(stack) - useRemaining;
+    		 if (j >= 18)
+    		 {
+    				 return getItemIconForUseDuration(2);
+    		 }
+
+    		 if (j > 13)
+    		 {
+    				 return getItemIconForUseDuration(1);
+    		 }
+
+    		 return getItemIconForUseDuration(0);
+    }
 	
 	
 	
