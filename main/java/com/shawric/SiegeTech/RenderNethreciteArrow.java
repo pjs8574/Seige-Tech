@@ -6,7 +6,10 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+
 import com.shawric.SiegeTech.NethreciteArrowEntity;
+
 
 
 import org.lwjgl.opengl.GL11;
@@ -23,13 +26,15 @@ public class RenderNethreciteArrow extends Render
 
     /**
      * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
-     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
+     * handing it off to a worker function which does the actual work. In all probability, the class Render is generic
      * (Render<T extends Entity) and this method has signature public void func_76986_a(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
     public void doRender(NethreciteArrowEntity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
-        this.bindEntityTexture(p_76986_1_);
+        
+    	
+    	this.bindEntityTexture(p_76986_1_);
         GL11.glPushMatrix();
         GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
         GL11.glRotatef(p_76986_1_.prevRotationYaw + (p_76986_1_.rotationYaw - p_76986_1_.prevRotationYaw) * p_76986_9_ - 90.0F, 0.0F, 1.0F, 0.0F);
@@ -86,6 +91,7 @@ public class RenderNethreciteArrow extends Render
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
+    	
     }
 
     /**
