@@ -26,7 +26,10 @@ public void registerRenderExplosive(Class expEntityClass, Block blockRender)
 RenderingRegistry.registerEntityRenderingHandler(expEntityClass, new RenderSeitersonicExplosiveEntityPrimed(blockRender));
 }
 
-
+public void registerRenderArrow(Class entityClass)
+{
+	RenderingRegistry.registerEntityRenderingHandler(entityClass, new RenderNethreciteArrow());
+}
 
 
 @Override
