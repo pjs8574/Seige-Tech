@@ -140,12 +140,12 @@ public class SeitersonicExplosiveBlock extends Block{
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister Ireg)
 	{
-	this.blockSide = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "side");
-	this.topN = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "topN");
-	this.topS = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "topS");
-	this.topE = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "topE");
-	this.topW = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "topW");
-	this.bottom = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "bottom");
+	this.blockSide = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "Side");
+	this.topN = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "TopN");
+	this.topS = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "TopS");
+	this.topE = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "TopE");
+	this.topW = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "TopW");
+	this.bottom = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "Bottom");
 	
 	/* old side texture code, for unique sides for later if we want
 	this.sideN = Ireg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "sideN");

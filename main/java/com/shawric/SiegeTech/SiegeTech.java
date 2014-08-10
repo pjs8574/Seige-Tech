@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "SiegeTech", name = "Siege Tech Mod", version = "0.8.5 MC_1.7.10")
+@Mod(modid = "shawric_siegetech", name = "Siege Tech Mod", version = "0.8.5 MC_1.7.10")
 
 public class SiegeTech {
 
@@ -24,7 +24,7 @@ public class SiegeTech {
 	public static Common proxy;
 	
 	
-	public static final String modid = "Shawric_Siegetech";
+	public static final String modid = "shawric_siegetech";
 	public static CreativeTabs tabMyMod = new SiegetechCreativeTab("tabSiegeTech");
 	
 	public static Block basicShawcrete;
