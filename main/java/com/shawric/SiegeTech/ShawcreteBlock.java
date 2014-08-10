@@ -53,7 +53,7 @@ public class ShawcreteBlock extends Block {
 	public void registerBlockIcons(IIconRegister icReg)
 	{	
 	normalHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5));
-	damagedHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "damaged");	
+	damagedHP = icReg.registerIcon(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5) + "Damaged");	
 	}
 
 	@SideOnly(Side.CLIENT)
