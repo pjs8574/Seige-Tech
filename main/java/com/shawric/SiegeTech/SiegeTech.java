@@ -23,6 +23,7 @@ public class SiegeTech {
 	@SidedProxy(clientSide = "com.shawric.SiegeTech.Client", serverSide = "com.shawric.SiegeTech.Common")
 	public static Common proxy;
 	
+	int entIDCount = 50;
 	
 	public static final String modid = "shawric_siegetech";
 	public static CreativeTabs tabMyMod = new SiegetechCreativeTab("tabSiegeTech");
@@ -46,19 +47,11 @@ public class SiegeTech {
 	public static Item tierCraftingItemEndrite;
 	public static Item tierCraftingItemAstralium;
 	
-	public static final int basicPandaNadeEntityId = 1337;
-	public static final int improvedPandaNadeEntityId = 1338;
-	public static final int advancedPandaNadeEntityId = 1339;
-	public static final int elitePandaNadeEntityId = 1340;
-	
-	public static final int basicSeitersonicExplosiveEntityPrimedId = 1341;
-	public static final int improvedSeitersonicExplosiveEntityPrimedId = 1342;
-	public static final int advancedSeitersonicExplosiveEntityPrimedId = 1343;
-	public static final int eliteSeitersonicExplosiveEntityPrimedId = 1344;
 	
 
-	public static Item nethereciteArrow;
-	public static final int nethereciteArrowEntityId = 1345;
+	public static Item nethreciteArrow;
+	public static Item nethreciteBow;
+	
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -85,7 +78,8 @@ public class SiegeTech {
 		advancedPandaNade = new PandaNadeItem("advancedPandaNade", 3);
 		elitePandaNade = new PandaNadeItem("elitePandaNade", 4);
 		
-		nethereciteArrow = new NethreciteArrowItem("nethreciteArrow", 2);
+		nethreciteArrow = new NethreciteArrowItem("nethreciteArrow", 2);
+		nethreciteBow = new NethreciteBowItem("nethreciteBow", 2);
 	
 		tierCraftingItemNethrecite = new TierCraftingItem("tierCraftingItemNethrecite",2);
 		tierCraftingItemEndrite = new TierCraftingItem("tierCraftingItemEndrite",3);
@@ -110,25 +104,26 @@ public class SiegeTech {
 		GameRegistry.registerItem(advancedPandaNade, modid + (advancedPandaNade.getUnlocalizedName().substring(5)));	
 		GameRegistry.registerItem(elitePandaNade, modid + (elitePandaNade.getUnlocalizedName().substring(5)));
 		
-		GameRegistry.registerItem(nethereciteArrow, modid + (nethereciteArrow.getUnlocalizedName().substring(5)));
+		GameRegistry.registerItem(nethreciteArrow, modid + (nethreciteArrow.getUnlocalizedName().substring(5)));
+		GameRegistry.registerItem(nethreciteBow, modid + (nethreciteBow.getUnlocalizedName().substring(5)));
+		
 		
 		GameRegistry.registerItem(tierCraftingItemNethrecite, modid + (tierCraftingItemNethrecite.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(tierCraftingItemEndrite, modid + (tierCraftingItemEndrite.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(tierCraftingItemAstralium, modid + (tierCraftingItemAstralium.getUnlocalizedName().substring(5)));
 				
 		//register the Entitys
-		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(basicPandaNade.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
-		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(improvedPandaNade.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
-		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(advancedPandaNade.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
-		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(elitePandaNade.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(basicPandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(improvedPandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(advancedPandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(elitePandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 
-		EntityRegistry.registerModEntity(NethreciteArrowEntity.class, modid + "." + (nethereciteArrow.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(NethreciteArrowEntity.class, modid + "." + (nethreciteArrow.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 		
-		
-		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
-		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
-		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (advancedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
-		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (eliteSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", EntityRegistry.findGlobalUniqueEntityId(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (advancedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (eliteSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 		
 		
 	}
@@ -214,4 +209,12 @@ public class SiegeTech {
 		
 	}
 
+	public int getUniqeEntID()
+	{
+		this.entIDCount++;
+		
+	return this.entIDCount;
+	}
+	
+	
 }

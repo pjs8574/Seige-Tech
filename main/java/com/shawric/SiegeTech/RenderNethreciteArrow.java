@@ -4,9 +4,10 @@ package com.shawric.SiegeTech;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import com.shawric.SiegeTech.NethreciteArrowEntity;
+
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -17,7 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderNethreciteArrow extends Render
 {
-    private static final ResourceLocation arrowTextures = new ResourceLocation("shawric_siegetech/textures/entity/nethreciteArrow.png");
+    private static final ResourceLocation arrowTextures = new ResourceLocation("shawric_siegetech:textures/entity/nethreciteArrow.png");
     private static final String __OBFID = "CL_00000978";
 
     /**

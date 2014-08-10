@@ -1,7 +1,6 @@
 package com.shawric.SiegeTech;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.item.Item;
 import cpw.mods.fml.client.registry.RenderingRegistry;

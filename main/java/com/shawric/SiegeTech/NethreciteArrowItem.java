@@ -16,4 +16,6 @@ public class NethreciteArrowItem extends Item {
 		this.itemTier = tier;
 	}
 
+	
+	
 }

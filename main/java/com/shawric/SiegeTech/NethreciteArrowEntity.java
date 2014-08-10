@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -214,14 +215,31 @@ public class NethreciteArrowEntity extends Entity implements IProjectile{
         {
             int j = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
+            
+           
+            
+            
+            //BOW HITS OBSIDIAN BLOW UP
             if (block == this.field_145790_g && j == this.inData)
             {
-                ++this.ticksInGround;
+                
+            	String blockStruck = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f).getUnlocalizedName().substring(5);
+            	
+            	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Arrow Stuck in: " + blockStruck);
+            	
+            	if(blockStruck.equalsIgnoreCase("obsidian"))
+            	{
+            	this.worldObj.setBlockToAir(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+            	this.playSound("random.explode", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+            	this.setDead();
+            	}else{
+            	++this.ticksInGround;
 
-                if (this.ticksInGround == 1200)
-                {
-                    this.setDead();
-                }
+					if (this.ticksInGround == 1200)
+					{
+						this.setDead();
+					}
+            	}
             }
             else
             {
@@ -354,9 +372,11 @@ public class NethreciteArrowEntity extends Entity implements IProjectile{
                                 ((EntityPlayerMP)this.shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                             }
                         }
-
+                        
+                        
                         this.playSound("random.bowhit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
-
+                        
+                        
                         if (!(movingobjectposition.entityHit instanceof EntityEnderman))
                         {
                             this.setDead();
@@ -517,7 +537,7 @@ public class NethreciteArrowEntity extends Entity implements IProjectile{
         {
             boolean flag = this.canBePickedUp == 1 || this.canBePickedUp == 2 && p_70100_1_.capabilities.isCreativeMode;
 
-            if (this.canBePickedUp == 1 && !p_70100_1_.inventory.addItemStackToInventory(new ItemStack(SiegeTech.nethereciteArrow, 1)))
+            if (this.canBePickedUp == 1 && !p_70100_1_.inventory.addItemStackToInventory(new ItemStack(SiegeTech.nethreciteArrow, 1)))
             {
                 flag = false;
             }
