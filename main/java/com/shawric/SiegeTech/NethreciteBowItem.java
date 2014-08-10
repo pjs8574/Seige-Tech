@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
@@ -36,6 +37,7 @@ public class NethreciteBowItem extends ItemBow{
 		this.setTextureName(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5)); //The texture for this item is the Grenade!
 
 		this.itemTier = tier;
+		
 		
 		
 		
@@ -184,5 +186,12 @@ public class NethreciteBowItem extends ItemBow{
     par3List.add("Tier: " + this.itemTier + " Bow" );
     }
     
+    public void onUpdate(ItemStack itemstack, World par2World, Entity par3Entity, int par4, boolean par5)
+    {
+    if(itemstack.isItemEnchanted() == false)
+    {
+    itemstack.addEnchantment(Enchantment.fireAspect, 1);
+    }
+    }
 	
 }
