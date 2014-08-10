@@ -143,8 +143,10 @@ public class SiegeTech {
 		
 		ItemStack blazerodStack =new ItemStack(Items.blaze_rod);
 		ItemStack diamondStack = new ItemStack(Items.diamond);
-		ItemStack netherQuartzStack = new ItemStack(Items.quartz);
+		ItemStack netherQuartzStack = new ItemStack(Blocks.quartz_block);
+		ItemStack glowstoneBlockStack = new ItemStack(Blocks.glowstone);
 		ItemStack redstoneBlockStack = new ItemStack(Blocks.redstone_block);
+		
 		
 		ItemStack arrowStack =new ItemStack(Items.arrow);
 		ItemStack bowStack =new ItemStack(Items.bow);
@@ -167,11 +169,11 @@ public class SiegeTech {
 		
 		//Tier Crafting Materials
 		//Nethercite
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemNethrecite,8), new Object[] {"BON", "ODO", "BON", 'D', diamondStack, 'O', obsidianStack, 'B', blazerodStack, 'N', netherQuartzStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemNethrecite, 4), new Object[] {"GBN", "ODO", "GBN", 'D', diamondStack, 'O', obsidianStack, 'B', blazerodStack, 'N', netherQuartzStack, 'G', glowstoneBlockStack});
 		//Endrite
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemEndrite,8), new Object[] {"EOP", "ONO", "EOP", 'N', nethreciteStack, 'O', obsidianStack, 'E', endstoneStack, 'P', enderPearlStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemEndrite, 4), new Object[] {"EOP", "ONO", "EOP", 'N', nethreciteStack, 'O', obsidianStack, 'E', endstoneStack, 'P', enderPearlStack});
 		//Astralium
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemAstralium,8), new Object[] {"NNN", "NSE", "EEE", 'N', nethreciteStack, 'E', endriteStack, 'S', netherstarStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemAstralium, 4), new Object[] {"NNN", "NSE", "EEE", 'N', nethreciteStack, 'E', endriteStack, 'S', netherstarStack});
 		
 		//recipes for shawcrete
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicShawcrete,8), new Object[] {"XCY", "XCY", "XCY", 'X', gravelStack, 'C', cobblestoneStack, 'Y', sandStack});
@@ -193,7 +195,7 @@ public class SiegeTech {
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', endriteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.eliteSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', astraliumStack});
 		
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.nethreciteArrow,1), new Object[] {"AAA", "ANA", "AAA", 'A', arrowStack, 'N', nethreciteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.nethreciteArrow,1), new Object[] {"NNN", "NAN", "NNN", 'A', arrowStack, 'N', nethreciteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.nethreciteBow,1), new Object[] {" N ", "NBN", " N ", 'B', bowStack, 'N', nethreciteStack});
 		
 		

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -11,6 +13,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
@@ -28,6 +31,7 @@ public class NethreciteBowItem extends ItemBow{
 	public static final String[] bowPullIconNameArray = new String[] {"pulling_0", "pulling_1", "pulling_2"};
     @SideOnly(Side.CLIENT)
     private IIcon[] iconArray;
+	private int arrowTypeToUse=1;
 	
 	
 	
@@ -38,15 +42,13 @@ public class NethreciteBowItem extends ItemBow{
 
 		this.itemTier = tier;
 		
-		
-		
-		
 	}
 
 	@Override
 	 public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)
 	    {
-	        ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
+
+			ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
 	        MinecraftForge.EVENT_BUS.post(event);
 	        if (event.isCanceled())
 	        {
@@ -91,49 +93,106 @@ public class NethreciteBowItem extends ItemBow{
             {
                 f = 1.0F;
             }
-
-            NethreciteArrowEntity entityarrow = new NethreciteArrowEntity(p_77615_2_, p_77615_3_, f * 2.0F);
-
-            if (f == 1.0F)
+            
+            
+            if(arrowTypeToUse==1)
             {
-                entityarrow.setIsCritical(true);
+            	
+            	NethreciteArrowEntity entityarrow = new NethreciteArrowEntity(p_77615_2_, p_77615_3_, f * 2.0F);
+            
+            	if (f == 1.0F)
+            	{
+            		entityarrow.setIsCritical(true);
+            	}
+
+            	int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
+
+            	if (k > 0)
+            	{
+            		entityarrow.setDamage(entityarrow.getDamage() + (double)k * 0.5D + 0.5D);
+            	}
+
+            	int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
+
+            	if (l > 0)
+            	{
+            		entityarrow.setKnockbackStrength(l);
+            	}
+
+            	if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
+            	{
+            		entityarrow.setFire(100);
+            	}
+
+            	p_77615_1_.damageItem(1, p_77615_3_);
+            	p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+
+            	if (flag)
+            	{
+            		entityarrow.canBePickedUp = 2;
+            	}
+            	else
+            	{
+            		p_77615_3_.inventory.consumeInventoryItem(SiegeTech.nethreciteArrow);
+            	}
+
+            	if (!p_77615_2_.isRemote)
+            	{
+            		p_77615_2_.spawnEntityInWorld(entityarrow);
+            	}
+
             }
+            
 
-            int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
-
-            if (k > 0)
+            if(arrowTypeToUse==2)
             {
-                entityarrow.setDamage(entityarrow.getDamage() + (double)k * 0.5D + 0.5D);
-            }
+            	
+            	EntityArrow entityarrow = new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
+            	
+            	if (f == 1.0F)
+                {
+                    entityarrow.setIsCritical(true);
+                }
 
-            int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
+                int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
 
-            if (l > 0)
-            {
-                entityarrow.setKnockbackStrength(l);
-            }
+                if (k > 0)
+                {
+                    entityarrow.setDamage(entityarrow.getDamage() + (double)k * 0.5D + 0.5D);
+                }
 
-            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
-            {
-                entityarrow.setFire(100);
-            }
+                int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
 
-            p_77615_1_.damageItem(1, p_77615_3_);
-            p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                if (l > 0)
+                {
+                    entityarrow.setKnockbackStrength(l);
+                }
 
-            if (flag)
-            {
-                entityarrow.canBePickedUp = 2;
-            }
-            else
-            {
-                p_77615_3_.inventory.consumeInventoryItem(SiegeTech.nethreciteArrow);
-            }
+                if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
+                {
+                    entityarrow.setFire(100);
+                }
 
-            if (!p_77615_2_.isRemote)
-            {
-                p_77615_2_.spawnEntityInWorld(entityarrow);
+                p_77615_1_.damageItem(1, p_77615_3_);
+                p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+
+                if (flag)
+                {
+                    entityarrow.canBePickedUp = 2;
+                }
+                else
+                {
+                    p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
+                }
+
+                if (!p_77615_2_.isRemote)
+                {
+                    p_77615_2_.spawnEntityInWorld(entityarrow);
+                }
+
+            	
             }
+    
         }
     }
 
@@ -183,15 +242,50 @@ public class NethreciteBowItem extends ItemBow{
 	
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-    par3List.add("Tier: " + this.itemTier + " Bow" );
+    par3List.add("Tier: " + this.itemTier + " Bow with Flame 1. Shift+Leftclick to swtich mode." );
     }
     
     public void onUpdate(ItemStack itemstack, World par2World, Entity par3Entity, int par4, boolean par5)
     {
-    if(itemstack.isItemEnchanted() == false)
+    	if(itemstack.isItemEnchanted() == false)
+    	{
+    		itemstack.addEnchantment(Enchantment.flame, 1);
+    	}
+    	
+    	
+    	
+    }
+    
+    
+    
+    
+    @Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
     {
-    itemstack.addEnchantment(Enchantment.fireAspect, 1);
+
+    	World wld =entityLiving.worldObj;
+    	
+    	if(!wld.isRemote)
+    	{
+    		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+    		{
+    			switch(arrowTypeToUse)
+                {
+                case 1:	
+    				Minecraft.getMinecraft().thePlayer.sendChatMessage("Setting Arrow Mode to Normal Arrow.");
+    				this.arrowTypeToUse = 2;
+    				break;
+    			case 2:		
+    			Minecraft.getMinecraft().thePlayer.sendChatMessage("Setting Arrow Mode to Nethrecite Arrow.");
+    				this.arrowTypeToUse = 1;
+    				break;
+                }
+    			return true;
+    		}else{return false;}
+    	}else{return false;}
+	
     }
-    }
+    
+   
 	
 }
