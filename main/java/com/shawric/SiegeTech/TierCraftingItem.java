@@ -1,7 +1,10 @@
 package com.shawric.SiegeTech;
 
+import java.util.List;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -31,5 +34,13 @@ public class TierCraftingItem extends Item {
 		}
 		else{return false;}
 		}
+	
+	
+	
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+	{
+	par3List.add("Tier " + this.itemTier + " crafting component." );
+	}
+	
 	
 }

@@ -1,5 +1,7 @@
 package com.shawric.SiegeTech;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,7 +43,10 @@ public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, Enti
 return par1ItemStack;
 }
 
-
+public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+{
+par3List.add("Tier " + this.itemTier + " handheld explosive." );
+}
 
 
 

@@ -171,8 +171,8 @@ public class ShawcreteBlock extends Block {
 				currentHP = (int) Math.floor((maxHP*percentAdj));
 				
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("Max HP: " + maxHP);
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("Current Block HP: " + currentHP);
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("Max HP: " + maxHP);
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("Current Block HP: " + currentHP);
 				
 				//deal damage to that HP
 				newHP = (int) (currentHP-dmg);
@@ -184,7 +184,7 @@ public class ShawcreteBlock extends Block {
 				
 				float metaAdj = (float)newHP/(float)maxHP;
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("metaAdj: " + metaAdj);
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("metaAdj: " + metaAdj);
 				
 				float x = (metaAdj*15);
 				
@@ -197,7 +197,7 @@ public class ShawcreteBlock extends Block {
 				
 				//newMeta = (int)(metaAdj*15);
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("New Metadata for block is " + newMeta);
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("New Metadata for block is " + newMeta);
 				
 				if(newMeta > 0)
 				{
@@ -210,19 +210,19 @@ public class ShawcreteBlock extends Block {
 				}
 				else if(newMeta <=0 && newMeta >= (-15)) //if block receives so much damage that its HP is 0 or less, but greater than its negative  full HP turn it into cobble
 				{
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("Shawcrete degrades to cobblestone.");
+					//Minecraft.getMinecraft().thePlayer.sendChatMessage("Shawcrete degrades to cobblestone.");
 					
 					par1World.setBlock(blockX, blockY, blockZ, Blocks.cobblestone);
 					
 				}else{
 					/*if block receives so much damage that its  at negative max HP, do nothing. The block was utterly destroyed*/
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block ahniliated.");
+					//Minecraft.getMinecraft().thePlayer.sendChatMessage("Block ahniliated.");
 					par1World.setBlockToAir(blockX, blockY, blockZ);
 					}		
 			}else
 			{
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("ENTITY UNKNOWN, DAMAG DENIED " + exploder);
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("ENTITY UNKNOWN, DAMAG DENIED " + exploder);
 				//Not a valid explosion entity, replace the shawcrete block.
 				par1World.setBlock(blockX, blockY, blockZ, this);
 			}

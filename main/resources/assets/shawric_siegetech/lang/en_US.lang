@@ -1,9 +1,16 @@
 tile.basicShawcrete.name=Basic Shawcrete
 tile.improvedShawcrete.name= Improved Shawcrete
+tile.advancedShawcrete.name= Advanced Shawcrete
+tile.eliteShawcrete.name= Elite Shawcrete
 item.basicPandaNade.name=Basic PandaNade
 item.improvedPandaNade.name=Improved PandaNade
+item.advancedPandaNade.name=Advanced PandaNade
+item.elitePandaNade.name=Elite PandaNade
 tile.basicSeitersonicExplosive.name=Basic Seitersonic Explosive
-item.tierCraftingItemNethercite.name=Nethercite
+tile.improvedSeitersonicExplosive.name=Improved Seitersonic Explosive
+tile.advancedSeitersonicExplosive.name=Advanced Seitersonic Explosive
+tile.eliteSeitersonicExplosive.name=Elite Seitersonic Explosive
+item.tierCraftingItemNethrecite.name=Nethrecite
 item.tierCraftingItemEndrite.name=Endrite
 item.tierCraftingItemAstralium.name=Astralium
 itemGroup.tabSeigeTech=Siege Tech

@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "SiegeTech", name = "Siege Tech Mod", version = "0.7 MC_1.7.10")
+@Mod(modid = "SiegeTech", name = "Siege Tech Mod", version = "0.8.5 MC_1.7.10")
 
 public class SiegeTech {
 
@@ -42,7 +42,7 @@ public class SiegeTech {
 	public static Item advancedPandaNade;
 	public static Item elitePandaNade;
 	
-	public static Item tierCraftingItemNethercite;
+	public static Item tierCraftingItemNethrecite;
 	public static Item tierCraftingItemEndrite;
 	public static Item tierCraftingItemAstralium;
 	
@@ -83,7 +83,7 @@ public class SiegeTech {
 		elitePandaNade = new PandaNadeItem("elitePandaNade", 4);
 		
 	
-		tierCraftingItemNethercite = new TierCraftingItem("tierCraftingItemNethercite",2);
+		tierCraftingItemNethrecite = new TierCraftingItem("tierCraftingItemNethrecite",2);
 		tierCraftingItemEndrite = new TierCraftingItem("tierCraftingItemEndrite",3);
 		tierCraftingItemAstralium = new TierCraftingItem("tierCraftingItemAstralium",4);
 		
@@ -106,7 +106,7 @@ public class SiegeTech {
 		GameRegistry.registerItem(advancedPandaNade, modid + (advancedPandaNade.getUnlocalizedName().substring(5)));	
 		GameRegistry.registerItem(elitePandaNade, modid + (elitePandaNade.getUnlocalizedName().substring(5)));
 		
-		GameRegistry.registerItem(tierCraftingItemNethercite, modid + (tierCraftingItemNethercite.getUnlocalizedName().substring(5)));
+		GameRegistry.registerItem(tierCraftingItemNethrecite, modid + (tierCraftingItemNethrecite.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(tierCraftingItemEndrite, modid + (tierCraftingItemEndrite.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(tierCraftingItemAstralium, modid + (tierCraftingItemAstralium.getUnlocalizedName().substring(5)));
 				
@@ -131,12 +131,12 @@ public class SiegeTech {
 		ItemStack gravelStack = new ItemStack(Blocks.gravel);
 		ItemStack sandStack = new ItemStack(Blocks.sand);
 		ItemStack cobblestoneStack = new ItemStack(Blocks.cobblestone);
-		ItemStack basicShawcreteStack = new ItemStack(SiegeTech.basicShawcrete);
+		
 		ItemStack obsidianStack = new ItemStack(Blocks.obsidian);
 		ItemStack flintStack =new ItemStack(Items.flint);
 		ItemStack stringStack =new ItemStack(Items.string);
 		ItemStack tntStack = new ItemStack(Blocks.tnt);
-		ItemStack basicPandaNadeStack =new ItemStack(SiegeTech.basicPandaNade);
+		
 		ItemStack blazerodStack =new ItemStack(Items.blaze_rod);
 		ItemStack diamondStack = new ItemStack(Items.diamond);
 		ItemStack netherQuartzStack = new ItemStack(Items.quartz);
@@ -144,35 +144,47 @@ public class SiegeTech {
 		
 		ItemStack enderPearlStack = new ItemStack(Items.ender_pearl);
 		ItemStack endstoneStack = new ItemStack(Blocks.end_stone);
-		ItemStack nethreciteStack = new ItemStack(SiegeTech.tierCraftingItemNethercite);
-		ItemStack endriteStack = new ItemStack(SiegeTech.tierCraftingItemEndrite);
 		ItemStack netherstarStack = new ItemStack(Items.nether_star);
+		
+		ItemStack basicPandaNadeStack =new ItemStack(SiegeTech.basicPandaNade);
+		ItemStack improvedPandaNadeStack =new ItemStack(SiegeTech.improvedPandaNade);
+		ItemStack advancedPandaNadeStack =new ItemStack(SiegeTech.advancedPandaNade);
+		
+		ItemStack basicShawcreteStack = new ItemStack(SiegeTech.basicShawcrete);
+		ItemStack improvedShawcreteStack = new ItemStack(SiegeTech.improvedShawcrete);
+		ItemStack advancedShawcreteStack = new ItemStack(SiegeTech.advancedShawcrete);
+
+		ItemStack nethreciteStack = new ItemStack(SiegeTech.tierCraftingItemNethrecite);
+		ItemStack endriteStack = new ItemStack(SiegeTech.tierCraftingItemEndrite);
+		ItemStack astraliumStack = new ItemStack(SiegeTech.tierCraftingItemAstralium);
 		
 		//Tier Crafting Materials
 		//Nethercite
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemNethercite,8), new Object[] {"BON", "ODO", "BON", 'D', diamondStack, 'O', obsidianStack, 'B', blazerodStack, 'N', netherQuartzStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemNethrecite,8), new Object[] {"BON", "ODO", "BON", 'D', diamondStack, 'O', obsidianStack, 'B', blazerodStack, 'N', netherQuartzStack});
 		//Endrite
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemEndrite,8), new Object[] {"EOP", "ONO", "EOP", 'N', nethreciteStack, 'O', obsidianStack, 'E', endstoneStack, 'P', enderPearlStack});
 		//Astralium
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemAstralium,8), new Object[] {"NNN", "NSE", "EEE", 'N', nethreciteStack, 'E', endriteStack, 'S', netherstarStack});
 		
-		//recipe for basic shawcrete
+		//recipes for shawcrete
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicShawcrete,8), new Object[] {"XCY", "XCY", "XCY", 'X', gravelStack, 'C', cobblestoneStack, 'Y', sandStack});
-	   
-		//recipe for advanced shawcrete 
-		
-		System.out.println(basicShawcreteStack.toString());
-		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedShawcrete,8), new Object[] {"RRR", "RNR", "RRR", 'R', basicShawcreteStack, 'N', nethreciteStack});
-	   
-		//recipe for basic PandaNade
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedShawcrete,16), new Object[] {"RRR", "RNR", "RRR", 'R', basicShawcreteStack, 'N', nethreciteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedShawcrete,32), new Object[] {"RRR", "RER", "RRR", 'R', improvedShawcreteStack, 'E', endriteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.eliteShawcrete,64), new Object[] {"RRR", "RNR", "RRR", 'R', advancedShawcreteStack, 'N', astraliumStack});
+		   
+		//recipe for PandaNades
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicPandaNade,2), new Object[] {"FSF", "FTF", "FFF", 'T', tntStack, 'F', flintStack, 'S', stringStack});
-		
-		//recipe for advanced PandaNade
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedPandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', basicPandaNadeStack, 'O', obsidianStack, 'N', nethreciteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedPandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', improvedPandaNadeStack, 'O', obsidianStack, 'N', endriteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.elitePandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', advancedPandaNadeStack, 'O', obsidianStack, 'N', astraliumStack});
+		
+		
 		
 		//recipe for basic Seitersonciexplosive
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', redstoneBlockStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', nethreciteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', endriteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.eliteSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', astraliumStack});
 		
 		
 

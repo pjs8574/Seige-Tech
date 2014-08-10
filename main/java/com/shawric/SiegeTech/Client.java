@@ -23,7 +23,7 @@ RenderingRegistry.registerEntityRenderingHandler(entityClass, new RenderSnowball
 public void registerRenderExplosive(Class expEntityClass, Block blockRender)
 {		
 		
-RenderingRegistry.registerEntityRenderingHandler(expEntityClass, new RenderBasicSeitersonicExplosiveEntityPrimed(blockRender));
+RenderingRegistry.registerEntityRenderingHandler(expEntityClass, new RenderSeitersonicExplosiveEntityPrimed(blockRender));
 }
 
 

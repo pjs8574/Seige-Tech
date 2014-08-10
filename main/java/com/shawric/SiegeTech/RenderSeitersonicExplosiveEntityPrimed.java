@@ -18,13 +18,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBasicSeitersonicExplosiveEntityPrimed extends Render
+public class RenderSeitersonicExplosiveEntityPrimed extends Render
 {
     private RenderBlocks blockRenderer = new RenderBlocks();
     private static final String __OBFID = "CL_00001030";
     private Block blockToRender;
 
-    public RenderBasicSeitersonicExplosiveEntityPrimed(Block blockRender)
+    public RenderSeitersonicExplosiveEntityPrimed(Block blockRender)
     {
         this.shadowSize = 0.5F;   
         this.blockToRender =  blockRender;

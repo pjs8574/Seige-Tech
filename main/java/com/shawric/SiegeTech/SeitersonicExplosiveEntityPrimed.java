@@ -1,10 +1,14 @@
 package com.shawric.SiegeTech;
 
+import java.util.List;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -124,8 +128,9 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	switch(this.explosionDirection)
     	{
     	    case 2: 
-    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
-    	    int dirAdjustment = 0;
+    	    //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion NORTH");
+    	    
+    	    	int dirAdjustment = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {
     	    	this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ-dirAdjustment, this.tierAdjsutedExplosionPower, true);
@@ -197,4 +202,7 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
 		
 		return this.blockTier;
 	}
+	
+	
+	
 }
