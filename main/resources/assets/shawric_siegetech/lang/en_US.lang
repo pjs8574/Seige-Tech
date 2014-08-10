@@ -13,4 +13,6 @@ tile.eliteSeitersonicExplosive.name=Elite Seitersonic Explosive
 item.tierCraftingItemNethrecite.name=Nethrecite
 item.tierCraftingItemEndrite.name=Endrite
 item.tierCraftingItemAstralium.name=Astralium
+item.nethreciteBow.name=Nethrecite Infused Bow
+item.nethreciteArrow.name=Nethrecite Infused Arrow
 itemGroup.tabSeigeTech=Siege Tech

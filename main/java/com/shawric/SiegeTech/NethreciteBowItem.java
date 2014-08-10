@@ -1,5 +1,7 @@
 package com.shawric.SiegeTech;
 
+import java.util.List;
+
 import javax.swing.Icon;
 
 import cpw.mods.fml.relauncher.Side;
@@ -177,5 +179,10 @@ public class NethreciteBowItem extends ItemBow{
     }
 	
 	
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+    {
+    par3List.add("Tier: " + this.itemTier + " Bow" );
+    }
+    
 	
 }

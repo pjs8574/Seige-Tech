@@ -42,7 +42,7 @@ public class NethreciteArrowEntity extends Entity implements IProjectile{
     public Entity shootingEntity;
     private int ticksInGround;
     private int ticksInAir;
-    private double damage = 2.0D;
+    private double damage = 5.0D;
     /** The amount of knockback an arrow applies when it hits a mob. */
     private int knockbackStrength;
     private static final String __OBFID = "CL_00001715";

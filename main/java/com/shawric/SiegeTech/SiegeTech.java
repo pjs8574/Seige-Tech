@@ -146,6 +146,9 @@ public class SiegeTech {
 		ItemStack netherQuartzStack = new ItemStack(Items.quartz);
 		ItemStack redstoneBlockStack = new ItemStack(Blocks.redstone_block);
 		
+		ItemStack arrowStack =new ItemStack(Items.arrow);
+		ItemStack bowStack =new ItemStack(Items.bow);
+		
 		ItemStack enderPearlStack = new ItemStack(Items.ender_pearl);
 		ItemStack endstoneStack = new ItemStack(Blocks.end_stone);
 		ItemStack netherstarStack = new ItemStack(Items.nether_star);
@@ -184,11 +187,15 @@ public class SiegeTech {
 		
 		
 		
-		//recipe for basic Seitersonciexplosive
+		//recipe for Seitersonciexplosive
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.basicSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', redstoneBlockStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.improvedSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', nethreciteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', endriteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.eliteSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', astraliumStack});
+		
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.nethreciteArrow,1), new Object[] {"AAA", "ANA", "AAA", 'A', arrowStack, 'N', nethreciteStack});
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.nethreciteBow,1), new Object[] {" N ", "NBN", " N ", 'B', bowStack, 'N', nethreciteStack});
+		
 		
 		
 

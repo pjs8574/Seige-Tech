@@ -39,7 +39,7 @@ public class TierCraftingItem extends Item {
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
-	par3List.add("Tier " + this.itemTier + " crafting component." );
+	par3List.add("Tier: " + this.itemTier + " Crafting component" );
 	}
 	
 	

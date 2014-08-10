@@ -1,6 +1,10 @@
 package com.shawric.SiegeTech;
 
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class NethreciteArrowItem extends Item {
 
@@ -16,6 +20,9 @@ public class NethreciteArrowItem extends Item {
 		this.itemTier = tier;
 	}
 
-	
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+	{
+	par3List.add("Tier: " + this.itemTier + " Anti-Obsidian arrow." );
+	}
 	
 }
