@@ -29,12 +29,18 @@ public class SiegeTech {
 	
 	public static Block basicShawcrete;
 	public static Block improvedShawcrete;
+	public static Block advancedShawcrete;
+	public static Block eliteShawcrete;
 	
 	public static Block basicSeitersonicExplosive;
 	public static Block improvedSeitersonicExplosive;
+	public static Block advancedSeitersonicExplosive;
+	public static Block eliteSeitersonicExplosive;
 	
 	public static Item basicPandaNade;
 	public static Item improvedPandaNade;
+	public static Item advancedPandaNade;
+	public static Item elitePandaNade;
 	
 	public static Item tierCraftingItemNethercite;
 	public static Item tierCraftingItemEndrite;
@@ -42,22 +48,40 @@ public class SiegeTech {
 	
 	public static final int basicPandaNadeEntityId = 1337;
 	public static final int improvedPandaNadeEntityId = 1338;
-	public static final int basicSeitersonicExplosiveEntityPrimedId = 1339;
-	public static final int improvedSeitersonicExplosiveEntityPrimedId = 1340;
+	public static final int advancedPandaNadeEntityId = 1339;
+	public static final int elitePandaNadeEntityId = 1340;
+	
+	public static final int basicSeitersonicExplosiveEntityPrimedId = 1341;
+	public static final int improvedSeitersonicExplosiveEntityPrimedId = 1342;
+	public static final int advancedSeitersonicExplosiveEntityPrimedId = 1343;
+	public static final int eliteSeitersonicExplosiveEntityPrimedId = 1344;
+	
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 	
 		//Blocks
-		basicShawcrete = new ShawcreteBlock("basicShawcrete", 1);
-		improvedShawcrete = new ShawcreteBlock("improvedShawcrete", 2);
+		
+		//create blocks of shawcrete, takes string - Name, Into Tier, int Base HP
+		basicShawcrete = new ShawcreteBlock("basicShawcrete", 1, 15);
+		improvedShawcrete = new ShawcreteBlock("improvedShawcrete", 2, 30);
+		advancedShawcrete = new ShawcreteBlock("advancedShawcrete", 3, 60);
+		eliteShawcrete = new ShawcreteBlock("eliteShawcrete", 4, 90);
+		
+		
 		basicSeitersonicExplosive = new SeitersonicExplosiveBlock("basicSeitersonicExplosive", 1);
 		improvedSeitersonicExplosive = new SeitersonicExplosiveBlock("improvedSeitersonicExplosive", 2);
+		advancedSeitersonicExplosive = new SeitersonicExplosiveBlock("advancedSeitersonicExplosive", 3);
+		eliteSeitersonicExplosive = new SeitersonicExplosiveBlock("eliteSeitersonicExplosive", 4);
+		
 		
 		//items
 		basicPandaNade = new PandaNadeItem("basicPandaNade", 1);		
 		improvedPandaNade = new PandaNadeItem("improvedPandaNade", 2);
+		advancedPandaNade = new PandaNadeItem("advancedPandaNade", 3);
+		elitePandaNade = new PandaNadeItem("elitePandaNade", 4);
+		
 	
 		tierCraftingItemNethercite = new TierCraftingItem("tierCraftingItemNethercite",2);
 		tierCraftingItemEndrite = new TierCraftingItem("tierCraftingItemEndrite",3);
@@ -66,13 +90,22 @@ public class SiegeTech {
 		//Register the Blocks
 		GameRegistry.registerBlock(basicShawcrete, modid + (basicShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(improvedShawcrete, modid + (improvedShawcrete.getUnlocalizedName().substring(5)));
+		GameRegistry.registerBlock(advancedShawcrete, modid + (advancedShawcrete.getUnlocalizedName().substring(5)));
+		GameRegistry.registerBlock(eliteShawcrete, modid + (eliteShawcrete.getUnlocalizedName().substring(5)));
+		
 		GameRegistry.registerBlock(basicSeitersonicExplosive, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(improvedSeitersonicExplosive, modid + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)));
-				
+		GameRegistry.registerBlock(advancedSeitersonicExplosive, modid + (advancedSeitersonicExplosive.getUnlocalizedName().substring(5)));
+		GameRegistry.registerBlock(eliteSeitersonicExplosive, modid + (eliteSeitersonicExplosive.getUnlocalizedName().substring(5)));
+			
+		
+		
 		//Register the Items
 		GameRegistry.registerItem(basicPandaNade, modid + (basicPandaNade.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(improvedPandaNade, modid + (improvedPandaNade.getUnlocalizedName().substring(5)));
-				
+		GameRegistry.registerItem(advancedPandaNade, modid + (advancedPandaNade.getUnlocalizedName().substring(5)));	
+		GameRegistry.registerItem(elitePandaNade, modid + (elitePandaNade.getUnlocalizedName().substring(5)));
+		
 		GameRegistry.registerItem(tierCraftingItemNethercite, modid + (tierCraftingItemNethercite.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(tierCraftingItemEndrite, modid + (tierCraftingItemEndrite.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(tierCraftingItemAstralium, modid + (tierCraftingItemAstralium.getUnlocalizedName().substring(5)));
@@ -80,8 +113,14 @@ public class SiegeTech {
 		//register the Entitys
 		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(basicPandaNade.getUnlocalizedName().substring(5)) + "Entity", basicPandaNadeEntityId, this, 80, 3, true);
 		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(improvedPandaNade.getUnlocalizedName().substring(5)) + "Entity", improvedPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(advancedPandaNade.getUnlocalizedName().substring(5)) + "Entity", advancedPandaNadeEntityId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(elitePandaNade.getUnlocalizedName().substring(5)) + "Entity", elitePandaNadeEntityId, this, 80, 3, true);
+
+		
 		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", basicSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", improvedSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (advancedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", advancedSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
+		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (eliteSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", eliteSeitersonicExplosiveEntityPrimedId, this, 80, 3, true);
 		
 	}
 	
@@ -139,8 +178,15 @@ public class SiegeTech {
 
 		proxy.registerRenderGrenade(PandaNadeEntity.class, basicPandaNade);
 		proxy.registerRenderGrenade(PandaNadeEntity.class, improvedPandaNade);
+		proxy.registerRenderGrenade(PandaNadeEntity.class, advancedPandaNade);
+		proxy.registerRenderGrenade(PandaNadeEntity.class, elitePandaNade);
+		
 		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, basicSeitersonicExplosive);
 		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, improvedSeitersonicExplosive);
+		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, advancedSeitersonicExplosive);
+		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, eliteSeitersonicExplosive);
+		
+		
 		proxy.registerSounds();
 		
 	}

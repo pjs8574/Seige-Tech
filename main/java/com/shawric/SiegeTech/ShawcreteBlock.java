@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ShawcreteBlock extends Block {
 
 	
-	private int blockHP;
+	private int baseShawcreteHP;
 	private int blockTier;
 	
 	@SideOnly(Side.CLIENT)
@@ -29,12 +29,12 @@ public class ShawcreteBlock extends Block {
 	
 	boolean blockExploded;
 	
-	public ShawcreteBlock(String name, int tier) {
+	public ShawcreteBlock(String name, int tier, int baseHP) {
 		super(Material.rock);
 		this.setHardness(2);
 		this.setResistance(10);
 		this.setCreativeTab(SiegeTech.tabMyMod);
-		this.blockHP = 15;
+		this.baseShawcreteHP = baseHP;
 		
 		this.setBlockName(name);
 		this.blockTier = tier;
@@ -42,7 +42,8 @@ public class ShawcreteBlock extends Block {
 	@Override
 	 public void onBlockAdded(World world, int x, int y, int z)
 	    {
-	        	world.setBlockMetadataWithNotify(x, y, z, blockHP, 2);
+	        	//set the Meta to "max" hp which is a meta int of 15
+			world.setBlockMetadataWithNotify(x, y, z, 15, 2);
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("New block is places with HP of " + world.getBlockMetadata(x, y, z));
 	    }
 
@@ -105,8 +106,10 @@ public class ShawcreteBlock extends Block {
             	exploderTier = ((PandaNadeEntity) par5Explosion.exploder).getTier();
             	}
         	/*send info my checking method to see if the shawcrete block gets destroyed or not. 
-        	* pass in the world obhect, name of hte entity that cause the explosion, x y z of the block that was blown up, and the Metadata of that block
+        	* pass in the world object, name of the entity that cause the explosion, x y z of the block that was blown up, and the Metadata of that block
         	*/
+        	
+        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Passing meta" + par1World.getBlockMetadata(par2, par3, par4));
         	this.shawcreteExploded(par1World, explodeCause, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), exploderTier);
         
         }
@@ -120,7 +123,7 @@ public class ShawcreteBlock extends Block {
 	* pass in the world object, string of the  exploding entity, coordinates of the destroyed block X Y Z
 	*/
 	
-	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ, int HP, int exploderTier)
+	public void shawcreteExploded(World par1World, String exploder,int blockX, int blockY, int blockZ, int meta, int exploderTier)
     {
 
 		//list of valid exploders and the damage they do (In porcess of making it Minimum damage, which is then adjusted by tier+1)
@@ -145,45 +148,76 @@ public class ShawcreteBlock extends Block {
 				Random rand = new Random();
 				
 				int exploderMaxDmg = ((exploderTier+1)*(Integer)validExploderEntitysDamage.get(exploder));
-				
+				int tierDiff = Math.abs((this.blockTier+1)-(exploderTier+1));	
 				//Minimum damage is always the Tier + 1
-				int dmg = (rand.nextInt(exploderMaxDmg)+(exploderTier+1));
-
+				double dmg = (rand.nextInt(exploderMaxDmg)+(exploderTier+1));
+				// the difference in tier grants a damage bonus
+				
+				//tier difference is always a min of 1 for multiplication purposes.
+				if(tierDiff == 0){tierDiff=1;}
+				
+				dmg = dmg*tierDiff;
+				
 				Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage Dealt: " + dmg);
 				
-				//adjust HP for the Tier of the concrete
-				int tierAdjustedHP = (HP*(this.blockTier+1));
+				//find percentage of meta
+				float percentAdj = (float)meta/(float)15;
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("Tier Adjsuted HP: " + tierAdjustedHP);
+				//find max HP
+				int maxHP = ((this.blockTier+1)*baseShawcreteHP);
+
+				//adjust HP for the current meta percentage
+				int currentHP;
+				currentHP = (int) Math.floor((maxHP*percentAdj));
+				
+				
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("Max HP: " + maxHP);
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("Current Block HP: " + currentHP);
 				
 				//deal damage to that HP
-				newHP = (tierAdjustedHP-dmg);
+				newHP = (int) (currentHP-dmg);
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("Tier Adjsuted HP After Dmg: " + newHP);
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("HP After Dmg: " + newHP);
 				
 				//turn it back into metadata value, rounded down
-				double newHpDoub = newHP;
-				newHP = (int) Math.floor(newHpDoub/(this.blockTier+1));
+				int newMeta;
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("New Metadata for block is " + newHP);
+				float metaAdj = (float)newHP/(float)maxHP;
 				
-				if(newHP > 0)
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("metaAdj: " + metaAdj);
+				
+				float x = (metaAdj*15);
+				
+				if (x - Math.floor(x) >=0.5) { 
+					newMeta = (int) Math.ceil(x); 
+					//Minecraft.getMinecraft().thePlayer.sendChatMessage("Your attack appears ineffective against this tier of Shawcrete.");
+					}else{ 
+						newMeta = (int) Math.floor(x); 
+					} 
+				
+				//newMeta = (int)(metaAdj*15);
+				
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("New Metadata for block is " + newMeta);
+				
+				if(newMeta > 0)
 				{
 				
 				par1World.setBlock(blockX, blockY, blockZ, this);
-				par1World.setBlockMetadataWithNotify(blockX, blockY, blockZ, newHP, 2);
+				par1World.setBlockMetadataWithNotify(blockX, blockY, blockZ, newMeta, 2);
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("Block is still alive with HP of: " + par1World.getBlockMetadata(blockX, blockY, blockZ));
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("Block is still alive with Meta of: " + par1World.getBlockMetadata(blockX, blockY, blockZ));
+				
 				}
-				else if(newHP <=0 && newHP >= (-15)) //if block recives so much damage that its HP is 0 or less, but greater than its negative  full HP turn it into cobble
+				else if(newMeta <=0 && newMeta >= (-15)) //if block receives so much damage that its HP is 0 or less, but greater than its negative  full HP turn it into cobble
 				{
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block HP below zero, but not ahniliated, becomes cobble.");
+					Minecraft.getMinecraft().thePlayer.sendChatMessage("Shawcrete degrades to cobblestone.");
 					
 					par1World.setBlock(blockX, blockY, blockZ, Blocks.cobblestone);
 					
 				}else{
 					/*if block receives so much damage that its  at negative max HP, do nothing. The block was utterly destroyed*/
 					Minecraft.getMinecraft().thePlayer.sendChatMessage("Block ahniliated.");
+					par1World.setBlockToAir(blockX, blockY, blockZ);
 					}		
 			}else
 			{
