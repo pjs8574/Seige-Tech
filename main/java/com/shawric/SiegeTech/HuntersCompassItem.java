@@ -131,42 +131,58 @@ public class HuntersCompassItem extends Item{
 	      		
 	  if(closestTargetPlayer == null)
 	  {
-	    	if(!world1.isRemote)
+	    	if(world1.isRemote)
 	    	{
 	    		triggerPlayer.addChatMessage(new ChatComponentText("The eye simply stares at you."));
 	    	}
 		
-	  }else if(!closestTargetPlayer.getDisplayName().equalsIgnoreCase(huntingPlayer))
+	  }else
+	  {
+		  if(!closestTargetPlayer.getDisplayName().equalsIgnoreCase(huntingPlayer))
 	    	{
-	      		if(closestTargetPlayer.posX < triggerPlayer.posX)
-	      		{dirEW = " West"; }else{dirEW = " East";}
-	        
-	        
-	      		if(closestTargetPlayer.posZ < triggerPlayer.posZ)
-	      		{dirNS = " North";}else{dirNS = " South";}
-	        
-
-	      		int northSouthTolerance = (int) Math.abs(triggerPlayer.posZ-closestTargetPlayer.posZ);
-	      			if(northSouthTolerance<8)
-	      			{huntingMessage.append(dirNS);}
-         
-	      		int eastWestTolerance = (int) Math.abs(triggerPlayer.posX-closestTargetPlayer.posX);
-	      			if(eastWestTolerance<8)
-	      			{huntingMessage.append(dirEW);}
-	      			
-	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye looks to the" + huntingMessage.toString() + "."));
 	      		
+		  //int northSouthTolerance = (int) Math.abs(triggerPlayer.posZ-closestTargetPlayer.posZ);
+		  //int eastWestTolerance = (int) Math.abs(triggerPlayer.posX-closestTargetPlayer.posX);
+    		
+		  
+		  		if(closestTargetPlayer.posX < triggerPlayer.posX)
+	      		{
+		  				dirEW = " West"; 
+	      		}else{dirEW = " East";}
+	      		
+		  		if(closestTargetPlayer.posX == triggerPlayer.posX){dirEW ="";}
+
+	      		if(closestTargetPlayer.posZ < triggerPlayer.posZ)
+	      		{
+	      			dirNS = " North";
+	      		}else {dirNS = " South";}
+	      		
+	      		if(closestTargetPlayer.posZ == triggerPlayer.posZ){dirNS = "";}
+
+	      		
+	      			huntingMessage.append(dirNS);
+         
+	      			huntingMessage.append(dirEW);
+	      			
+	      			if(world1.isRemote)
+	    	    	{
+	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye looks to the" + huntingMessage.toString() + "."));
+	    	    	}
 			
-	    }else{
+	    	}else{
+	    			if(world1.isRemote)
+	    			{
+	    				Minecraft.getMinecraft().thePlayer.sendChatMessage("Somthing dun fucked");
+	    			}
+    	    	
+    	    	}
 	    	
-	    	
-	    		Minecraft.getMinecraft().thePlayer.sendChatMessage("Somthing dun fucked");
-	    	
-		}    
+	   
 	        return itemStk;
 	        
 	    }
-	    
+	return itemStk;
+	    }
 	
 	
 	
