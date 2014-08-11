@@ -34,9 +34,9 @@ Tolerence is 10
 Player is at (10,0)
 Target is at (-10,10)
 
-X absolute difference is 20. We know because its less that target is west of player. So the word "West" 
-  is included in the statemeent to the user of hecompass
-Z absolute different is 10, which is within tolerance.  WE know the target is south of the player, but,
+X absolute difference is 20, which is outside our tolerancedo 10 blocks. We know Target X is less than PLayer X, 
+  so target is west of player. So the word "West" is included in the statemeent to the user of the compass
+Z absolute difference is 10, which is within tolerance.  We know the target is south of the player, but,
   becuase its within the tolerance range, it is not included i teh message to teh user of the compass.
 
 Tell the using compass using PLayer which direction to go.
