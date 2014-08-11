@@ -49,30 +49,22 @@ if the Target player is within 36 blocks of the PLayer using the compass, they t
 
 package com.shawric.SiegeTech;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.Icon;
+import javax.sound.sampled.EnumControl.Type;
 
-import org.lwjgl.input.Keyboard;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBow;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import net.minecraft.world.WorldServer;
 
 public class HuntersCompassItem extends Item{
 	
@@ -94,72 +86,85 @@ public class HuntersCompassItem extends Item{
 	}
 	
 	@Override
-	 public ItemStack onItemRightClick(ItemStack itemStk, World world1, EntityPlayer triggerPLayer)
+	 public ItemStack onItemRightClick(ItemStack itemStk, World world1, EntityPlayer triggerPlayer)
 	    {
 	    
 	    
-	    String huntingPlayer = triggerPlayer.getName();
+	    String huntingPlayer = triggerPlayer.getDisplayName();
 	    
-	    int playerX = (int)triggerPLayer.x;
-	    int playerY = (int)triggerPLayer.y;
-	    int playerZ = (int)triggerPLayer.z;
+	    int playerX = (int)triggerPlayer.posX;
+	    int playerY = (int)triggerPlayer.posY;
+	    int playerZ = (int)triggerPlayer.posZ;
 	    
 	    String closestTargetName;
 	    
-	    EntityPlayer closestTargetPlayer;
-	    int closestPlayerDistence = 10000;
+	    //EntityPlayer closestTargetPlayer = world1.getClosestPlayerToEntity(triggerPlayer, 1000);
+	    EntityPlayer closestTargetPlayer = null;
 	    
-	    String DirNS;
-	    String DirEW;
-	    String huntingMessage;
-	    
-	    //get a list of players on the server
-	    List pList = minecraftServer().world1.getPlayerList();
-	    
-	    
-	    //iterate through the players
-	      for(int i=0; i<pList.length(); i++)
-	      {
+	    String dirNS;
+	    String dirEW;
+	    StringBuilder huntingMessage = new StringBuilder();
+	    int closestPlayerDistence = 1000;
+	    boolean alone = false;
 	      
-	      //parse the plist entry -- if its aplayer entityh then awesome
-	      EntityPlayer targetPlayer = pList(i);
-	      
-	      if(targetPlayer.getName().notEqual(huntingPlayer))
-	        {
-	          int targetX = (int)targetPlayer.x;
-	          int targetY = (int)targetPlayer.y;
-	          int targetZ = (int)targetPlayer.z;
+	      for (int i = 0; i < world1.playerEntities.size(); ++i)
+        	{
+	      		
+	    	  EntityPlayer targetPlayer = (EntityPlayer)world1.playerEntities.get(i);
+	    	  
+	      		if(!targetPlayer.getDisplayName().equals(huntingPlayer))
+	        	{
+	          		int targetX = (int)targetPlayer.posX;
+	          		int targetY = (int)targetPlayer.posY;
+	          		int targetZ = (int)targetPlayer.posZ;
 
-	          float pDistence = Math.Sqrt(Math.square(playerX-targetX)+Math.square(playerY-targetY)+Math.square(playerZ-targetZ));
+	          		float pDistence = (float) Math.sqrt(Math.pow((playerX-targetX),2)+Math.pow((playerY-targetY),2)+Math.pow((playerZ-targetZ),2));
 	      
-	            if(pDistence <= closestPlayerDistence)
-	            {
-	              closestTargetPlayer = targetPlayer;
-	              closestPlayerDistence = pDistence;
-	            }
-	        }
-	      
+	            	if(pDistence <= closestPlayerDistence)
+	            	{
+	              	closestTargetPlayer = targetPlayer;
+	              	closestPlayerDistence = (int) pDistence;
+	            	}
+	        		}
+	        	}
 	        
-	        if(closestTargetPlayer.x < triggerPlayer.x)
-	          {dirEW = " West"; }else{dirEW = " East"}
+	      		
+	  if(closestTargetPlayer == null)
+	  {
+	    	if(!world1.isRemote)
+	    	{
+	    		triggerPlayer.addChatMessage(new ChatComponentText("The eye simply stares at you."));
+	    	}
+		
+	  }else if(!closestTargetPlayer.getDisplayName().equalsIgnoreCase(huntingPlayer))
+	    	{
+	      		if(closestTargetPlayer.posX < triggerPlayer.posX)
+	      		{dirEW = " West"; }else{dirEW = " East";}
 	        
 	        
-	        if(closestTargetPlayer.z < triggerPlayer.z)
-	          {dirNS = " North";}else{dirNS = " South";}
+	      		if(closestTargetPlayer.posZ < triggerPlayer.posZ)
+	      		{dirNS = " North";}else{dirNS = " South";}
 	        
 
-          northSouthTolerance = abs(triggerPLayer.x-closestTargetPlayer.z)
-	        if(northSouthTolerance<8)
-	        {huntingMessage.append(dirNS);}
-	        eastWestTolerance = abs(triggerPLayer.x-closestTargetPlayer.x)
-	        if(eastWestTolerance<8)
-	        {huntingMessage.append(dirEW)}
+	      		int northSouthTolerance = (int) Math.abs(triggerPlayer.posZ-closestTargetPlayer.posZ);
+	      			if(northSouthTolerance<8)
+	      			{huntingMessage.append(dirNS);}
+         
+	      		int eastWestTolerance = (int) Math.abs(triggerPlayer.posX-closestTargetPlayer.posX);
+	      			if(eastWestTolerance<8)
+	      			{huntingMessage.append(dirEW);}
+	      			
+	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye looks to the" + huntingMessage.toString() + "."));
+	      		
+			
+	    }else{
+	    	
+	    	
+	    		Minecraft.getMinecraft().thePlayer.sendChatMessage("Somthing dun fucked");
+	    	
+		}    
+	        return itemStk;
 	        
-	        Minecraft.getMinecraft().thePlayer.sendChatMessage("The eye looks to the" + huntingMessage + ".");
-	        
-	      }
-	    
-	      
 	    }
 	    
 	

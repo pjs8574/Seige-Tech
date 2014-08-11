@@ -47,7 +47,7 @@ public class SiegeTech {
 	public static Item tierCraftingItemEndrite;
 	public static Item tierCraftingItemAstralium;
 	
-	
+	public static Item huntersCompass;
 
 	public static Item nethreciteArrow;
 	public static Item nethreciteBow;
@@ -80,10 +80,14 @@ public class SiegeTech {
 		
 		nethreciteArrow = new NethreciteArrowItem("nethreciteArrow", 2);
 		nethreciteBow = new NethreciteBowItem("nethreciteBow", 2);
+		
+		huntersCompass = new HuntersCompassItem("huntersCompass", 2);
 	
 		tierCraftingItemNethrecite = new TierCraftingItem("tierCraftingItemNethrecite",2);
 		tierCraftingItemEndrite = new TierCraftingItem("tierCraftingItemEndrite",3);
 		tierCraftingItemAstralium = new TierCraftingItem("tierCraftingItemAstralium",4);
+		
+		
 		
 		//Register the Blocks
 		GameRegistry.registerBlock(basicShawcrete, modid + (basicShawcrete.getUnlocalizedName().substring(5)));
@@ -106,6 +110,7 @@ public class SiegeTech {
 		
 		GameRegistry.registerItem(nethreciteArrow, modid + (nethreciteArrow.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(nethreciteBow, modid + (nethreciteBow.getUnlocalizedName().substring(5)));
+		GameRegistry.registerItem(huntersCompass, modid + (huntersCompass.getUnlocalizedName().substring(5)));
 		
 		
 		GameRegistry.registerItem(tierCraftingItemNethrecite, modid + (tierCraftingItemNethrecite.getUnlocalizedName().substring(5)));

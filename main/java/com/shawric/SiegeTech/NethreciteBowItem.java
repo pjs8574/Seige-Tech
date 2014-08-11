@@ -265,8 +265,9 @@ public class NethreciteBowItem extends ItemBow{
 
     	World wld =entityLiving.worldObj;
     	
-    	if(!wld.isRemote)
+    	if(wld.isRemote)
     	{
+    		
     		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
     		{
     			switch(arrowTypeToUse)
