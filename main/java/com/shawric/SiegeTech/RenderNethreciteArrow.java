@@ -10,8 +10,6 @@ import net.minecraft.world.World;
 
 import com.shawric.SiegeTech.NethreciteArrowEntity;
 
-
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
