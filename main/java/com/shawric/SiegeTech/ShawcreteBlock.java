@@ -130,11 +130,8 @@ public class ShawcreteBlock extends Block {
 		Hashtable validExploderEntitysDamage = new Hashtable();
 		validExploderEntitysDamage.put("EntityTNTPrimed", new Integer(10));
 		validExploderEntitysDamage.put("EntityCreeper", new Integer(15));
-		validExploderEntitysDamage.put("PandaNadeEntity", new Integer(5));
+		validExploderEntitysDamage.put("PandaNadeEntity", new Integer(7));
 		validExploderEntitysDamage.put("SeitersonicExplosiveEntityPrimed", new Integer(15));
-		validExploderEntitysDamage.put("ImprovedPandaNadeEntity", new Integer(10));
-		validExploderEntitysDamage.put("AdvancedPandaNadeEntity", new Integer(15));
-		validExploderEntitysDamage.put("ElitePandaNadeEntity", new Integer(20));
 		
 	
 		//server or no?

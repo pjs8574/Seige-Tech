@@ -50,7 +50,7 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         this.explosionDirection = explDir;
         
         this.blockTier = tier;
-
+        
         //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity!");
         
     }

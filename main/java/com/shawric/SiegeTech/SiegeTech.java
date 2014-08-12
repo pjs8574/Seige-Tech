@@ -152,6 +152,8 @@ public class SiegeTech {
 		ItemStack glowstoneBlockStack = new ItemStack(Blocks.glowstone);
 		ItemStack redstoneBlockStack = new ItemStack(Blocks.redstone_block);
 		
+		ItemStack enderEyeStack =new ItemStack(Items.ender_eye);
+		ItemStack compassStack =new ItemStack(Items.compass);
 		
 		ItemStack arrowStack =new ItemStack(Items.arrow);
 		ItemStack bowStack =new ItemStack(Items.bow);
@@ -192,6 +194,7 @@ public class SiegeTech {
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedPandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', improvedPandaNadeStack, 'O', obsidianStack, 'N', endriteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.elitePandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', advancedPandaNadeStack, 'O', obsidianStack, 'N', astraliumStack});
 		
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.huntersCompass,1), new Object[] {"NCN", "OEO", "NCN", 'E', enderEyeStack, 'O', obsidianStack, 'N', nethreciteStack, 'C', compassStack});
 		
 		
 		//recipe for Seitersonciexplosive

@@ -82,7 +82,7 @@ public class HuntersCompassItem extends Item{
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
-	par3List.add("Tier: " + this.itemTier + "The lidless eye seeks Players." );
+	par3List.add("Tier: " + this.itemTier + " The lidless eye seeks Players." );
 	}
 	
 	@Override
