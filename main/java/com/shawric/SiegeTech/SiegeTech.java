@@ -65,14 +65,14 @@ public class SiegeTech {
 		advancedShawcrete = new ShawcreteBlock("advancedShawcrete", 3, 60);
 		eliteShawcrete = new ShawcreteBlock("eliteShawcrete", 4, 90);
 		
-		
+		//Create Explosive blocks -- Name and Tier
 		basicSeitersonicExplosive = new SeitersonicExplosiveBlock("basicSeitersonicExplosive", 1);
 		improvedSeitersonicExplosive = new SeitersonicExplosiveBlock("improvedSeitersonicExplosive", 2);
 		advancedSeitersonicExplosive = new SeitersonicExplosiveBlock("advancedSeitersonicExplosive", 3);
 		eliteSeitersonicExplosive = new SeitersonicExplosiveBlock("eliteSeitersonicExplosive", 4);
 		
 		
-		//items
+		//Create Useable  Items -- Name and Tier
 		basicPandaNade = new PandaNadeItem("basicPandaNade", 1);		
 		improvedPandaNade = new PandaNadeItem("improvedPandaNade", 2);
 		advancedPandaNade = new PandaNadeItem("advancedPandaNade", 3);
@@ -83,6 +83,8 @@ public class SiegeTech {
 		
 		huntersCompass = new HuntersCompassItem("huntersCompass", 2);
 	
+	
+		//create Crafting Only items -- Name and Tier
 		tierCraftingItemNethrecite = new TierCraftingItem("tierCraftingItemNethrecite",2);
 		tierCraftingItemEndrite = new TierCraftingItem("tierCraftingItemEndrite",3);
 		tierCraftingItemAstralium = new TierCraftingItem("tierCraftingItemAstralium",4);
@@ -137,6 +139,7 @@ public class SiegeTech {
 	@EventHandler
 	public void Init(FMLInitializationEvent event){
 		
+		//Creating item stacks for recipe creations
 		ItemStack gravelStack = new ItemStack(Blocks.gravel);
 		ItemStack sandStack = new ItemStack(Blocks.sand);
 		ItemStack cobblestoneStack = new ItemStack(Blocks.cobblestone);
@@ -174,6 +177,8 @@ public class SiegeTech {
 		ItemStack endriteStack = new ItemStack(SiegeTech.tierCraftingItemEndrite);
 		ItemStack astraliumStack = new ItemStack(SiegeTech.tierCraftingItemAstralium);
 		
+		/* RECIPES */
+		
 		//Tier Crafting Materials
 		//Nethercite
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.tierCraftingItemNethrecite, 4), new Object[] {"GBN", "ODO", "GBN", 'D', diamondStack, 'O', obsidianStack, 'B', blazerodStack, 'N', netherQuartzStack, 'G', glowstoneBlockStack});
@@ -194,6 +199,7 @@ public class SiegeTech {
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedPandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', improvedPandaNadeStack, 'O', obsidianStack, 'N', endriteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.elitePandaNade,2), new Object[] {"POP", "PNP", "POP", 'P', advancedPandaNadeStack, 'O', obsidianStack, 'N', astraliumStack});
 		
+		//Hunter's Compass
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.huntersCompass,1), new Object[] {"NCN", "OEO", "NCN", 'E', enderEyeStack, 'O', obsidianStack, 'N', nethreciteStack, 'C', compassStack});
 		
 		
@@ -203,12 +209,14 @@ public class SiegeTech {
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.advancedSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', endriteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.eliteSeitersonicExplosive,1), new Object[] {"TOT", "ORO", "TOT", 'T', tntStack, 'O', obsidianStack, 'R', astraliumStack});
 		
+		
+		//Nethrecite Bow and Arrow
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.nethreciteArrow,1), new Object[] {"NNN", "NAN", "NNN", 'A', arrowStack, 'N', nethreciteStack});
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.nethreciteBow,1), new Object[] {" N ", "NBN", " N ", 'B', bowStack, 'N', nethreciteStack});
 		
 		
 		
-
+		//Render registration for entities
 		proxy.registerRenderGrenade(PandaNadeEntity.class, basicPandaNade);
 		proxy.registerRenderGrenade(PandaNadeEntity.class, improvedPandaNade);
 		proxy.registerRenderGrenade(PandaNadeEntity.class, advancedPandaNade);
@@ -226,6 +234,7 @@ public class SiegeTech {
 		
 	}
 
+	//used to generate a unique ID for all of my mod entities.
 	public int getUniqeEntID()
 	{
 		this.entIDCount++;
