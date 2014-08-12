@@ -94,12 +94,20 @@ public class NethreciteBowItem extends ItemBow{
                 f = 1.0F;
             }
             
-            
+            //determine which Arrow type to use
             if(arrowTypeToUse==1)
             {
             	
             	NethreciteArrowEntity entityarrow = new NethreciteArrowEntity(p_77615_2_, p_77615_3_, f * 2.0F);
             
+            	
+            }elseif(arrowTypeToUse==2)
+            {
+            	
+            	EntityArrow entityarrow = new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
+            }
+            
+            //determine arrow damage
             	if (f == 1.0F)
             	{
             		entityarrow.setIsCritical(true);
@@ -133,7 +141,19 @@ public class NethreciteBowItem extends ItemBow{
             	}
             	else
             	{
+            	//determione which arrow type is consumed	
+            		if(arrowTypeToUse==1)
+            		{
+            	
             		p_77615_3_.inventory.consumeInventoryItem(SiegeTech.nethreciteArrow);
+            		
+            		}elseif(arrowTypeToUse==2)
+            		{
+            	
+            		p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
+            		}
+            	
+            		
             	}
 
             	if (!p_77615_2_.isRemote)
@@ -144,54 +164,6 @@ public class NethreciteBowItem extends ItemBow{
             }
             
 
-            if(arrowTypeToUse==2)
-            {
-            	
-            	EntityArrow entityarrow = new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
-            	
-            	if (f == 1.0F)
-                {
-                    entityarrow.setIsCritical(true);
-                }
-
-                int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
-
-                if (k > 0)
-                {
-                    entityarrow.setDamage(entityarrow.getDamage() + (double)k * 0.5D + 0.5D);
-                }
-
-                int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
-
-                if (l > 0)
-                {
-                    entityarrow.setKnockbackStrength(l);
-                }
-
-                if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
-                {
-                    entityarrow.setFire(100);
-                }
-
-                p_77615_1_.damageItem(1, p_77615_3_);
-                p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-
-                if (flag)
-                {
-                    entityarrow.canBePickedUp = 2;
-                }
-                else
-                {
-                    p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
-                }
-
-                if (!p_77615_2_.isRemote)
-                {
-                    p_77615_2_.spawnEntityInWorld(entityarrow);
-                }
-
-            	
-            }
     
         }
     }
