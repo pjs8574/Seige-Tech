@@ -141,30 +141,39 @@ public class HuntersCompassItem extends Item{
 		  if(!closestTargetPlayer.getDisplayName().equalsIgnoreCase(huntingPlayer))
 	    	{
 	      		
-		  //int northSouthTolerance = (int) Math.abs(triggerPlayer.posZ-closestTargetPlayer.posZ);
-		  //int eastWestTolerance = (int) Math.abs(triggerPlayer.posX-closestTargetPlayer.posX);
-    		
+		  int northSouthTolerance = (int) Math.abs(triggerPlayer.posZ-closestTargetPlayer.posZ);
+		  int eastWestTolerance = (int) Math.abs(triggerPlayer.posX-closestTargetPlayer.posX);
+		  
+		
 		  
 		  		if(closestTargetPlayer.posX < triggerPlayer.posX)
 	      		{
 		  				dirEW = " West"; 
 	      		}else{dirEW = " East";}
 	      		
-		  		if(closestTargetPlayer.posX == triggerPlayer.posX){dirEW ="";}
+		  		if(eastWestTolerance < 4){dirEW ="";}
 
 	      		if(closestTargetPlayer.posZ < triggerPlayer.posZ)
 	      		{
 	      			dirNS = " North";
 	      		}else {dirNS = " South";}
 	      		
-	      		if(closestTargetPlayer.posZ == triggerPlayer.posZ){dirNS = "";}
+	      		if(northSouthTolerance < 4){dirNS = "";}
 
-	      		
-	      			huntingMessage.append(dirNS);
-         
-	      			huntingMessage.append(dirEW);
+	      		if(dirNS.equals("") && dirEW.equals(""))
+	      		{
 	      			
 	      			if(world1.isRemote)
+	    	    	{
+	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye spins around. Your enemy is close."));
+	    	    	}
+	      			
+	      		}else{
+	      			huntingMessage.append(dirNS);
+	      			huntingMessage.append(dirEW);
+	      		}
+	      			
+	      		if(world1.isRemote)
 	    	    	{
 	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye looks to the" + huntingMessage.toString() + "."));
 	    	    	}
@@ -181,7 +190,7 @@ public class HuntersCompassItem extends Item{
 	        return itemStk;
 	        
 	    }
-	return itemStk;
+	  	return itemStk;
 	    }
 	
 	
