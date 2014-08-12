@@ -190,6 +190,12 @@ public class HuntersCompassItem extends Item{
 	        return itemStk;
 	        
 	    }
+	  	
+	  	
+	  	
+	  	//compass takes damage
+	  	par1ItemStack.damageItem(1, par2EntityPlayer);
+	  	
 	  	return itemStk;
 	    }
 	
