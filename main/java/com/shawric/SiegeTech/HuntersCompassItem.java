@@ -77,6 +77,8 @@ public class HuntersCompassItem extends Item{
 		this.setCreativeTab(SiegeTech.tabMyMod);; //This Item will be in the Combat Creative Tab!
 		this.setTextureName(SiegeTech.modid + ":" + this.getUnlocalizedName().substring(5)); //The texture for this item is the Grenade!
 
+		this.setMaxStackSize(1);
+		
 		this.itemTier = tier;
 	}
 	
