@@ -40,6 +40,7 @@ public class NethreciteArrowEntity extends Entity implements IProjectile{
     public int arrowShake;
     /** The owner of this arrow. */
     public Entity shootingEntity;
+   
     private int ticksInGround;
     private int ticksInAir;
     private double damage = 5.0D;
@@ -54,9 +55,10 @@ public class NethreciteArrowEntity extends Entity implements IProjectile{
         this.setSize(0.5F, 0.5F);
     }
 
-    public NethreciteArrowEntity(World p_i1754_1_, double p_i1754_2_, double p_i1754_4_, double p_i1754_6_)
+    public NethreciteArrowEntity(World world1, double p_i1754_2_, double p_i1754_4_, double p_i1754_6_)
     {
-        super(p_i1754_1_);
+        super(world1);
+
         this.renderDistanceWeight = 10.0D;
         this.setSize(0.5F, 0.5F);
         this.setPosition(p_i1754_2_, p_i1754_4_, p_i1754_6_);

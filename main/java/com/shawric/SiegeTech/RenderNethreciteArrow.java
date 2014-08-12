@@ -28,15 +28,15 @@ public class RenderNethreciteArrow extends Render
      * (Render<T extends Entity) and this method has signature public void func_76986_a(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
-    public void doRender(NethreciteArrowEntity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
+    public void doRender(NethreciteArrowEntity nethArrowEnt, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
-        
-    	
-    	this.bindEntityTexture(p_76986_1_);
+        if(nethArrowEnt.worldObj.isRemote)
+        {
+    	this.bindEntityTexture(nethArrowEnt);
         GL11.glPushMatrix();
         GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
-        GL11.glRotatef(p_76986_1_.prevRotationYaw + (p_76986_1_.rotationYaw - p_76986_1_.prevRotationYaw) * p_76986_9_ - 90.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(p_76986_1_.prevRotationPitch + (p_76986_1_.rotationPitch - p_76986_1_.prevRotationPitch) * p_76986_9_, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(nethArrowEnt.prevRotationYaw + (nethArrowEnt.rotationYaw - nethArrowEnt.prevRotationYaw) * p_76986_9_ - 90.0F, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(nethArrowEnt.prevRotationPitch + (nethArrowEnt.rotationPitch - nethArrowEnt.prevRotationPitch) * p_76986_9_, 0.0F, 0.0F, 1.0F);
         Tessellator tessellator = Tessellator.instance;
         byte b0 = 0;
         float f2 = 0.0F;
@@ -49,7 +49,7 @@ public class RenderNethreciteArrow extends Render
         float f9 = (float)(10 + b0 * 10) / 32.0F;
         float f10 = 0.05625F;
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        float f11 = (float)p_76986_1_.arrowShake - p_76986_9_;
+        float f11 = (float)nethArrowEnt.arrowShake - p_76986_9_;
 
         if (f11 > 0.0F)
         {
@@ -90,6 +90,7 @@ public class RenderNethreciteArrow extends Render
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     	
+        }
     }
 
     /**
