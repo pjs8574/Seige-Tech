@@ -14,16 +14,20 @@ import net.minecraft.world.World;
 
 public class SeitersonicExplosiveEntityPrimed extends Entity
 {
-    /** How long the fuse is */
+    
+	public static final String[] explosiveIconNameArray = {"NOTEXTERR","basicSeitersonicExplosive", "improvedSeitersonicExplosive", "advancedSeitersonicExplosive","eliteSeitersonicExplosive"};
+	
+	/** How long the fuse is */
     public int fuse = 80;
     private EntityLivingBase explosivePlacedBy;
-    private static final String __OBFID = "CL_00001681";
+
     private int explosionDirection;  //KEY : 0 bottom, 1 top , 2 North. 3 South, 4 West ,5 East
     private float explosionPower;
     private int baseExplosionOffset = 3;
 	private static float baseExplosionPower = 1.75F;
 	private int blockTier;
 	float tierAdjsutedExplosionPower;
+	private String blockText;
     
     public SeitersonicExplosiveEntityPrimed(World world1)
     {
@@ -31,8 +35,10 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         this.preventEntitySpawning = true;
         this.setSize(0.98F, 0.98F);
         this.yOffset = this.height / 2.0F;
+       
     }
 
+    
     public SeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
     {
         this(wordl1);
@@ -50,8 +56,9 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         this.explosionDirection = explDir;
         
         this.blockTier = tier;
+        this.blockText = explosiveIconNameArray[tier];
         
-        //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity!");
+        Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity! TIER IS:" + this.blockTier);
         
     }
 
@@ -74,6 +81,23 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         return !this.isDead;
     }
 
+    
+    public int getTier()
+	{
+		return this.blockTier;
+	}
+	
+	public String getTextName() {
+		
+		System.out.println("TEXTURE TIER>>>>>>"+ this.getTier());
+		System.out.println("GETINIG TEXTURE NAME>>>>>>"+this.blockText);
+		return this.blockText;
+	}
+    
+    
+    
+    
+    
     /**
      * Called to update the entity's position/logic.
      */
@@ -109,6 +133,39 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
             this.worldObj.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
     }
+    
+    
+    /**
+     * (abstract) Protected helper method to write subclass entity data to NBT.
+     */
+    protected void writeEntityToNBT(NBTTagCompound tagCompound)
+    {
+    	tagCompound.setByte("Fuse", (byte)this.fuse);
+    }
+
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    protected void readEntityFromNBT(NBTTagCompound tagCompound)
+    {
+        this.fuse = tagCompound.getByte("Fuse");
+    }
+
+    @SideOnly(Side.CLIENT)
+    public float getShadowSize()
+    {
+        return 0.0F;
+    }
+
+    /**
+     * returns null or the entityliving it was placed or ignited by
+     */
+    public EntityLivingBase getExplosivePlacedBy()
+    {
+        return this.explosivePlacedBy;
+    }
+    
+    
 
     private void explode()
     {
@@ -119,6 +176,9 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	
     	//adjusting the number of explosions that will occur based on tier
     	int numberOfExplosions = (this.blockTier + 1);
+    	
+    	Minecraft.getMinecraft().thePlayer.sendChatMessage("Umber of explosions"+numberOfExplosions);
+    	System.out.println("Number of explosions>>>>>>"+ numberOfExplosions);
     	
     	//adjsuting the power of the explosive based upon Tier
     	tierAdjsutedExplosionPower = (this.baseExplosionPower * (this.blockTier+1));
@@ -167,42 +227,6 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	}
     }
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    protected void writeEntityToNBT(NBTTagCompound tagCompound)
-    {
-    	tagCompound.setByte("Fuse", (byte)this.fuse);
-    }
+   
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    protected void readEntityFromNBT(NBTTagCompound tagCompound)
-    {
-        this.fuse = tagCompound.getByte("Fuse");
-    }
-
-    @SideOnly(Side.CLIENT)
-    public float getShadowSize()
-    {
-        return 0.0F;
-    }
-
-    /**
-     * returns null or the entityliving it was placed or ignited by
-     */
-    public EntityLivingBase getExplosivePlacedBy()
-    {
-        return this.explosivePlacedBy;
-    }
-
-
-	public int getTier() {
-		
-		return this.blockTier;
-	}
-	
-	
-	
 }

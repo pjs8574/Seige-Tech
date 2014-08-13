@@ -20,14 +20,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderSeitersonicExplosiveEntityPrimed extends Render
 {
-    private RenderBlocks blockRenderer = new RenderBlocks();
+    
+	private static ResourceLocation texture;
+	
+	private RenderBlocks blockRenderer = new RenderBlocks();
     private static final String __OBFID = "CL_00001030";
     private Block blockToRender;
+    private int entityTier;
 
-    public RenderSeitersonicExplosiveEntityPrimed(Block blockRender)
+    public RenderSeitersonicExplosiveEntityPrimed(Block blockRender, int tier)
     {
         this.shadowSize = 0.5F;   
         this.blockToRender =  blockRender;
+
+        this.entityTier = tier;
     }
 
     /**
@@ -38,7 +44,8 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
      */
     public void doRender(SeitersonicExplosiveEntityPrimed entityToRender, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
-        GL11.glPushMatrix();
+    	
+    	GL11.glPushMatrix();
         GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
         float f2;
 
@@ -86,11 +93,15 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(SeitersonicExplosiveEntityPrimed p_110775_1_)
+    protected ResourceLocation getEntityTexture(SeitersonicExplosiveEntityPrimed explEnt)
     {
-        
     	//System.out.println("RESOURCE LOC FOR BSSE RENBDER: " + TextureMap.locationBlocksTexture);
-    	return TextureMap.locationBlocksTexture;
+    	
+    	texture = new ResourceLocation("shawric_siegetech:textures/entity/"+explEnt.getTextName()+".png");
+        
+    	//System.out.println("GETTING THIS ENT TEXTURE>>>>" + this.getEntityTexture((SeitersonicExplosiveEntityPrimed)explEnt));
+    	
+    	return this.texture;
     }
 
     /**
@@ -99,8 +110,8 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
     protected ResourceLocation getEntityTexture(Entity p_110775_1_)
     {
         
-    	System.out.println("GETTING THIS ENT TEXTURE>>>>" + this.getEntityTexture((SeitersonicExplosiveEntityPrimed)p_110775_1_));
-    	System.out.println("FOR THIS ENTITY>>>>" + p_110775_1_);
+    	//System.out.println("GETTING THIS ENT TEXTURE>>>>" + this.getEntityTexture((SeitersonicExplosiveEntityPrimed)p_110775_1_));
+    	//System.out.println("FOR THIS ENTITY>>>>" + p_110775_1_);
     	return this.getEntityTexture((SeitersonicExplosiveEntityPrimed)p_110775_1_);
     }
 

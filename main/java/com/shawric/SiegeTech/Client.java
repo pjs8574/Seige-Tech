@@ -14,15 +14,16 @@ public class Client extends Common
 public void registerRenderGrenade(Class entityClass, Item grenade)
 {		
 //OLD CODE - always renders a basic nade
-//RenderingRegistry.registerEntityRenderingHandler(PandaNadeEntity.class, new RenderSnowball(SeigeTech.basicPandaNade));			
+//RenderingRegistry.registerEntityRenderingHandler(PandaNadeEntity.class, new RenderSnowball(SeigeTech.basicPandaNade));
+	
 RenderingRegistry.registerEntityRenderingHandler(entityClass, new RenderSnowball(grenade));
 }
 
 @Override
-public void registerRenderExplosive(Class expEntityClass, Block blockRender)
+public void registerRenderExplosive(Class expEntityClass, Block blockRender, int tier)
 {		
 		
-RenderingRegistry.registerEntityRenderingHandler(expEntityClass, new RenderSeitersonicExplosiveEntityPrimed(blockRender));
+RenderingRegistry.registerEntityRenderingHandler(expEntityClass, new RenderSeitersonicExplosiveEntityPrimed(blockRender, tier));
 }
 
 public void registerRenderArrow(Class entityClass)

@@ -1,7 +1,10 @@
 package com.shawric.SiegeTech;
 
 
+import java.util.Map;
+
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -217,6 +220,9 @@ public class SiegeTech {
 		
 		
 		//Render registration for entities
+		
+	
+		
 		proxy.registerRenderGrenade(PandaNadeEntity.class, basicPandaNade);
 		proxy.registerRenderGrenade(PandaNadeEntity.class, improvedPandaNade);
 		proxy.registerRenderGrenade(PandaNadeEntity.class, advancedPandaNade);
@@ -224,16 +230,21 @@ public class SiegeTech {
 		
 		proxy.registerRenderArrow(NethreciteArrowEntity.class);
 		
-		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, basicSeitersonicExplosive);
-		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, improvedSeitersonicExplosive);
-		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, advancedSeitersonicExplosive);
-		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, eliteSeitersonicExplosive);
+		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, basicSeitersonicExplosive, 1);
+		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, improvedSeitersonicExplosive, 2);
+		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, advancedSeitersonicExplosive, 3);
+		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, eliteSeitersonicExplosive, 4);
 		
 		
 		proxy.registerSounds();
 		
 	}
 
+	
+	
+	
+	
+	
 	//used to generate a unique ID for all of my mod entities.
 	public int getUniqeEntID()
 	{
