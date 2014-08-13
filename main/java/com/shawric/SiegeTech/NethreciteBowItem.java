@@ -45,31 +45,76 @@ public class NethreciteBowItem extends ItemBow{
 	}
 
 	@Override
-	 public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)
+	 public ItemStack onItemRightClick(ItemStack itmStck, World wld1, EntityPlayer entyPlyr1)
 	    {
 
-			ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
+			ArrowNockEvent event = new ArrowNockEvent(entyPlyr1, itmStck);
 	        MinecraftForge.EVENT_BUS.post(event);
 	        if (event.isCanceled())
 	        {
 	            return event.result;
 	        }
 
-	        if (p_77659_3_.capabilities.isCreativeMode || p_77659_3_.inventory.hasItem(SiegeTech.nethreciteArrow))
+	        if (entyPlyr1.capabilities.isCreativeMode)
 	        {
-	            p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
+	        	entyPlyr1.setItemInUse(itmStck, this.getMaxItemUseDuration(itmStck));
+	        	
+	        }else 
+	        	{
+	        	
+	        		if (entyPlyr1.inventory.hasItem(SiegeTech.nethreciteArrow) && !entyPlyr1.inventory.hasItem(Items.arrow)) 
+	        			{
+	        			
+	        			if(wld1.isRemote)
+    			    	{
+	        				
+	        				if(this.arrowTypeToUse == 2){
+	        				Minecraft.getMinecraft().thePlayer.sendChatMessage("No Normal Arrows detected, Setting Arrow Mode to Nethrecite Arrow.");
+    					
+    					
+	        				this.arrowTypeToUse = 1;
+	        				}
+    			    	}
+    					
+    					entyPlyr1.setItemInUse(itmStck, this.getMaxItemUseDuration(itmStck));
+	        			
+	        			
+	        			}else 
+	        			{
+	        				if(entyPlyr1.inventory.hasItem(Items.arrow) && !entyPlyr1.inventory.hasItem(SiegeTech.nethreciteArrow))
+	        				{	
+	        					
+	        					if(wld1.isRemote)
+	        			    	{
+	        						
+	        						if(this.arrowTypeToUse == 1){
+	        							Minecraft.getMinecraft().thePlayer.sendChatMessage("No Nethrecite Arrows detected, Setting Arrow Mode to Normal Arrow.");
+	        							this.arrowTypeToUse = 2;
+	        						}
+	        			    	}
+	        					
+	        					entyPlyr1.setItemInUse(itmStck, this.getMaxItemUseDuration(itmStck));
+	        					
+	        					
+	        				}else{
+	        					if(entyPlyr1.inventory.hasItem(Items.arrow) && entyPlyr1.inventory.hasItem(SiegeTech.nethreciteArrow))
+	        						{
+	        						entyPlyr1.setItemInUse(itmStck, this.getMaxItemUseDuration(itmStck));}
+	        						}
+	        				
+	        		}
 	        }
 
-	        return p_77659_1_;
+	        return itmStck;
 	    }
 	
 	
 	@Override
-	public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_)
+	public void onPlayerStoppedUsing(ItemStack itmStck, World wrld1, EntityPlayer entPlyr, int p_77615_4_)
     {
-        int j = this.getMaxItemUseDuration(p_77615_1_) - p_77615_4_;
+        int j = this.getMaxItemUseDuration(itmStck) - p_77615_4_;
 
-        ArrowLooseEvent event = new ArrowLooseEvent(p_77615_3_, p_77615_1_, j);
+        ArrowLooseEvent event = new ArrowLooseEvent(entPlyr, itmStck, j);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.isCanceled())
         {
@@ -77,9 +122,9 @@ public class NethreciteBowItem extends ItemBow{
         }
         j = event.charge;
 
-        boolean flag = p_77615_3_.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
+        boolean flag = entPlyr.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itmStck) > 0;
 
-        if (flag || p_77615_3_.inventory.hasItem(SiegeTech.nethreciteArrow))
+        if (flag || entPlyr.inventory.hasItem(SiegeTech.nethreciteArrow) || entPlyr.inventory.hasItem(Items.arrow))
         {
             float f = (float)j / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
@@ -98,42 +143,35 @@ public class NethreciteBowItem extends ItemBow{
             if(arrowTypeToUse==1)
             {
             	
-            	NethreciteArrowEntity entityarrow = new NethreciteArrowEntity(p_77615_2_, p_77615_3_, f * 2.0F);
+            	NethreciteArrowEntity entityarrow = new NethreciteArrowEntity(wrld1, entPlyr, f * 2.0F).setShooter(entPlyr);
             
-            	
-            }elseif(arrowTypeToUse==2)
-            {
-            	
-            	EntityArrow entityarrow = new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
-            }
-            
-            //determine arrow damage
+            	//determine arrow damage
             	if (f == 1.0F)
             	{
             		entityarrow.setIsCritical(true);
             	}
 
-            	int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
+            	int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, itmStck);
 
             	if (k > 0)
             	{
             		entityarrow.setDamage(entityarrow.getDamage() + (double)k * 0.5D + 0.5D);
             	}
 
-            	int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
+            	int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, itmStck);
 
             	if (l > 0)
             	{
             		entityarrow.setKnockbackStrength(l);
             	}
 
-            	if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
+            	if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, itmStck) > 0)
             	{
             		entityarrow.setFire(100);
             	}
 
-            	p_77615_1_.damageItem(1, p_77615_3_);
-            	p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            	itmStck.damageItem(1, entPlyr);
+            	wrld1.playSoundAtEntity(entPlyr, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
             	if (flag)
             	{
@@ -141,32 +179,98 @@ public class NethreciteBowItem extends ItemBow{
             	}
             	else
             	{
-            	//determione which arrow type is consumed	
             		if(arrowTypeToUse==1)
             		{
             	
-            		p_77615_3_.inventory.consumeInventoryItem(SiegeTech.nethreciteArrow);
+            		entPlyr.inventory.consumeInventoryItem(SiegeTech.nethreciteArrow);
             		
-            		}elseif(arrowTypeToUse==2)
+            		}else if(arrowTypeToUse==2)
             		{
             	
-            		p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
+            		entPlyr.inventory.consumeInventoryItem(Items.arrow);
             		}
             	
-            		
             	}
 
-            	if (!p_77615_2_.isRemote)
+            	if (!wrld1.isRemote)
             	{
-            		p_77615_2_.spawnEntityInWorld(entityarrow);
+            		wrld1.spawnEntityInWorld(entityarrow);
+            	}
+            	
+            	
+            	
+            	
+            	
+            	
+            }else{
+            	if(arrowTypeToUse==2)
+            	{
+            	
+            	EntityArrow entityarrow = new EntityArrow(wrld1, entPlyr, f * 2.0F);
+            	
+            	
+            	//determine arrow damage
+            	if (f == 1.0F)
+            	{
+            		entityarrow.setIsCritical(true);
             	}
 
-            }
-            
+            	int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, itmStck);
 
+            	if (k > 0)
+            	{
+            		entityarrow.setDamage(entityarrow.getDamage() + (double)k * 0.5D + 0.5D);
+            	}
+
+            	int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, itmStck);
+
+            	if (l > 0)
+            	{
+            		entityarrow.setKnockbackStrength(l);
+            	}
+
+            	if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, itmStck) > 0)
+            	{
+            		entityarrow.setFire(100);
+            	}
+
+            	itmStck.damageItem(1, entPlyr);
+            	wrld1.playSoundAtEntity(entPlyr, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+
+            	if (flag)
+            	{
+            		entityarrow.canBePickedUp = 2;
+            	}
+            	else
+            	{
+            	//Determine which arrow type is consumed	
+            		if(arrowTypeToUse==1)
+            		{
+            	
+            		entPlyr.inventory.consumeInventoryItem(SiegeTech.nethreciteArrow);
+            		
+            		}else if(arrowTypeToUse==2)
+            		{
+            	
+            		entPlyr.inventory.consumeInventoryItem(Items.arrow);
+            		}
+            	}
+
+            	if(!wrld1.isRemote)
+            	{
+            		wrld1.spawnEntityInWorld(entityarrow);
+            	}
+            	}
+            }
+        }	
+            	
+            	
+            
+            
+            
     
         }
-    }
+    
 
 	
 	

@@ -125,7 +125,7 @@ public class SiegeTech {
 		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(advancedPandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(elitePandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 
-		EntityRegistry.registerModEntity(NethreciteArrowEntity.class, modid + "." + (nethreciteArrow.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
+		EntityRegistry.registerModEntity(NethreciteArrowEntity.class, modid + "." + (nethreciteArrow.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 1, true);
 		
 		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 		EntityRegistry.registerModEntity(SeitersonicExplosiveEntityPrimed.class, modid + "." + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);

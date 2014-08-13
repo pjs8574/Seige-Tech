@@ -79,6 +79,8 @@ public class HuntersCompassItem extends Item{
 
 		this.setMaxStackSize(1);
 		
+		this.setMaxDamage(8);
+		
 		this.itemTier = tier;
 	}
 	
@@ -196,7 +198,7 @@ public class HuntersCompassItem extends Item{
 	  	
 	  	
 	  	//compass takes damage
-	  	par1ItemStack.damageItem(1, par2EntityPlayer);
+	  itemStk.damageItem(1, triggerPlayer);
 	  	
 	  	return itemStk;
 	    }

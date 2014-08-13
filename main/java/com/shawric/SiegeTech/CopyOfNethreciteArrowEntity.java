@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
+public class CopyOfNethreciteArrowEntity extends Entity implements IProjectile{
 
 	private int field_145791_d = -1;
     private int field_145792_e = -1;
@@ -47,16 +47,15 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
     /** The amount of knockback an arrow applies when it hits a mob. */
     private int knockbackStrength;
     private static final String __OBFID = "CL_00001715";
-	private static final int SHOOTER_DATAWATCHER_INDEX = 30;
 
-    public NethreciteArrowEntity(World p_i1753_1_)
+    public CopyOfNethreciteArrowEntity(World p_i1753_1_)
     {
         super(p_i1753_1_);
         this.renderDistanceWeight = 10.0D;
         this.setSize(0.5F, 0.5F);
     }
 
-    public NethreciteArrowEntity(World world1, double p_i1754_2_, double p_i1754_4_, double p_i1754_6_)
+    public CopyOfNethreciteArrowEntity(World world1, double p_i1754_2_, double p_i1754_4_, double p_i1754_6_)
     {
         super(world1);
 
@@ -66,7 +65,7 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
         this.yOffset = 0.0F;
     }
 
-    public NethreciteArrowEntity(World p_i1755_1_, EntityLivingBase p_i1755_2_, EntityLivingBase p_i1755_3_, float p_i1755_4_, float p_i1755_5_)
+    public CopyOfNethreciteArrowEntity(World p_i1755_1_, EntityLivingBase p_i1755_2_, EntityLivingBase p_i1755_3_, float p_i1755_4_, float p_i1755_5_)
     {
         super(p_i1755_1_);
         this.renderDistanceWeight = 10.0D;
@@ -96,7 +95,7 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
         }
     }
 
-    public NethreciteArrowEntity(World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_)
+    public CopyOfNethreciteArrowEntity(World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_)
     {
         super(p_i1756_1_);
         this.renderDistanceWeight = 10.0D;
@@ -123,7 +122,6 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
     protected void entityInit()
     {
         this.dataWatcher.addObject(16, Byte.valueOf((byte)0));
-        this.dataWatcher.addObject(SHOOTER_DATAWATCHER_INDEX, "");
     }
 
     /**
@@ -188,7 +186,7 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
      */
     public void onUpdate()
     {
-    	super.onEntityUpdate();
+        super.onUpdate();
 
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
         {
@@ -279,7 +277,7 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
             {
                 Entity entity1 = (Entity)list.get(i);
 
-                if (entity1.canBeCollidedWith() && (entity1 != this.getShooter() || this.ticksInAir >= 5))
+                if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5))
                 {
                     f1 = 0.3F;
                     AxisAlignedBB axisalignedbb1 = entity1.boundingBox.expand((double)f1, (double)f1, (double)f1);
@@ -307,7 +305,7 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
             {
                 EntityPlayer entityplayer = (EntityPlayer)movingobjectposition.entityHit;
 
-                if (entityplayer.capabilities.disableDamage || this.getShooter() instanceof EntityPlayer && !((EntityPlayer)this.getShooter()).canAttackPlayer(entityplayer))
+                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer && !((EntityPlayer)this.shootingEntity).canAttackPlayer(entityplayer))
                 {
                     movingobjectposition = null;
                 }
@@ -330,13 +328,13 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
 
                     DamageSource damagesource = null;
 
-                    if (this.getShooter() == null)
+                    if (this.shootingEntity == null)
                     {
                         damagesource = DamageSource.causeThrownDamage(this, this);
                     }
                     else
                     {
-                        damagesource = DamageSource.causeThrownDamage(this, this.getShooter());
+                        damagesource = DamageSource.causeThrownDamage(this, this.shootingEntity);
                     }
 
                     if (this.isBurning() && !(movingobjectposition.entityHit instanceof EntityEnderman))
@@ -365,15 +363,15 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
                                 }
                             }
 
-                            if (this.getShooter() != null && this.getShooter() instanceof EntityLivingBase)
+                            if (this.shootingEntity != null && this.shootingEntity instanceof EntityLivingBase)
                             {
-                                EnchantmentHelper.func_151384_a(entitylivingbase, this.getShooter());
-                                EnchantmentHelper.func_151385_b((EntityLivingBase)this.getShooter(), entitylivingbase);
+                                EnchantmentHelper.func_151384_a(entitylivingbase, this.shootingEntity);
+                                EnchantmentHelper.func_151385_b((EntityLivingBase)this.shootingEntity, entitylivingbase);
                             }
 
-                            if (this.shootingEntity != null && movingobjectposition.entityHit != this.getShooter() && movingobjectposition.entityHit instanceof EntityPlayer && this.getShooter() instanceof EntityPlayerMP)
+                            if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP)
                             {
-                                ((EntityPlayerMP)this.getShooter()).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
+                                ((EntityPlayerMP)this.shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                             }
                         }
                         
@@ -621,28 +619,5 @@ public class NethreciteArrowEntity extends EntityArrow implements IProjectile{
         byte b0 = this.dataWatcher.getWatchableObjectByte(16);
         return (b0 & 1) != 0;
     }
- 
-    
-    
-    
-    /**
-     * Returns the shooter of this arrow or null if none was available
-     */
-    public Entity getShooter() {
-    	String name = dataWatcher.getWatchableObjectString(SHOOTER_DATAWATCHER_INDEX);
-    	return (name.equals("") ? shootingEntity : worldObj.getPlayerEntityByName(name));
-    }
-    	
-    /**
-     * Used to update the datawatcher shooting entity object
-     */
-    public NethreciteArrowEntity setShooter(EntityPlayer player) {
-    	dataWatcher.updateObject(SHOOTER_DATAWATCHER_INDEX, player != null ? player.getDisplayName() : "");
-    	return this;
-    }
-    
-    
-    
-    
     
 }
