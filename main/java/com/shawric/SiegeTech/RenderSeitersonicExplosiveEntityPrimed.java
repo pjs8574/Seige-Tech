@@ -72,8 +72,8 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
         f2 = (1.0F - ((float)entityToRender.fuse - p_76986_9_ + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(entityToRender);
        
-       String entName = entityToRender.toString();
-       //System.out.println("ENTITY INFOO>>>>>"+entName);
+       int entID = entityToRender.getEntityId();
+       System.out.println("ENTITY ID>>>>>"+entID);
        System.out.println("ENTITY TIER>>>>>"+entityToRender.getTier());
       
        
@@ -104,11 +104,8 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
     {
     	//System.out.println("RESOURCE LOC FOR BSSE RENBDER: " + TextureMap.locationBlocksTexture);
     	
-    	texture = new ResourceLocation("shawric_siegetech:textures/entity/"+explEnt.getTextName()+".png");
-        
-    	//System.out.println("GETTING THIS ENT TEXTURE>>>>" + this.getEntityTexture((SeitersonicExplosiveEntityPrimed)explEnt));
     	
-    	return this.texture;
+    	return TextureMap.locationBlocksTexture;
     }
 
     /**
