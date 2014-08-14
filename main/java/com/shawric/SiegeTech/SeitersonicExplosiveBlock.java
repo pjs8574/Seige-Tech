@@ -207,7 +207,10 @@ public class SeitersonicExplosiveBlock extends Block{
             		//Minecraft.getMinecraft().thePlayer.sendChatMessage("EXPLOSIVE ACTIVATED META IS: " + world1.getBlockMetadata(x, y, z));
             		
             	SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
-                world1.spawnEntityInWorld(entitytntprimed);
+                
+            	entitytntprimed.setTier(this.blockTier);
+            	
+            	world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 }
         }
@@ -223,10 +226,13 @@ public class SeitersonicExplosiveBlock extends Block{
     		
             	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadata is: " + world1.getBlockMetadata(x, y, z));
             	
-    		RenderSeitersonicExplosiveEntityPrimed.setBlockTier(this.blockTier);
+    	
     		
     			SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), Expl.getExplosivePlacedBy(), world1.getBlockMetadata(x, y, z) , this.blockTier);
-                world1.spawnEntityInWorld(entitytntprimed);
+                
+    			entitytntprimed.setTier(this.blockTier);
+    			
+    			world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 world1.setBlockToAir(x, y, z);
          
@@ -244,9 +250,6 @@ public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 
 public int getBlockTier()
 {
-	
-	
-	
 	
 	return this.blockTier;
 }

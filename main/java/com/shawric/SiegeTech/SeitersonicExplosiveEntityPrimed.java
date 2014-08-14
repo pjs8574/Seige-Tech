@@ -82,10 +82,6 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     }
 
     
-    public int getTier()
-	{
-		return this.blockTier;
-	}
 	
 	public String getTextName() {
 		
@@ -227,6 +223,17 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	}
     }
 
-   
+    public void setTier(int i)
+    {
+    	this.blockTier = i;
+    	
+    }
+    
+    
+    public int getTier()
+    {
+    	return this.blockTier;
+    	
+    }
 
 }

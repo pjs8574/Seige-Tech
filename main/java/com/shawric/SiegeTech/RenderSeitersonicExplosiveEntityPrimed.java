@@ -71,16 +71,14 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
 
         f2 = (1.0F - ((float)entityToRender.fuse - p_76986_9_ + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(entityToRender);
-<<<<<<< HEAD
-        
+       
        String entName = entityToRender.toString();
        //System.out.println("ENTITY INFOO>>>>>"+entName);
-       System.out.println("ENTITY TIER>>>>>"+this.entityTier);
+       System.out.println("ENTITY TIER>>>>>"+entityToRender.getTier());
       
-        this.blockRenderer.renderBlockAsItem(SiegeTech.getSSEBlockToRender(this.entityTier), 0, entityToRender.getBrightness(p_76986_9_));
-=======
+       
         this.blockRenderer.renderBlockAsItem(this.blockToRender, 0, entityToRender.getBrightness(p_76986_9_));
->>>>>>> parent of 061e125... isaddghfljsgaflagsflgaslfjhsdf
+
 
         if (entityToRender.fuse / 5 % 2 == 0)
         {
@@ -134,15 +132,5 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
     {
         this.doRender((SeitersonicExplosiveEntityPrimed)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
-<<<<<<< HEAD
-    
-    public static void setBlockTier(int i)
-    {
-    	entityTier=i;
-    }
-    
-    
-    
-=======
->>>>>>> parent of 061e125... isaddghfljsgaflagsflgaslfjhsdf
+
 }
