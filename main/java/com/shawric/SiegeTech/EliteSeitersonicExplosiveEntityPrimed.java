@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class SeitersonicExplosiveEntityPrimed extends Entity
+public class EliteSeitersonicExplosiveEntityPrimed extends Entity
 {
     
 	
@@ -29,8 +29,7 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
 	private String blockText;
     
 
-	
-    public SeitersonicExplosiveEntityPrimed(World world1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
+    public EliteSeitersonicExplosiveEntityPrimed(World world1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
     {
     	this(world1);
 
@@ -57,8 +56,8 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         
     }
 
-	
-    public SeitersonicExplosiveEntityPrimed(World world1)
+    
+    public EliteSeitersonicExplosiveEntityPrimed(World world1)
     {
         super(world1);
         this.preventEntitySpawning = true;
@@ -234,5 +233,6 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	}
     }
 
+   
 
 }

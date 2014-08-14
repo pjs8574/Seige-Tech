@@ -20,14 +20,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderSeitersonicExplosiveEntityPrimed extends Render
 {
-    
-	private static ResourceLocation texture;
-	
+
 	private RenderBlocks blockRenderer = new RenderBlocks();
     private static final String __OBFID = "CL_00001030";
     private Block blockToRender;
     private int entityTier;
 
+    
+    
     public RenderSeitersonicExplosiveEntityPrimed(Block blockRender, int tier)
     {
         this.shadowSize = 0.5F;   
@@ -42,8 +42,11 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
      * (Render<T extends Entity) and this method has signature public void func_76986_a(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
+    
+  
     public void doRender(SeitersonicExplosiveEntityPrimed entityToRender, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
+    	
     	
     	GL11.glPushMatrix();
         GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
@@ -71,7 +74,28 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
 
         f2 = (1.0F - ((float)entityToRender.fuse - p_76986_9_ + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(entityToRender);
-        this.blockRenderer.renderBlockAsItem(this.blockToRender, 0, entityToRender.getBrightness(p_76986_9_));
+        
+       String entName = entityToRender.toString();
+       System.out.println("ENTITY INFOO>>>>>"+entName);
+       
+       if(entName.contains("basic"))
+       {
+    	   this.entityTier=1;
+       }
+        
+       if(entName.contains("improved"))
+       {
+    	   this.entityTier=2;
+       }
+       if(entName.contains("advanced"))
+       {
+    	   this.entityTier=3;
+       }
+       if(entName.contains("elite"))
+       {
+    	   this.entityTier=4;
+       }
+        this.blockRenderer.renderBlockAsItem(SiegeTech.getSSEBlockToRender(this.entityTier), 0, entityToRender.getBrightness(p_76986_9_));
 
         if (entityToRender.fuse / 5 % 2 == 0)
         {
@@ -95,13 +119,7 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
      */
     protected ResourceLocation getEntityTexture(SeitersonicExplosiveEntityPrimed explEnt)
     {
-    	//System.out.println("RESOURCE LOC FOR BSSE RENBDER: " + TextureMap.locationBlocksTexture);
-    	
-    	texture = new ResourceLocation("shawric_siegetech:textures/entity/"+explEnt.getTextName()+".png");
-        
-    	//System.out.println("GETTING THIS ENT TEXTURE>>>>" + this.getEntityTexture((SeitersonicExplosiveEntityPrimed)explEnt));
-    	
-    	return this.texture;
+    	 return TextureMap.locationBlocksTexture;
     }
 
     /**
@@ -125,4 +143,8 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
     {
         this.doRender((SeitersonicExplosiveEntityPrimed)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
+    
+    
+    
+    
 }
