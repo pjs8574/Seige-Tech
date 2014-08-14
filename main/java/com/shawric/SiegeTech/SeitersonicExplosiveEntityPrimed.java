@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 public class SeitersonicExplosiveEntityPrimed extends Entity
 {
     
+	public static final String[] explosiveIconNameArray = {"NOTEXTERR","basicSeitersonicExplosive", "improvedSeitersonicExplosive", "advancedSeitersonicExplosive","eliteSeitersonicExplosive"};
 	
 	/** How long the fuse is */
     public int fuse = 80;
@@ -28,12 +29,19 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
 	float tierAdjsutedExplosionPower;
 	private String blockText;
     
-
-	
-    public SeitersonicExplosiveEntityPrimed(World world1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
+    public SeitersonicExplosiveEntityPrimed(World world1)
     {
-    	this(world1);
+        super(world1);
+        this.preventEntitySpawning = true;
+        this.setSize(0.98F, 0.98F);
+        this.yOffset = this.height / 2.0F;
+       
+    }
 
+    
+    public SeitersonicExplosiveEntityPrimed(World wordl1, double x, double y, double z, EntityLivingBase placingEntity, int explDir, int tier)
+    {
+        this(wordl1);
         this.setPosition(x, y, z);
         float f = (float)(Math.random() * Math.PI * 2.0D);
         this.motionX = (double)(-((float)Math.sin((double)f)) * 0.02F);
@@ -48,27 +56,12 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         this.explosionDirection = explDir;
         
         this.blockTier = tier;
-        
-        
-        
-        
+        this.blockText = explosiveIconNameArray[tier];
         
         Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity! TIER IS:" + this.blockTier);
         
     }
 
-	
-    public SeitersonicExplosiveEntityPrimed(World world1)
-    {
-        super(world1);
-        this.preventEntitySpawning = true;
-        this.setSize(0.98F, 0.98F);
-        this.yOffset = this.height / 2.0F;
-        Minecraft.getMinecraft().thePlayer.sendChatMessage("PTHER CONT HIT");
-        
-    }
-    
-    
     protected void entityInit() {}
 
     /**
@@ -234,5 +227,6 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	}
     }
 
+   
 
 }

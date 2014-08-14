@@ -205,40 +205,10 @@ public class SeitersonicExplosiveBlock extends Block{
             	if (meta == 1)
                 {
             		//Minecraft.getMinecraft().thePlayer.sendChatMessage("EXPLOSIVE ACTIVATED META IS: " + world1.getBlockMetadata(x, y, z));
-
-            		switch(this.blockTier)
-            		{
-            		case 1:
-
-            			BasicSeitersonicExplosiveEntityPrimed entitytntprimed1 = new BasicSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
-                        world1.spawnEntityInWorld(entitytntprimed1);
-                        world1.playSoundAtEntity(entitytntprimed1, "game.tnt.primed", 1.0F, 1.0F);
-            		break;
-            		case 2:
-            			
-            			ImprovedSeitersonicExplosiveEntityPrimed entitytntprimed2 = new ImprovedSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
-                        world1.spawnEntityInWorld(entitytntprimed2);
-                        world1.playSoundAtEntity(entitytntprimed2, "game.tnt.primed", 1.0F, 1.0F);
-            			
-            		break;
-            		case 3:
-            			
-            			
-            			AdvancedSeitersonicExplosiveEntityPrimed entitytntprimed3 = new AdvancedSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
-                        world1.spawnEntityInWorld(entitytntprimed3);
-                        world1.playSoundAtEntity(entitytntprimed3, "game.tnt.primed", 1.0F, 1.0F);
-            		break;
-            		case 4:
-
-            			
-            			EliteSeitersonicExplosiveEntityPrimed entitytntprimed4 = new EliteSeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
-                        world1.spawnEntityInWorld(entitytntprimed4);
-                        world1.playSoundAtEntity(entitytntprimed4, "game.tnt.primed", 1.0F, 1.0F);
-            			
-            		break;
-            		}
             		
- 
+            	SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
+                world1.spawnEntityInWorld(entitytntprimed);
+                world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 }
         }
         
