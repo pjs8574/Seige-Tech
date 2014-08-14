@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import com.shawric.SiegeTech.RenderSeitersonicExplosiveEntityPrimed;
 
 public class SeitersonicExplosiveBlock extends Block{
 
@@ -251,7 +252,10 @@ public class SeitersonicExplosiveBlock extends Block{
     		System.out.println("MAKING ENTITY PASSING TIER: "+this.blockTier);
     		
             	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadata is: " + world1.getBlockMetadata(x, y, z));
-            	SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), Expl.getExplosivePlacedBy(), world1.getBlockMetadata(x, y, z) , this.blockTier);
+            	
+    		RenderSeitersonicExplosiveEntityPrimed.setBlockTier(this.blockTier);
+    		
+    			SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), Expl.getExplosivePlacedBy(), world1.getBlockMetadata(x, y, z) , this.blockTier);
                 world1.spawnEntityInWorld(entitytntprimed);
                 world1.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 world1.setBlockToAir(x, y, z);

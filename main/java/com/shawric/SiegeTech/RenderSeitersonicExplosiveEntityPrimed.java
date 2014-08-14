@@ -24,7 +24,7 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
 	private RenderBlocks blockRenderer = new RenderBlocks();
     private static final String __OBFID = "CL_00001030";
     private Block blockToRender;
-    private int entityTier;
+    static int entityTier;
 
     
     
@@ -76,25 +76,9 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
         this.bindEntityTexture(entityToRender);
         
        String entName = entityToRender.toString();
-       System.out.println("ENTITY INFOO>>>>>"+entName);
-       
-       if(entName.contains("basic"))
-       {
-    	   this.entityTier=1;
-       }
-        
-       if(entName.contains("improved"))
-       {
-    	   this.entityTier=2;
-       }
-       if(entName.contains("advanced"))
-       {
-    	   this.entityTier=3;
-       }
-       if(entName.contains("elite"))
-       {
-    	   this.entityTier=4;
-       }
+       //System.out.println("ENTITY INFOO>>>>>"+entName);
+       System.out.println("ENTITY TIER>>>>>"+this.entityTier);
+      
         this.blockRenderer.renderBlockAsItem(SiegeTech.getSSEBlockToRender(this.entityTier), 0, entityToRender.getBrightness(p_76986_9_));
 
         if (entityToRender.fuse / 5 % 2 == 0)
@@ -144,6 +128,10 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
         this.doRender((SeitersonicExplosiveEntityPrimed)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
     
+    public static void setBlockTier(int i)
+    {
+    	entityTier=i;
+    }
     
     
     
