@@ -4,7 +4,7 @@ Seige-Tech
 
 
 --Mod Themes--
-The general idea is to have consistent Tiers of progression. The Prefixes being thus:
+The general idea is to have consistent Tiers of progression for major items. The Prefixes being thus:
 
 Basic > Improved > Advanced > Elite
 
@@ -13,7 +13,13 @@ Another Theme should be the use of lower tiered items to make upper tier resourc
 
 -REQ-How many of the previous Tier item needed to make the next tier item should remain consistent. Right now it is 8. 8 basicshawcrete to make ImpShawcrete, 6 BasicNades to make Improved nades.  This may be dropped to a lower number -- a chat about resource balence is needed to finalize.
 
--REQ-How many of the crafted Items Produced should remain consistent accross item type. 8 Tier crafting material per craft. 8 concrete per craft. 2 grenades per craft. 1 explosive block per craft. A chat about resource balence is needed to finalize.
+-REQ-  The amount of items given has been adjsuted for the difficulty of retriving the crafting items. Shawcrete returns more items per tier of craft T1 ->8 T2 ->16 T3 -> 32 T4 -> 64
+
+
+
+-REQ- (deprecated) How many of the crafted Items Produced should remain consistent accross item type. 4 Tier crafting material per craft. 8 concrete per craft. 2 grenades per craft. 1 explosive block per craft. A chat about resource balence is needed to finalize.
+
+
 
 
 --Mod features (planned items, done iems etc)--
@@ -39,9 +45,11 @@ Astralium -- Crafting Material for Tier 4 items. Made with 4 Endrite and 4 Nethe
 
 PandaNade -- throwable explosive. Has all 4 tiers, Less powerful than Seitersonic explosive at concrete penetration. (fully Implemented)
 
-Hunter's Compass  -- Compass that vaugey points in the direction of the nearest player that is NOT the player holding it. Each Tier adds a feature - such as a white list, or a vague amount of blocks distence instead of just direction.  (Concept stage)
+Hunter's Compass  -- Compass that vaugey points in the direction of the nearest player that is NOT the player holding it. Each Tier adds a feature - such as a white list, or a vague amount of blocks distence instead of just direction.  (Tier 2 implemented, higher tiers in concept stage)
 
-Nethrecite Arrow - Arrow specificaly for breaking Obsidian.  Has no effect on other blocks.  High damge to monsters. Lights them on fire. (concept stage)
+Nethrecite Arrow - Arrow specificaly for breaking Obsidian.  Has no effect on other blocks.  High damge to monsters. Lights them on fire. (Fully Implemented)
+
+Nethrecite Infused Bow - A bow specifically for firing the Nethrecite arrow.  Has the Flame 1 enchant on it on craft. Can fire normal arrows or Nethrecite arrows with a switch of firing modes (Shift + left Click). (Fully Implemented)
 
 ----Devices:
 
@@ -77,7 +85,7 @@ SO a Tier 4 vs a Tier 1 is a difference of 3 tiers so a T4 grenade vs a T1 Concr
 
 
 
---New concrete Hitpoint mechanic --
+--New concrete Hitpoint mechanic -- (implemented)
 
 Since metadata is limits to a Bittle --4 Bits (0 to 15 int)-- The hit point mechanic would potentially use the metadata as a percentage of overall damage.
 
@@ -90,7 +98,7 @@ Con: Potential Performannce issues, damage more predicatable
 
 
 
--- Old Concrete Mechanic -- 
+-- Old Concrete Mechanic -- (deprecated)
 
 Each Concrete has a hash table of potential damaging entities
 Each explsion entity has a Percentage Chance of degrading the concrete into a cobblestone block
