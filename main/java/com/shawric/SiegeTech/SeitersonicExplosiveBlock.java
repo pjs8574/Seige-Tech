@@ -208,7 +208,7 @@ public class SeitersonicExplosiveBlock extends Block{
             		
             	SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
             	
-            	System.out.println("SETTING TIER TO ENTITY: "+this.blockTier);
+            	//System.out.println("SETTING TIER TO ENTITY: "+this.blockTier);
             	entitytntprimed.setTier(this.blockTier);
             	
             	world1.spawnEntityInWorld(entitytntprimed);
@@ -223,9 +223,8 @@ public class SeitersonicExplosiveBlock extends Block{
     	if (!world1.isRemote)
         {
     			
-    		System.out.println("MAKING ENTITY PASSING TIER: "+this.blockTier);
-    		
-            	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadata is: " + world1.getBlockMetadata(x, y, z));
+    		//System.out.println("MAKING ENTITY PASSING TIER: "+this.blockTier);
+    		//Minecraft.getMinecraft().thePlayer.sendChatMessage("Activated by explosion! Metadata is: " + world1.getBlockMetadata(x, y, z));
             	
     	
     		

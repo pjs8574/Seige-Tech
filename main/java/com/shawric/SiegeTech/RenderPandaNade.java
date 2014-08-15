@@ -42,7 +42,7 @@ public class RenderPandaNade extends Render
      */
     public void doRender(PandaNadeEntity entityToRender, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
-    	System.out.println("THIS IS HTE ITEM TIER>>>>"+ entityToRender.getTier());
+    	//System.out.println("THIS IS HTE ITEM TIER>>>>"+ entityToRender.getTier());
     	
     	this.itemToRender = SiegeTech.getGrenade(entityToRender.getTier());
     	

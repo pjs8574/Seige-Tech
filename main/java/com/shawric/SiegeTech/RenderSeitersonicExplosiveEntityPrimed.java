@@ -73,7 +73,7 @@ public class RenderSeitersonicExplosiveEntityPrimed extends Render
         this.bindEntityTexture(entityToRender);
        
        
-       System.out.println("ENTITY TIER>>>>>"+entityToRender.getTier());
+       //System.out.println("ENTITY TIER>>>>>"+entityToRender.getTier());
        this.blockToRender = SiegeTech.getExplosiveBlock(entityToRender.getTier());
        
        

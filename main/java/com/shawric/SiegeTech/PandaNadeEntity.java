@@ -45,7 +45,7 @@ public class PandaNadeEntity extends EntityThrowable {
 	 protected void entityInit()
 	 {
 	        
-		 System.out.println("<<<<<DATA WATCHER SET>>>>" + this.itemTier);
+		 //System.out.println("<<<<<DATA WATCHER SET>>>>" + this.itemTier);
 		 this.dataWatcher.addObject(17, new Integer(this.itemTier));
 	 }
 

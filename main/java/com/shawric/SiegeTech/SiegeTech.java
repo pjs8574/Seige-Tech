@@ -224,17 +224,9 @@ public class SiegeTech {
 	
 		
 		proxy.registerRenderGrenade(PandaNadeEntity.class, basicPandaNade);
-		proxy.registerRenderGrenade(PandaNadeEntity.class, improvedPandaNade);
-		proxy.registerRenderGrenade(PandaNadeEntity.class, advancedPandaNade);
-		proxy.registerRenderGrenade(PandaNadeEntity.class, elitePandaNade);
-		
 		proxy.registerRenderArrow(NethreciteArrowEntity.class);
-		
 		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, basicSeitersonicExplosive, 1);
-		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, improvedSeitersonicExplosive, 2);
-		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, advancedSeitersonicExplosive, 3);
-		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, eliteSeitersonicExplosive, 4);
-		
+
 		
 		proxy.registerSounds();
 		

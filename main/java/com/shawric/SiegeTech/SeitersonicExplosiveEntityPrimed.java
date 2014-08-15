@@ -58,7 +58,7 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         this.blockTier = tier;
         this.blockText = explosiveIconNameArray[tier];
         
-        Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity! TIER IS:" + this.blockTier);
+        //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the Entity! TIER IS:" + this.blockTier);
         
     }
 
@@ -89,8 +89,8 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
 	
 	public String getTextName() {
 		
-		System.out.println("TEXTURE TIER>>>>>>"+ this.getTier());
-		System.out.println("GETINIG TEXTURE NAME>>>>>>"+this.blockText);
+		//System.out.println("TEXTURE TIER>>>>>>"+ this.getTier());
+		//System.out.println("GETINIG TEXTURE NAME>>>>>>"+this.blockText);
 		return this.blockText;
 	}
     
@@ -177,8 +177,8 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	//adjusting the number of explosions that will occur based on tier
     	int numberOfExplosions = (this.blockTier + 1);
     	
-    	Minecraft.getMinecraft().thePlayer.sendChatMessage("Umber of explosions"+numberOfExplosions);
-    	System.out.println("Number of explosions>>>>>>"+ numberOfExplosions);
+    	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Umber of explosions"+numberOfExplosions);
+    	//System.out.println("Number of explosions>>>>>>"+ numberOfExplosions);
     	
     	//adjsuting the power of the explosive based upon Tier
     	tierAdjsutedExplosionPower = (this.baseExplosionPower * (this.blockTier+1));
@@ -198,7 +198,7 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	    }
     	        break;
     	    case 3:  
-    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
+    	    //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion South");
     	    int dirAdjustment1 = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {
@@ -207,7 +207,7 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	    }
     	        break;
     	    case 4: 
-    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
+    	    //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion West");
     	    int dirAdjustment2 = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {
@@ -216,7 +216,7 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
     	    }
     	        break;
     	    case 5:  
-    	    Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
+    	    //Minecraft.getMinecraft().thePlayer.sendChatMessage("Creating the explosion East");
     	    int dirAdjustment3 = 0;
     	    for(int i = 0; i<numberOfExplosions; i++)
     	    {

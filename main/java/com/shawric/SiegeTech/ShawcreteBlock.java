@@ -143,11 +143,17 @@ public class ShawcreteBlock extends Block {
 			{
 				int newHP;
 				Random rand = new Random();
+				double dmg;
 				
 				int exploderMaxDmg = ((exploderTier+1)*(Integer)validExploderEntitysDamage.get(exploder));
 				int tierDiff = Math.abs((this.blockTier+1)-(exploderTier+1));	
-				//Minimum damage is always the Tier + 1
-				double dmg = (rand.nextInt(exploderMaxDmg)+(exploderTier+1));
+				
+				
+				if((exploderTier+1)>=this.blockTier){
+					
+				
+				//Minimum damage is always the Tier + 1 so long at it meets the tier requirement
+				dmg = (rand.nextInt(exploderMaxDmg)+(exploderTier+1));
 				// the difference in tier grants a damage bonus
 				
 				//tier difference is always a min of 1 for multiplication purposes.
@@ -155,8 +161,13 @@ public class ShawcreteBlock extends Block {
 				
 				dmg = dmg*tierDiff;
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage Dealt: " + dmg);
 				
+				}else{
+					//Tier too low, it does no damage.
+					dmg=0;
+					Minecraft.getMinecraft().thePlayer.sendChatMessage("Your attack appears ineffective against this tier of Shawcrete.");
+					
+					}
 				//find percentage of meta
 				float percentAdj = (float)meta/(float)15;
 				
@@ -168,13 +179,15 @@ public class ShawcreteBlock extends Block {
 				currentHP = (int) Math.floor((maxHP*percentAdj));
 				
 				
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage Dealt: " + dmg);
+				
 				//Minecraft.getMinecraft().thePlayer.sendChatMessage("Max HP: " + maxHP);
 				//Minecraft.getMinecraft().thePlayer.sendChatMessage("Current Block HP: " + currentHP);
 				
 				//deal damage to that HP
 				newHP = (int) (currentHP-dmg);
 				
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("HP After Dmg: " + newHP);
+				//Minecraft.getMinecraft().thePlayer.sendChatMessage("HP After Dmg: " + newHP);
 				
 				//turn it back into metadata value, rounded down
 				int newMeta;
@@ -187,14 +200,9 @@ public class ShawcreteBlock extends Block {
 				
 				if (x - Math.floor(x) >=0.5) { 
 					newMeta = (int) Math.ceil(x); 
-					//Minecraft.getMinecraft().thePlayer.sendChatMessage("Your attack appears ineffective against this tier of Shawcrete.");
 					}else{ 
 						newMeta = (int) Math.floor(x); 
 					} 
-				
-				//newMeta = (int)(metaAdj*15);
-				
-				//Minecraft.getMinecraft().thePlayer.sendChatMessage("New Metadata for block is " + newMeta);
 				
 				if(newMeta > 0)
 				{

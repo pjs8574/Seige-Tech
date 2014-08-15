@@ -50,6 +50,7 @@ return par1ItemStack;
 public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 {
 par3List.add("Tier: " + this.itemTier + " Handheld Explosive." );
+par3List.add("Surprisingly light." );
 }
 
 
