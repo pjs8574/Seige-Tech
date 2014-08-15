@@ -179,7 +179,7 @@ public class SeitersonicExplosiveBlock extends Block{
     {
         if (playerEnt.getCurrentEquippedItem() != null && playerEnt.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
         {
-            this.func_150114_a(world1, x, y, z, 1, playerEnt);
+            this.blockActivatedBySomthing(world1, x, y, z, 1, playerEnt);
             world1.setBlockToAir(x, y, z);
             playerEnt.getCurrentEquippedItem().damageItem(1, playerEnt);
             return true;
@@ -194,10 +194,10 @@ public class SeitersonicExplosiveBlock extends Block{
 	//Called right before the block is destroyed by a player.  Args: world, x, y, z, metaData
 	public void onBlockDestroyedByPlayer(World world1, int x, int y, int z, int meta)
     {
-		this.func_150114_a(world1, x, y, z, meta, (EntityLivingBase)null);
+		this.blockActivatedBySomthing(world1, x, y, z, meta, (EntityLivingBase)null);
     }
 
-    public void func_150114_a(World world1, int x, int y, int z, int meta, EntityLivingBase p_150114_6_)
+    public void blockActivatedBySomthing(World world1, int x, int y, int z, int meta, EntityLivingBase p_150114_6_)
     {
         if (!world1.isRemote)
         {
@@ -207,7 +207,8 @@ public class SeitersonicExplosiveBlock extends Block{
             		//Minecraft.getMinecraft().thePlayer.sendChatMessage("EXPLOSIVE ACTIVATED META IS: " + world1.getBlockMetadata(x, y, z));
             		
             	SeitersonicExplosiveEntityPrimed entitytntprimed = new SeitersonicExplosiveEntityPrimed(world1, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), p_150114_6_, world1.getBlockMetadata(x, y, z), this.blockTier);
-                
+            	
+            	System.out.println("SETTING TIER TO ENTITY: "+this.blockTier);
             	entitytntprimed.setTier(this.blockTier);
             	
             	world1.spawnEntityInWorld(entitytntprimed);

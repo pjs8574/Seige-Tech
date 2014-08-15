@@ -35,7 +35,11 @@ public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, Enti
 	* the Entity class, in this case it's
 	* the EntityGrenade class
 	*/
-	par2World.spawnEntityInWorld(new PandaNadeEntity(par2World, par3EntityPlayer,itemTier));
+		PandaNadeEntity nade = new PandaNadeEntity(par2World, par3EntityPlayer,itemTier);
+		
+		nade.setTier(this.itemTier);
+		
+	par2World.spawnEntityInWorld(nade);
 	//Decrease an item from the stack because you just used it!
 	         --par1ItemStack.stackSize;
 	}

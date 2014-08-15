@@ -62,7 +62,11 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
         
     }
 
-    protected void entityInit() {}
+    @Override
+    protected void entityInit()
+    {
+        this.dataWatcher.addObject(17, new Integer(this.blockTier));
+    }
 
     /**
      * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
@@ -225,14 +229,13 @@ public class SeitersonicExplosiveEntityPrimed extends Entity
 
     public void setTier(int i)
     {
-    	this.blockTier = i;
-    	
+    	this.dataWatcher.updateObject(17, new Integer(i));
     }
     
     
     public int getTier()
     {
-    	return this.blockTier;
+    	return this.dataWatcher.getWatchableObjectInt(17);
     	
     }
 

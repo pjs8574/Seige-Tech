@@ -240,8 +240,51 @@ public class SiegeTech {
 		
 	}
 
+	public static Block getExplosiveBlock(int tier)
+	{
+		
+		if(tier == 1)
+		{
+			return basicSeitersonicExplosive;
+		}
+		if(tier == 2)
+		{
+			return improvedSeitersonicExplosive;
+		}
+		if(tier == 3)
+		{
+			return advancedSeitersonicExplosive;
+		}
+		if(tier == 4)
+		{
+			return eliteSeitersonicExplosive;
+		}
+		
+		return null;
+	}
 	
-	
+	public static Item getGrenade(int tier)
+	{
+		
+		if(tier == 1)
+		{
+			return basicPandaNade;
+		}
+		if(tier == 2)
+		{
+			return improvedPandaNade;
+		}
+		if(tier == 3)
+		{
+			return advancedPandaNade;
+		}
+		if(tier == 4)
+		{
+			return elitePandaNade;
+		}
+		
+		return null;
+	}
 	
 	
 	

@@ -38,6 +38,18 @@ public class PandaNadeEntity extends EntityThrowable {
 	{
 	super(par1World);
 	}
+	
+	
+	
+	 @Override
+	 protected void entityInit()
+	 {
+	        
+		 System.out.println("<<<<<DATA WATCHER SET>>>>" + this.itemTier);
+		 this.dataWatcher.addObject(17, new Integer(this.itemTier));
+	 }
+
+	
 	@Override
 	/**
 	     * Called when this EntityThrowable hits a block or entity.
@@ -185,11 +197,18 @@ public class PandaNadeEntity extends EntityThrowable {
 	}
 	
 
+
+
+public void setTier(int i)
+{
+	this.dataWatcher.updateObject(17, new Integer(i));
+}
+
+
 public int getTier()
-	{
-	return this.itemTier;
-	}
-
-
+{
+	return this.dataWatcher.getWatchableObjectInt(17);
+	
+}
 
 }

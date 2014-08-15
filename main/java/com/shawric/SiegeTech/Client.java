@@ -16,7 +16,7 @@ public void registerRenderGrenade(Class entityClass, Item grenade)
 //OLD CODE - always renders a basic nade
 //RenderingRegistry.registerEntityRenderingHandler(PandaNadeEntity.class, new RenderSnowball(SeigeTech.basicPandaNade));
 	
-RenderingRegistry.registerEntityRenderingHandler(entityClass, new RenderSnowball(grenade));
+RenderingRegistry.registerEntityRenderingHandler(entityClass, new RenderPandaNade(grenade));
 }
 
 @Override
