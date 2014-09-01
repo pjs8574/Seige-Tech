@@ -2,13 +2,17 @@ package com.shawric.SiegeTech;
 
 import java.util.Hashtable;
 import java.util.Random;
+import java.util.UUID;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
@@ -21,6 +25,8 @@ public class ShawcreteBlock extends Block {
 	
 	private int baseShawcreteHP;
 	private int blockTier;
+	private String blockOwner;
+
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon normalHP;
@@ -39,6 +45,49 @@ public class ShawcreteBlock extends Block {
 		this.setBlockName(name);
 		this.blockTier = tier;
 	}
+	
+	
+	
+	@Override
+	 public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase placingEntity, ItemStack p_149689_6_)
+	{
+		if(placingEntity instanceof EntityPlayer)
+		{
+			EntityPlayer placerEnt = (EntityPlayer) placingEntity;
+			
+			System.out.println("Block Placed by: " + placerEnt.getDisplayName());
+			this.blockOwner = placerEnt.getDisplayName();
+		}
+		
+		
+	}
+	
+	
+
+	@Override
+	public void harvestBlock(World par1World, EntityPlayer player, int blockX, int blockY, int blockZ, int meta)
+    {
+        if(!par1World.isRemote)
+        {
+			if(player.getDisplayName()==this.blockOwner)
+			{			
+			System.out.println("You own this block.");
+			
+			this.dropBlockAsItem(par1World, blockX, blockY, blockZ, meta, 1);
+			
+			}else
+				{
+				System.out.println("You do NOT own this block.");
+				
+				
+				par1World.setBlock(blockX, blockY, blockZ, this);
+				
+				}
+        }
+		
+    }
+	
+	
 	@Override
 	 public void onBlockAdded(World world, int x, int y, int z)
 	    {
