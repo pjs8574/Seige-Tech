@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
@@ -20,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import com.shawric.SiegeTech.RenderSeitersonicExplosiveEntityPrimed;
 
 public class SeitersonicExplosiveBlock extends Block{
@@ -53,14 +55,18 @@ public class SeitersonicExplosiveBlock extends Block{
 	}	
 	
 	 @Override
-	 public void onBlockAdded(World world, int i, int j, int k)
+	 public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack itemStack)
 	    {
+	        int l = MathHelper.floor_double((double) ((entityliving.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 	        //super.onBlockAdded(world, i, j, k);
 	        
 	        //Minecraft.getMinecraft().thePlayer.sendChatMessage("added:");
 
-	        // ALL THIS SHIT GETS THE DIRECTION THE PLAYER IS FACING WHEN PLACING THE BLOCK AND SAVES IT
-	        int l = MathHelper.floor_double((double)((Minecraft.getMinecraft().thePlayer.rotationYaw * 4F) / 360F) + 0.5D) & 3;
+
+		 	// ALL THIS SHIT GETS THE DIRECTION THE PLAYER IS FACING WHEN PLACING THE BLOCK AND SAVES IT
+	        //int l = MathHelper.floor_double((double)((Minecraft.getMinecraft().thePlayer.rotationYaw * 4F) / 360F) + 0.5D) & 3;
+	        
+	        
 	        if(l == 0)
 	    	{
 	        	world.setBlockMetadataWithNotify(i, j, k, 3, 2);
@@ -86,6 +92,10 @@ public class SeitersonicExplosiveBlock extends Block{
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("BD is East: " + blockDirectionInt);
 	    	}
 	    }
+		 
+		 
+		  
+	   
 	/*
 	 * for Set setBlockMetadataWithNotify  -- its the 3 coordinates of the block, the MNetadata number adn the last number is a Flag.
 	 * Flag 1 will cause a block update. Flag 2 will send the change to clients (you almost always want this). Flag 4 prevents the

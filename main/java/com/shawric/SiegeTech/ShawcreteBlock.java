@@ -87,14 +87,36 @@ public class ShawcreteBlock extends Block {
 	//WHERE THE MAGIC HAPPENS	
 	public void onBlockExploded(World par1World, int par2, int par3, int par4, Explosion par5Explosion)
     {
-        if (!par1World.isRemote)
+		//turn the exploding entityclass into a string for checking
+    	//THIS HAD SOME TICKING ENTITY ISSUE WITH GHAST FIREBALLS
+    	//fixed it by making the block more resistant so teh ghast ball diesnt kill it 
+    	//Might come back to haunt me, dunno howto fix. Try catch block maybe?
+    	
+    	//FIXED ABOVE BUG by using try catch block
+		
+		String explodeCause;
+    	
+    	try
+    	{
+    		
+    	explodeCause = par5Explosion.exploder.getClass().getSimpleName();
+    	
+    	}catch (Exception e)
+    		{
+    		//Minecraft.getMinecraft().thePlayer.sendChatMessage("Not a valid explosive.");
+    		explodeCause = "Notvalid";
+    		}
+		
+		
+		if (!par1World.isRemote)
         {
-        	//turn the exploding entityclass into a string for checking
-        	//THIS HAD SOME TICKING ENTITY ISSUE WITH GHAST FIREBALLS
-        	//fixed it by making the block more resistant so teh ghast ball diesnt kill it 
-        	//Might come back to haunt me, dunno howto fix. Try catch block maybe?
         	
-        	String explodeCause = par5Explosion.exploder.getClass().getSimpleName();
+        	
+        	
+        	
+        	
+        	
+        	
         	
         	int exploderTier = 0;        	
         	if(par5Explosion.exploder instanceof SeitersonicExplosiveEntityPrimed){
