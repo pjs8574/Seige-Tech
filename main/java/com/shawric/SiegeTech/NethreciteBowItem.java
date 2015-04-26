@@ -19,6 +19,8 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -65,16 +67,17 @@ public class NethreciteBowItem extends ItemBow{
 	        		if (entyPlyr1.inventory.hasItem(SiegeTech.nethreciteArrow) && !entyPlyr1.inventory.hasItem(Items.arrow)) 
 	        			{
 	        			
-	        			if(wld1.isRemote)
-    			    	{
+	        			//if(wld1.isRemote)
+    			    	//{
 	        				
 	        				if(this.arrowTypeToUse == 2){
-	        				Minecraft.getMinecraft().thePlayer.sendChatMessage("No Normal Arrows detected, Setting Arrow Mode to Nethrecite Arrow.");
-    					
-    					
+	        							
+	        					IChatComponent msg = new ChatComponentText("No Normal Arrows detected, Setting Arrow Mode to Nethrecite Arrow.");
+	        					entyPlyr1.addChatMessage(msg);
+	        					
 	        				this.arrowTypeToUse = 1;
 	        				}
-    			    	}
+    			    	//}
     					
     					entyPlyr1.setItemInUse(itmStck, this.getMaxItemUseDuration(itmStck));
 	        			
@@ -84,14 +87,17 @@ public class NethreciteBowItem extends ItemBow{
 	        				if(entyPlyr1.inventory.hasItem(Items.arrow) && !entyPlyr1.inventory.hasItem(SiegeTech.nethreciteArrow))
 	        				{	
 	        					
-	        					if(wld1.isRemote)
-	        			    	{
+	        					//if(wld1.isRemote)
+	        			    	//{
 	        						
 	        						if(this.arrowTypeToUse == 1){
-	        							Minecraft.getMinecraft().thePlayer.sendChatMessage("No Nethrecite Arrows detected, Setting Arrow Mode to Normal Arrow.");
+	        							
+	        							IChatComponent msg = new ChatComponentText("No Nethrecite Arrows detected, Setting Arrow Mode to Normal Arrow.");
+	    	        					entyPlyr1.addChatMessage(msg);
+	        							
 	        							this.arrowTypeToUse = 2;
 	        						}
-	        			    	}
+	        			    	//}
 	        					
 	        					entyPlyr1.setItemInUse(itmStck, this.getMaxItemUseDuration(itmStck));
 	        					
