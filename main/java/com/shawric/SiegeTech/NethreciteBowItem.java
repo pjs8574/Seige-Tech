@@ -9,7 +9,9 @@ import org.lwjgl.input.Keyboard;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.command.ICommandSender;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -355,11 +357,20 @@ public class NethreciteBowItem extends ItemBow{
     			switch(arrowTypeToUse)
                 {
                 case 1:	
-    				Minecraft.getMinecraft().thePlayer.sendChatMessage("Setting Arrow Mode to Normal Arrow.");
+    				
+                	IChatComponent msg = new ChatComponentText("Setting Arrow Mode to Normal Arrow.");
+    				((EntityPlayerSP) entityLiving).addChatMessage(msg);
+                	
+                	//Minecraft.getMinecraft().thePlayer.sendChatMessage("Setting Arrow Mode to Normal Arrow.");
+    				
+    				
     				this.arrowTypeToUse = 2;
     				break;
     			case 2:		
-    			Minecraft.getMinecraft().thePlayer.sendChatMessage("Setting Arrow Mode to Nethrecite Arrow.");
+    				IChatComponent msg1 = new ChatComponentText("Setting Arrow Mode to Nethrecite Arrow.");
+    				((EntityPlayerSP) entityLiving).addChatMessage(msg1);
+    				
+    			//Minecraft.getMinecraft().thePlayer.sendChatMessage("Setting Arrow Mode to Nethrecite Arrow.");
     				this.arrowTypeToUse = 1;
     				break;
                 }
