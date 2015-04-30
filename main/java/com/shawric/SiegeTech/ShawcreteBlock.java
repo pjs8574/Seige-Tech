@@ -111,13 +111,6 @@ public class ShawcreteBlock extends Block {
 		if (!par1World.isRemote)
         {
         	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
         	int exploderTier = 0;        	
         	if(par5Explosion.exploder instanceof SeitersonicExplosiveEntityPrimed){
         	exploderTier = ((SeitersonicExplosiveEntityPrimed) par5Explosion.exploder).getTier();

@@ -56,13 +56,19 @@ import java.util.List;
 
 import javax.sound.sampled.EnumControl.Type;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -82,11 +88,35 @@ public class HuntersCompassItem extends Item{
 		this.setMaxDamage(8);
 		
 		this.itemTier = tier;
+		
 	}
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
 	par3List.add("Tier: " + this.itemTier + " The lidless eye seeks Players." );
+	
+	
+	
+		if( par1ItemStack.stackTagCompound == null )
+		{
+		    par1ItemStack.setTagCompound( new NBTTagCompound( ) );
+		
+		    String s = "";
+		    s = s + par2EntityPlayer.getDisplayName();
+		
+		    par1ItemStack.stackTagCompound.setString( "Created", s );
+		    
+		    
+		    for(int i = 0; i<this.itemTier; i++)
+		    {
+		    	String index = ""+i;
+		    	//System.out.println("On Create Index: "+ index);
+		    	
+		    par1ItemStack.stackTagCompound.setString( index , "" );
+		    }
+	    
+		}
+
 	}
 	
 	@Override
@@ -116,7 +146,23 @@ public class HuntersCompassItem extends Item{
 	      		
 	    	  EntityPlayer targetPlayer = (EntityPlayer)world1.playerEntities.get(i);
 	    	  
-	      		if(!targetPlayer.getDisplayName().equals(huntingPlayer))
+	    	  
+	    	  ArrayList<String> whiteList = new ArrayList<String>(this.itemTier);
+	    	  for(int i1 = 0; i1<this.itemTier; i1++)
+  		    		{	
+  				String index = ""+i1;
+  				
+  				System.out.println("Index: "+ index);
+  				System.out.println("STRING IS: "+itemStk.stackTagCompound.getString(index));
+  				
+  				
+  				whiteList.add( itemStk.stackTagCompound.getString( index ));
+  		    		}
+	    	  
+	    	  
+	    	  
+	    	  
+	      		if( !(targetPlayer.getDisplayName().equals(huntingPlayer)) && !(whiteList.contains(targetPlayer.getDisplayName())) )
 	        	{
 	          		int targetX = (int)targetPlayer.posX;
 	          		int targetY = (int)targetPlayer.posY;
@@ -129,8 +175,8 @@ public class HuntersCompassItem extends Item{
 	              	closestTargetPlayer = targetPlayer;
 	              	closestPlayerDistence = (int) pDistence;
 	            	}
-	        		}
 	        	}
+	        }
 	        
 	      		
 	  if(closestTargetPlayer == null)
@@ -203,6 +249,89 @@ public class HuntersCompassItem extends Item{
 	  	return itemStk;
 	    }
 	
+	
+	
+	  //Create a white list by shift left clicking on a player
+	
+	@Override
+	public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase triggerPlayer)
+	{
+
+	    	World wld =target.worldObj;
+	    	
+	    if(target instanceof EntityPlayer)
+	    	{
+	    	
+	    	ArrayList<String> whiteList = new ArrayList<String>(this.itemTier);
+	    	
+		    	String targetName = ((EntityPlayer) target).getDisplayName();
+		    	
+		    	
+		    	if(wld.isRemote)
+		    	{
+		    		
+		    		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+		    		{
+		    			
+		    			for(int i = 0; i<this.itemTier; i++)
+		    		    {	
+		    				String index = ""+i;
+		    				whiteList.add( itemStack.stackTagCompound.getString( index ));
+		    		    }
+		    			
+		    			if (whiteList.contains(targetName)==false)
+		    			{
+		    				
+		    				for(int i = 0; i<this.itemTier; i++)
+			    		    {	
+			    				String index = ""+i;
+			    				
+			    				if (itemStack.stackTagCompound.getString(index)=="")
+				    			{
+			    				itemStack.stackTagCompound.setString( index , targetName );
+			    				i = (this.itemTier+1);
+				    			}
+			    		    }
+		    		
+		    			}
+	    		    				 
+		    		}
+
+		    			return true;
+		    			
+		    	}else{return false;}
+		    		
+		    		
+		    }else{return false;}
+			
+	}
+	
+	/*
+	@Override
+	public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) 
+	{
+	    
+		if( par1ItemStack.stackTagCompound == null )
+		{
+	        par1ItemStack.setTagCompound( new NBTTagCompound( ) );
+
+	    String s = "";
+	    s = s + par3EntityPlayer.getDisplayName();
+
+	    par1ItemStack.stackTagCompound.setString( "Created", s );
+	    
+	    
+	    for(int i = 0; i<this.itemTier; i++)
+	    {
+	    	String index = ""+i;
+	    	System.out.println("On Create Index: "+ index);
+	    	
+	    par1ItemStack.stackTagCompound.setString( index , "" );
+	    }
+	    
+		}
+	}
+	*/
 	
 	
 }
