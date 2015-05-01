@@ -59,7 +59,9 @@ import javax.sound.sampled.EnumControl.Type;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -112,7 +114,7 @@ public class HuntersCompassItem extends Item{
 		    	String index = ""+i;
 		    	//System.out.println("On Create Index: "+ index);
 		    	
-		    par1ItemStack.stackTagCompound.setString( index , "" );
+		    par1ItemStack.stackTagCompound.setString( index , "z" );
 		    }
 	    
 		}
@@ -140,38 +142,32 @@ public class HuntersCompassItem extends Item{
 	    StringBuilder huntingMessage = new StringBuilder();
 	    int closestPlayerDistence = 1000;
 	    boolean alone = false;
+	    ArrayList<String> whiteList = new ArrayList<String>(this.itemTier);
 	      
-	      for (int i = 0; i < world1.playerEntities.size(); ++i)
-        	{
+	      for (int i = 0; i < world1.playerEntities.size(); ++i){
 	      		
 	    	  EntityPlayer targetPlayer = (EntityPlayer)world1.playerEntities.get(i);
-	    	  
-	    	  
-	    	  ArrayList<String> whiteList = new ArrayList<String>(this.itemTier);
-	    	  for(int i1 = 0; i1<this.itemTier; i1++)
-  		    		{	
+	    	 
+	    	  for(int i1 = 0; i1<this.itemTier; i1++){	
   				String index = ""+i1;
   				
-  				System.out.println("Index: "+ index);
-  				System.out.println("STRING IS: "+itemStk.stackTagCompound.getString(index));
+  				System.out.println("Load search array Index: "+ index);
+  				System.out.println("STRING added to search array: "+itemStk.stackTagCompound.getString(index));
   				
   				
   				whiteList.add( itemStk.stackTagCompound.getString( index ));
-  		    		}
+  		      }
 	    	  
+
 	    	  
-	    	  
-	    	  
-	      		if( !(targetPlayer.getDisplayName().equals(huntingPlayer)) && !(whiteList.contains(targetPlayer.getDisplayName())) )
-	        	{
+	      		if( !(targetPlayer.getDisplayName().equals(huntingPlayer)) && !(whiteList.contains(targetPlayer.getDisplayName())) ){
 	          		int targetX = (int)targetPlayer.posX;
 	          		int targetY = (int)targetPlayer.posY;
 	          		int targetZ = (int)targetPlayer.posZ;
 
 	          		float pDistence = (float) Math.sqrt(Math.pow((playerX-targetX),2)+Math.pow((playerY-targetY),2)+Math.pow((playerZ-targetZ),2));
 	      
-	            	if(pDistence <= closestPlayerDistence)
-	            	{
+	            	if(pDistence <= closestPlayerDistence){
 	              	closestTargetPlayer = targetPlayer;
 	              	closestPlayerDistence = (int) pDistence;
 	            	}
@@ -179,43 +175,37 @@ public class HuntersCompassItem extends Item{
 	        }
 	        
 	      		
-	  if(closestTargetPlayer == null)
-	  {
-	    	if(world1.isRemote)
-	    	{
+	  if(closestTargetPlayer == null || whiteList.contains(closestTargetPlayer.getDisplayName())){
+	    	if(world1.isRemote){
 	    		triggerPlayer.addChatMessage(new ChatComponentText("The eye simply stares at you."));
 	    	}
 		
-	  }else
-	  {
-		  if(!closestTargetPlayer.getDisplayName().equalsIgnoreCase(huntingPlayer))
-	    	{
-	      		
-		  int northSouthTolerance = (int) Math.abs(triggerPlayer.posZ-closestTargetPlayer.posZ);
-		  int eastWestTolerance = (int) Math.abs(triggerPlayer.posX-closestTargetPlayer.posX);
+	  }else{
+		  if(!closestTargetPlayer.getDisplayName().equalsIgnoreCase(huntingPlayer)){
+			  int northSouthTolerance = (int) Math.abs(triggerPlayer.posZ-closestTargetPlayer.posZ);
+			  int eastWestTolerance = (int) Math.abs(triggerPlayer.posX-closestTargetPlayer.posX);
 		  
-		
-		  
-		  		if(closestTargetPlayer.posX < triggerPlayer.posX)
-	      		{
-		  				dirEW = " West"; 
+
+		  		if(closestTargetPlayer.posX < triggerPlayer.posX){
+		  			dirEW = " West"; 
 	      		}else{dirEW = " East";}
 	      		
-		  		if(eastWestTolerance < 4){dirEW ="";}
+		  		if(eastWestTolerance < 4){
+		  			dirEW ="";
+		  		}
 
-	      		if(closestTargetPlayer.posZ < triggerPlayer.posZ)
-	      		{
+	      		if(closestTargetPlayer.posZ < triggerPlayer.posZ){
 	      			dirNS = " North";
 	      		}else {dirNS = " South";}
 	      		
-	      		if(northSouthTolerance < 4){dirNS = "";}
+	      		if(northSouthTolerance < 4){
+	      			dirNS = "";
+	      		}
 
-	      		if(dirNS.equals("") && dirEW.equals(""))
-	      		{
+	      		if(dirNS.equals("") && dirEW.equals("")){
 	      			
-	      			if(world1.isRemote)
-	    	    	{
-	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye spins around. Your enemy is close."));
+	      			if(world1.isRemote){
+	      				triggerPlayer.addChatMessage(new ChatComponentText("The eye spins around. Your enemy is close."));
 	    	    	}
 	      			
 	      		}else{
@@ -223,7 +213,7 @@ public class HuntersCompassItem extends Item{
 	      			huntingMessage.append(dirEW);
 	      		}
 	      			
-	      		if(world1.isRemote)
+	      		if(world1.isRemote && !huntingMessage.equals(""))
 	    	    	{
 	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye looks to the" + huntingMessage.toString() + "."));
 	    	    	}
@@ -236,8 +226,8 @@ public class HuntersCompassItem extends Item{
     	    	
     	    	}
 	    	
-	   
-	        return itemStk;
+
+	       // return itemStk;
 	        
 	    }
 	  	
@@ -254,41 +244,59 @@ public class HuntersCompassItem extends Item{
 	  //Create a white list by shift left clicking on a player
 	
 	@Override
-	public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase triggerPlayer)
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target)
 	{
 
 	    	World wld =target.worldObj;
+	    	System.out.println("Schwing");
+	    	System.out.println(target);
+
 	    	
-	    if(target instanceof EntityPlayer)
+	    	
+	    	if(wld.isRemote)
 	    	{
+	    		
+	    	if(target instanceof EntityOtherPlayerMP)
+	    	{
+	    	
+	    	//System.out.println("It is an instance of EntityPlayerMP");
+	    	
 	    	
 	    	ArrayList<String> whiteList = new ArrayList<String>(this.itemTier);
 	    	
 		    	String targetName = ((EntityPlayer) target).getDisplayName();
 		    	
+		    	System.out.println("Target Name "+targetName);
 		    	
-		    	if(wld.isRemote)
-		    	{
-		    		
+		    	
 		    		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
 		    		{
+		    			//System.out.println("key pressed");
 		    			
 		    			for(int i = 0; i<this.itemTier; i++)
 		    		    {	
 		    				String index = ""+i;
-		    				whiteList.add( itemStack.stackTagCompound.getString( index ));
+		    				whiteList.add( stack.stackTagCompound.getString( index ));
+		    				
+		    				//System.out.println("Whitelist being filled");
 		    		    }
 		    			
 		    			if (whiteList.contains(targetName)==false)
 		    			{
-		    				
+		    				System.out.println("Targetname not in whitelist");
 		    				for(int i = 0; i<this.itemTier; i++)
 			    		    {	
 			    				String index = ""+i;
 			    				
-			    				if (itemStack.stackTagCompound.getString(index)=="")
+			    				//System.out.println("in the forloop");
+			    				//System.out.println("Getstring of NBT: " + stack.stackTagCompound.getString(index));
+			    				
+			    				
+			    				if (stack.stackTagCompound.getString(index).equals("z"))
 				    			{
-			    				itemStack.stackTagCompound.setString( index , targetName );
+			    					
+			    					System.out.println("Adding target name to whitelist");
+			    					stack.stackTagCompound.setString( index , targetName );
 			    				i = (this.itemTier+1);
 				    			}
 			    		    }
@@ -300,9 +308,7 @@ public class HuntersCompassItem extends Item{
 		    			return true;
 		    			
 		    	}else{return false;}
-		    		
-		    		
-		    }else{return false;}
+	    	}else{return false;}
 			
 	}
 	
