@@ -49,6 +49,8 @@ if the Target player is within 36 blocks of the PLayer using the compass, they t
 
 package com.shawric.SiegeTech;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -68,6 +70,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
@@ -96,12 +99,13 @@ public class HuntersCompassItem extends Item{
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
 	par3List.add("Tier: " + this.itemTier + " The lidless eye seeks Players." );
-	
-	
+
 	
 		if( par1ItemStack.stackTagCompound == null )
 		{
-		    par1ItemStack.setTagCompound( new NBTTagCompound( ) );
+		    
+			System.out.println("TAGCOMPOUND = NULL CREATING NBT COMPOUND");
+			par1ItemStack.setTagCompound( new NBTTagCompound( ) );
 		
 		    String s = "";
 		    s = s + par2EntityPlayer.getDisplayName();
@@ -113,12 +117,9 @@ public class HuntersCompassItem extends Item{
 		    {
 		    	String index = ""+i;
 		    	//System.out.println("On Create Index: "+ index);
-		    	
 		    par1ItemStack.stackTagCompound.setString( index , "z" );
 		    }
-	    
 		}
-
 	}
 	
 	@Override
@@ -144,22 +145,23 @@ public class HuntersCompassItem extends Item{
 	    boolean alone = false;
 	    ArrayList<String> whiteList = new ArrayList<String>(this.itemTier);
 	      
+	    if(world1.isRemote){
+	    
+	    for(int i1 = 0; i1<this.itemTier; i1++){	
+				String index = ""+i1;
+				
+				System.out.println("Load search array Index: "+ index);
+				System.out.println("STRING added to search array: "+itemStk.stackTagCompound.getString(index));
+
+				whiteList.add( itemStk.stackTagCompound.getString( index ));
+				
+				System.out.println(whiteList);
+		 }
+
 	      for (int i = 0; i < world1.playerEntities.size(); ++i){
 	      		
 	    	  EntityPlayer targetPlayer = (EntityPlayer)world1.playerEntities.get(i);
-	    	 
-	    	  for(int i1 = 0; i1<this.itemTier; i1++){	
-  				String index = ""+i1;
-  				
-  				System.out.println("Load search array Index: "+ index);
-  				System.out.println("STRING added to search array: "+itemStk.stackTagCompound.getString(index));
-  				
-  				
-  				whiteList.add( itemStk.stackTagCompound.getString( index ));
-  		      }
-	    	  
 
-	    	  
 	      		if( !(targetPlayer.getDisplayName().equals(huntingPlayer)) && !(whiteList.contains(targetPlayer.getDisplayName())) ){
 	          		int targetX = (int)targetPlayer.posX;
 	          		int targetY = (int)targetPlayer.posY;
@@ -230,7 +232,7 @@ public class HuntersCompassItem extends Item{
 	       // return itemStk;
 	        
 	    }
-	  	
+	    }
 	  	
 	  	
 	  	//compass takes damage
@@ -248,17 +250,22 @@ public class HuntersCompassItem extends Item{
 	{
 
 	    	World wld =target.worldObj;
-	    	System.out.println("Schwing");
-	    	System.out.println(target);
-
+	    	//System.out.println("Schwing");
+	    	//System.out.println(target);
+	    	//System.out.println("isremote: "+ wld.isRemote);
+	    	//System.out.println("Raget instance of EntityplayerMP: " + (target instanceof EntityPlayerMP));
+    		
+	    	//if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+    		//{
 	    	
-	    	
-	    	if(wld.isRemote)
+	    	if(!wld.isRemote)
 	    	{
 	    		
-	    	if(target instanceof EntityOtherPlayerMP)
+	    		
+	    	if(target instanceof EntityPlayerMP)
 	    	{
 	    	
+	    		
 	    	//System.out.println("It is an instance of EntityPlayerMP");
 	    	
 	    	
@@ -267,11 +274,6 @@ public class HuntersCompassItem extends Item{
 		    	String targetName = ((EntityPlayer) target).getDisplayName();
 		    	
 		    	System.out.println("Target Name "+targetName);
-		    	
-		    	
-		    		if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-		    		{
-		    			//System.out.println("key pressed");
 		    			
 		    			for(int i = 0; i<this.itemTier; i++)
 		    		    {	
@@ -298,12 +300,19 @@ public class HuntersCompassItem extends Item{
 			    					System.out.println("Adding target name to whitelist");
 			    					stack.stackTagCompound.setString( index , targetName );
 			    				i = (this.itemTier+1);
+			    				
+			    				
+			    				
 				    			}
 			    		    }
 		    		
 		    			}
+		    			
+		    			
+		    			
+		    			
 	    		    				 
-		    		}
+		    		//}
 
 		    			return true;
 		    			
@@ -312,32 +321,8 @@ public class HuntersCompassItem extends Item{
 			
 	}
 	
-	/*
-	@Override
-	public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) 
-	{
-	    
-		if( par1ItemStack.stackTagCompound == null )
-		{
-	        par1ItemStack.setTagCompound( new NBTTagCompound( ) );
-
-	    String s = "";
-	    s = s + par3EntityPlayer.getDisplayName();
-
-	    par1ItemStack.stackTagCompound.setString( "Created", s );
-	    
-	    
-	    for(int i = 0; i<this.itemTier; i++)
-	    {
-	    	String index = ""+i;
-	    	System.out.println("On Create Index: "+ index);
-	    	
-	    par1ItemStack.stackTagCompound.setString( index , "" );
-	    }
-	    
-		}
-	}
-	*/
+	
+	
 	
 	
 }
