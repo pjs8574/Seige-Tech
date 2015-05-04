@@ -80,7 +80,7 @@ import net.minecraft.world.WorldServer;
 public class HuntersCompassItem extends Item{
 	
 	private int itemTier;
-	
+	private int maxSearchDistence;
 	
 	public HuntersCompassItem(String name, int tier) {
 		
@@ -93,13 +93,14 @@ public class HuntersCompassItem extends Item{
 		this.setMaxDamage(8);
 		
 		this.itemTier = tier;
+		this.maxSearchDistence = itemTier*1000;
 		
 	}
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
 	par3List.add("Tier: " + this.itemTier + " The lidless eye seeks Players." );
-
+	par3List.add("Shift+Left Click on a player to ignore them when searching." );
 	
 		if( par1ItemStack.stackTagCompound == null )
 		{
@@ -141,7 +142,7 @@ public class HuntersCompassItem extends Item{
 	    String dirNS;
 	    String dirEW;
 	    StringBuilder huntingMessage = new StringBuilder();
-	    int closestPlayerDistence = 1000;
+	    int closestPlayerDistence = maxSearchDistence;
 	    boolean alone = false;
 	    ArrayList<String> whiteList = new ArrayList<String>(this.itemTier);
 	      
@@ -255,8 +256,8 @@ public class HuntersCompassItem extends Item{
 	    	//System.out.println("isremote: "+ wld.isRemote);
 	    	//System.out.println("Raget instance of EntityplayerMP: " + (target instanceof EntityPlayerMP));
     		
-	    	//if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-    		//{
+	    	if (player.isSneaking())
+    		{
 	    	
 	    	if(!wld.isRemote)
 	    	{
@@ -307,12 +308,8 @@ public class HuntersCompassItem extends Item{
 			    		    }
 		    		
 		    			}
-		    			
-		    			
-		    			
-		    			
-	    		    				 
-		    		//}
+				 
+		    		}
 
 		    			return true;
 		    			
