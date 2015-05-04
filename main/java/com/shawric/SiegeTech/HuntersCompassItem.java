@@ -274,7 +274,7 @@ public class HuntersCompassItem extends Item{
 	    	
 		    	String targetName = ((EntityPlayer) target).getDisplayName();
 		    	
-		    	System.out.println("Target Name "+targetName);
+		    	//System.out.println("Target Name "+targetName);
 		    			
 		    			for(int i = 0; i<this.itemTier; i++)
 		    		    {	
@@ -286,7 +286,7 @@ public class HuntersCompassItem extends Item{
 		    			
 		    			if (whiteList.contains(targetName)==false)
 		    			{
-		    				System.out.println("Targetname not in whitelist");
+		    				//System.out.println("Targetname not in whitelist");
 		    				for(int i = 0; i<this.itemTier; i++)
 			    		    {	
 			    				String index = ""+i;
@@ -298,7 +298,10 @@ public class HuntersCompassItem extends Item{
 			    				if (stack.stackTagCompound.getString(index).equals("z"))
 				    			{
 			    					
-			    					System.out.println("Adding target name to whitelist");
+			    					player.addChatMessage(new ChatComponentText("This Eye no longer seeks "+targetName));
+			    	    	    	
+			    					
+			    					//System.out.println("Adding target name to whitelist");
 			    					stack.stackTagCompound.setString( index , targetName );
 			    				i = (this.itemTier+1);
 			    				
