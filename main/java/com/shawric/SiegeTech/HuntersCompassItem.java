@@ -90,10 +90,11 @@ public class HuntersCompassItem extends Item{
 
 		this.setMaxStackSize(1);
 		
-		this.setMaxDamage(8);
+		
 		
 		this.itemTier = tier;
 		this.maxSearchDistence = itemTier*1000;
+		this.setMaxDamage((itemTier*4));
 		
 	}
 	
@@ -216,7 +217,7 @@ public class HuntersCompassItem extends Item{
 	      			huntingMessage.append(dirEW);
 	      		}
 	      			
-	      		if(world1.isRemote && !huntingMessage.equals(""))
+	      		if(world1.isRemote && !(huntingMessage.toString()).equals(""))
 	    	    	{
 	      			triggerPlayer.addChatMessage(new ChatComponentText("The eye looks to the" + huntingMessage.toString() + "."));
 	    	    	}

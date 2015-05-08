@@ -31,6 +31,8 @@ public class SiegeTech {
 	public static final String modid = "shawric_siegetech";
 	public static CreativeTabs tabMyMod = new SiegetechCreativeTab("tabSiegeTech");
 	
+	public static Block claimBlock;
+	
 	public static Block basicShawcrete;
 	public static Block improvedShawcrete;
 	public static Block advancedShawcrete;
@@ -68,6 +70,8 @@ public class SiegeTech {
 		advancedShawcrete = new ShawcreteBlock("advancedShawcrete", 3, 60);
 		eliteShawcrete = new ShawcreteBlock("eliteShawcrete", 4, 90);
 		
+		claimBlock = new ClaimBlock("claimBlock", 1, 200);
+		
 		//Create Explosive blocks -- Name and Tier
 		basicSeitersonicExplosive = new SeitersonicExplosiveBlock("basicSeitersonicExplosive", 1);
 		improvedSeitersonicExplosive = new SeitersonicExplosiveBlock("improvedSeitersonicExplosive", 2);
@@ -99,6 +103,8 @@ public class SiegeTech {
 		GameRegistry.registerBlock(improvedShawcrete, modid + (improvedShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(advancedShawcrete, modid + (advancedShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(eliteShawcrete, modid + (eliteShawcrete.getUnlocalizedName().substring(5)));
+		
+		GameRegistry.registerBlock(claimBlock, modid + (claimBlock.getUnlocalizedName().substring(5)));
 		
 		GameRegistry.registerBlock(basicSeitersonicExplosive, modid + (basicSeitersonicExplosive.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(improvedSeitersonicExplosive, modid + (improvedSeitersonicExplosive.getUnlocalizedName().substring(5)));
@@ -220,9 +226,6 @@ public class SiegeTech {
 		
 		
 		//Render registration for entities
-		
-	
-		
 		proxy.registerRenderGrenade(PandaNadeEntity.class, basicPandaNade);
 		proxy.registerRenderArrow(NethreciteArrowEntity.class);
 		proxy.registerRenderExplosive(SeitersonicExplosiveEntityPrimed.class, basicSeitersonicExplosive, 1);
