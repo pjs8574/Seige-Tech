@@ -14,7 +14,7 @@ public class ClaimBlockTileEntity extends TileEntity{
 	
 	
 	public static final String publicName = "claimBlockTileEntity";
-    private String name = "claimlockTileEntity";
+    private String name = "claimBlockTileEntity";
 
 	
 	public NBTTagCompound stackTagCompound;
@@ -24,22 +24,10 @@ public class ClaimBlockTileEntity extends TileEntity{
 	private int baseClaimBlockHP;
 	
 	
-	public ClaimBlockTileEntity(String player) {
-		
-		
-		
-		
-		Minecraft.getMinecraft().thePlayer.sendChatMessage("TE Constructer fired.");
-		if( this.stackTagCompound == null )
-		{
-			System.out.println("NBT null, creating new");
-			this.stackTagCompound = new NBTTagCompound( );
-		}
-		
-		this.owner=player;
-		
-		
-		
+	public ClaimBlockTileEntity() {
+
+		//Minecraft.getMinecraft().thePlayer.sendChatMessage("TE Constructer fired.");
+	
 	}
 	
    private void setBlockName(String name) {
@@ -50,18 +38,18 @@ public class ClaimBlockTileEntity extends TileEntity{
    @Override
    public void writeToNBT(NBTTagCompound par1)
    {
-      
+	   super.writeToNBT(par1);
       par1.setString("Owner", owner);
-      super.writeToNBT(par1);
-   
+
    }
 
    @Override
    public void readFromNBT(NBTTagCompound par1)
    {
       
-      this.owner = par1.getString("Owner");
-      super.readFromNBT(par1);
+	   super.readFromNBT(par1);
+	   this.owner = par1.getString("Owner");
+    
    }
    
    
@@ -82,19 +70,13 @@ public class ClaimBlockTileEntity extends TileEntity{
    
    public String getOwner(){
 
-	   return this.stackTagCompound.getString("Owner");
+	   
+	   return this.owner;
    }
    
    public void setOwner(String playerName){
 	   
-	
-	if( this.stackTagCompound == null )
-	{
-		System.out.println("NBT null, creating new");
-		this.stackTagCompound = new NBTTagCompound( );
-	}
-	
-	   this.stackTagCompound.setString("Owner", playerName);
+	   this.owner = playerName;
 	   this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
    
    }

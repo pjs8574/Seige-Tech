@@ -87,28 +87,25 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 		@Override
 		public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 			Minecraft.getMinecraft().thePlayer.sendChatMessage("Tile Ent created.");
-			return new ClaimBlockTileEntity(this.owner);
+			return new ClaimBlockTileEntity();
 		
 		}
 
 		
 		@Override
-		 public boolean onBlockActivated(World wrld, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+		 public boolean onBlockActivated(World wrld, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 		    {
 		        
 			ClaimBlockTileEntity tileentityClaimBlock = (ClaimBlockTileEntity)wrld.getTileEntity(p_149727_2_, p_149727_3_, p_149727_4_);
-					
-		            
+ 
 				if(wrld.isRemote)
 				{
-		            System.out.println("Client Owner: " + tileentityClaimBlock.getOwner());
+					player.addChatMessage(new ChatComponentText("(Client side) This is owned by: "+tileentityClaimBlock.getOwner()));
 				}else{
-					System.out.println("Server Owner: " + tileentityClaimBlock.getOwner());
-				}
-		            
+					player.addChatMessage(new ChatComponentText("(Server Side) This is owned by: "+tileentityClaimBlock.getOwner()));
+				}   
 		            return true;
-
-		            
+       
 		    }
 	
 

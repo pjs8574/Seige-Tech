@@ -225,7 +225,7 @@ public class HuntersCompassItem extends Item{
 	    	}else{
 	    			if(world1.isRemote)
 	    			{
-	    				Minecraft.getMinecraft().thePlayer.sendChatMessage("Somthing dun fucked");
+	    				triggerPlayer.addChatMessage(new ChatComponentText("Somthing dun fucked"));
 	    			}
     	    	
     	    	}
