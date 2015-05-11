@@ -26,14 +26,19 @@ public class ClaimBlockTileEntity extends TileEntity{
 	
 	public ClaimBlockTileEntity(String player) {
 		
-		Minecraft.getMinecraft().thePlayer.sendChatMessage("Tile Ent Constructer fired.");
+		
+		
+		
+		Minecraft.getMinecraft().thePlayer.sendChatMessage("TE Constructer fired.");
 		if( this.stackTagCompound == null )
 		{
 			System.out.println("NBT null, creating new");
 			this.stackTagCompound = new NBTTagCompound( );
 		}
-	
+		
 		this.owner=player;
+		
+		
 		
 	}
 	
@@ -90,7 +95,7 @@ public class ClaimBlockTileEntity extends TileEntity{
 	}
 	
 	   this.stackTagCompound.setString("Owner", playerName);
-	   this.markDirty();
+	   this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
    
    }
 
