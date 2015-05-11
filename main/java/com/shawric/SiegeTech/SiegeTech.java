@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -32,6 +33,7 @@ public class SiegeTech {
 	public static CreativeTabs tabMyMod = new SiegetechCreativeTab("tabSiegeTech");
 	
 	public static Block claimBlock;
+	ClaimEventHandler claimHandler = new ClaimEventHandler();
 	
 	public static Block basicShawcrete;
 	public static Block improvedShawcrete;
@@ -99,6 +101,7 @@ public class SiegeTech {
 		
 		
 		//Register the Blocks
+		
 		GameRegistry.registerBlock(basicShawcrete, modid + (basicShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(improvedShawcrete, modid + (improvedShawcrete.getUnlocalizedName().substring(5)));
 		GameRegistry.registerBlock(advancedShawcrete, modid + (advancedShawcrete.getUnlocalizedName().substring(5)));
@@ -129,6 +132,8 @@ public class SiegeTech {
 		GameRegistry.registerItem(tierCraftingItemAstralium, modid + (tierCraftingItemAstralium.getUnlocalizedName().substring(5)));
 				
 		//register the Entitys
+		GameRegistry.registerTileEntity(ClaimBlockTileEntity.class, "ClaimBlockID"+this.getUniqeEntID());
+		
 		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(basicPandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(improvedPandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
 		EntityRegistry.registerModEntity(PandaNadeEntity.class, modid + "." +(advancedPandaNade.getUnlocalizedName().substring(5)) + "Entity", this.getUniqeEntID(), this, 80, 3, true);
@@ -147,6 +152,9 @@ public class SiegeTech {
 	
 	@EventHandler
 	public void Init(FMLInitializationEvent event){
+		
+		//initialize the claim even handler
+		MinecraftForge.EVENT_BUS.register(claimHandler);
 		
 		//Creating item stacks for recipe creations
 		ItemStack gravelStack = new ItemStack(Blocks.gravel);

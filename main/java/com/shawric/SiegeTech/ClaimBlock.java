@@ -3,8 +3,15 @@ package com.shawric.SiegeTech;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -19,8 +26,13 @@ public class ClaimBlock extends Block {
 	@SideOnly(Side.CLIENT)
 	private IIcon damagedHP;
 	
+	private Chunk placedChunk;
+	private String owner;
+	
 	boolean blockExploded;
 	
+	
+	//constructor
 	public ClaimBlock(String name, int tier, int baseHP) {
 		super(Material.rock);
 		this.setHardness(5);
@@ -31,12 +43,21 @@ public class ClaimBlock extends Block {
 		this.setBlockName(name);
 		this.blockTier = tier;
 	}
+	
 	@Override
-	 public void onBlockAdded(World world, int x, int y, int z)
-	    {
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase placer, ItemStack itmStk)
+		{
 	        	//set the Meta to "max" hp which is a meta int of 15
 			world.setBlockMetadataWithNotify(x, y, z, 15, 2);
 	        	//Minecraft.getMinecraft().thePlayer.sendChatMessage("New block is places with HP of " + world.getBlockMetadata(x, y, z));
+			
+			placedChunk = world.getChunkFromChunkCoords(x, z);
+			
+			owner = ((EntityPlayer) placer).getDisplayName();
+			
+			((EntityPlayer) placer).addChatMessage(new ChatComponentText("The chunk "+ placedChunk.toString() + " has been claimed by " + this.owner));
+    	    
+			
 	    }
 	
 	
@@ -62,7 +83,10 @@ public class ClaimBlock extends Block {
 		
 		}
 	
-	
+		public TileEntity createTileEntity(World world, int metadata)
+		{
+		   return new ClaimBlockTileEntity(this.placedChunk, this.owner, this.blockTier, this.baseClaimBlockHP);
+		}
 	
 
 }
