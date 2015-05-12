@@ -90,8 +90,6 @@ public class HuntersCompassItem extends Item{
 
 		this.setMaxStackSize(1);
 		
-		
-		
 		this.itemTier = tier;
 		this.maxSearchDistence = itemTier*1000;
 		this.setMaxDamage((itemTier*4));

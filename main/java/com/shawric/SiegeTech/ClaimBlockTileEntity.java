@@ -1,5 +1,7 @@
 package com.shawric.SiegeTech;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,17 +19,18 @@ public class ClaimBlockTileEntity extends TileEntity{
     private String name = "claimBlockTileEntity";
 
 	
-	public NBTTagCompound stackTagCompound;
+	
 	private Chunk placedChunk;
 	private String owner;
 	private int blockTier;
 	private int baseClaimBlockHP;
+	private ArrayList<String> whiteList;
 	
 	
 	public ClaimBlockTileEntity() {
 
-		//Minecraft.getMinecraft().thePlayer.sendChatMessage("TE Constructer fired.");
-	
+		System.out.println("---!!!CLAIM BLOCK CONSTRUCTOR TRIGGERED!!!---");
+		
 	}
 	
    private void setBlockName(String name) {
@@ -35,6 +38,13 @@ public class ClaimBlockTileEntity extends TileEntity{
 		
 	}
 
+   
+   public void onUpdate(){
+	   
+	   
+   }
+   
+   
    @Override
    public void writeToNBT(NBTTagCompound par1)
    {
@@ -70,22 +80,34 @@ public class ClaimBlockTileEntity extends TileEntity{
    
    public String getOwner(){
 
-	   
 	   return this.owner;
    }
    
    public void setOwner(String playerName){
 	   
 	   this.owner = playerName;
+	   this.placedChunk = this.worldObj.getChunkFromBlockCoords(xCoord, zCoord);
 	   this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	  
+	   if(this.owner != null){
+			System.out.println("Owner is NOT NULL, telling the event handler.");
+			ClaimBlockEventHandler.addClaimBlockToList(owner,placedChunk);
+		}
    
    }
 
+   public Chunk getClaimedChunk(){
+
+	   return this.placedChunk;
+   }
    
-   
-   
-   
-   
+   public void  addPlayerToWhitelist(String playerName){
+
+	   if (this.whiteList.contains(playerName)){
+		      //already on the whitelist, do nothing
+	   }else{this.whiteList.add(playerName);}
+	   
+   }
    
    
    

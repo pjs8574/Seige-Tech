@@ -58,6 +58,7 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 				ClaimBlockTileEntity tile = (ClaimBlockTileEntity) world.getTileEntity(x, y, z);
 				
 					tile.setOwner(owner);		
+					
 	    }
 	
 	

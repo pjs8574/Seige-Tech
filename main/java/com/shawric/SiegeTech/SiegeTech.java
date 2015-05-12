@@ -33,7 +33,7 @@ public class SiegeTech {
 	public static CreativeTabs tabMyMod = new SiegetechCreativeTab("tabSiegeTech");
 	
 	public static Block claimBlock;
-	ClaimEventHandler claimHandler = new ClaimEventHandler();
+	
 	
 	public static Block basicShawcrete;
 	public static Block improvedShawcrete;
@@ -154,7 +154,7 @@ public class SiegeTech {
 	public void Init(FMLInitializationEvent event){
 		
 		//initialize the claim even handler
-		MinecraftForge.EVENT_BUS.register(claimHandler);
+		registerEventListeners();
 		
 		//Creating item stacks for recipe creations
 		ItemStack gravelStack = new ItemStack(Blocks.gravel);
@@ -298,6 +298,16 @@ public class SiegeTech {
 		this.entIDCount++;
 		
 	return this.entIDCount;
+	}
+	
+	
+	public void registerEventListeners() 
+	{
+	    // DEBUG
+	    System.out.println("Registering event listeners");
+
+	    MinecraftForge.EVENT_BUS.register(new ClaimBlockEventHandler());
+	    
 	}
 	
 	
