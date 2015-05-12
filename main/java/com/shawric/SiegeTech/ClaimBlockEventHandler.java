@@ -32,23 +32,51 @@ public class ClaimBlockEventHandler {
         String Loc = ("X: "+event.x +" Y: "+ event.y +" Z: "+ event.z);
         
         theBreaker.addChatMessage(new ChatComponentText("Block location: " + Loc));
+        
+        Chunk chunkToCheck = event.world.getChunkFromBlockCoords(event.x, event.z);
+        String chunkLoc = "chunkat"+chunkToCheck.xPosition+chunkToCheck.zPosition;
+        String breakerName =theBreaker.getDisplayName();
+        
+        theBreaker.addChatMessage(new ChatComponentText("claimblocklist: "+claimBlockList.toString()));
+        
+        if(this.claimBlockList.containsKey(chunkLoc)){
+        	
+        	String chunkWhitelist = (String) this.claimBlockList.get(chunkLoc);
+        	
+        	if(chunkWhitelist.contains(breakerName)){
+        		theBreaker.addChatMessage(new ChatComponentText("You have access to this chunk."));
+        	}else{
+        		theBreaker.addChatMessage(new ChatComponentText("You DO NOT have access to this chunk."));
+        		event.setCanceled(true);
+        	}
+        	
+        }
+        
+       
+        
+        
+        
+        
+        
     }
 
 	public static void addClaimBlockToList(String owner, Chunk placedChunk) {
 		
-		String ownerList = owner;
 		
-		if(claimBlockList.contains(placedChunk)){
-		
-		ownerList = (String) claimBlockList.get(placedChunk);
-		
-			if(ownerList.contains(owner)){
-				System.out.println("Owner already on the chunk list");
+			String ownerList = owner;
+			String chunkLoc = "chunkat"+placedChunk.xPosition+placedChunk.zPosition;
+			
+			if(claimBlockList.contains(chunkLoc)){
+			
+			ownerList = (String) claimBlockList.get(chunkLoc);
+			
+				if(ownerList.contains(owner)){
+					System.out.println("Owner already on the chunk list");
+				}
+	
+			}else{
+			claimBlockList.put(chunkLoc,ownerList);
 			}
-
-		}else{
-		claimBlockList.put(placedChunk,ownerList);
-		}
 		
 	} 
 	
