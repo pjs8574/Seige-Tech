@@ -34,7 +34,7 @@ public class ClaimBlockEventHandler {
         theBreaker.addChatMessage(new ChatComponentText("Block location: " + Loc));
         
         Chunk chunkToCheck = event.world.getChunkFromBlockCoords(event.x, event.z);
-        String chunkLoc = "chunkat"+chunkToCheck.xPosition+chunkToCheck.zPosition;
+        String chunkLoc = "chunkat"+"|"+chunkToCheck.xPosition+"|"+chunkToCheck.zPosition;
         String breakerName =theBreaker.getDisplayName();
         
         theBreaker.addChatMessage(new ChatComponentText("claimblocklist: "+claimBlockList.toString()));
@@ -51,13 +51,7 @@ public class ClaimBlockEventHandler {
         	}
         	
         }
-        
-       
-        
-        
-        
-        
-        
+         
     }
 
 	public static void addClaimBlockToList(String owner, Chunk placedChunk) {
@@ -101,9 +95,8 @@ public class ClaimBlockEventHandler {
 
 	public static void claimBlockDestroyed(Chunk chunkToRemove) {
 		
-		String chunkLoc = "chunkat"+chunkToRemove.xPosition+chunkToRemove.zPosition;
-		
-		
+		String chunkLoc = "chunkat"+"|"+chunkToRemove.xPosition+"|"+chunkToRemove.zPosition;
+
 		claimBlockList.remove(chunkLoc);
 		
 	} 

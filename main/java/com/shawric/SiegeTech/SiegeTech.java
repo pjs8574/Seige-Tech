@@ -19,7 +19,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "shawric_siegetech", name = "Siege Tech Mod", version = "1.0.1 MC_1.7.10")
+@Mod(modid = "shawric_siegetech", name = "Siege Tech Mod", version = "1.1.0 MC_1.7.10")
 
 public class SiegeTech {
 
@@ -55,6 +55,7 @@ public class SiegeTech {
 	public static Item tierCraftingItemAstralium;
 	
 	public static Item huntersCompass;
+	public static Item whiteList;
 
 	public static Item nethreciteArrow;
 	public static Item nethreciteBow;
@@ -91,6 +92,7 @@ public class SiegeTech {
 		nethreciteBow = new NethreciteBowItem("nethreciteBow", 2);
 		
 		huntersCompass = new HuntersCompassItem("huntersCompass", 2);
+		whiteList = new WhiteListItem("whiteList", 2);
 	
 	
 		//create Crafting Only items -- Name and Tier
@@ -125,7 +127,7 @@ public class SiegeTech {
 		GameRegistry.registerItem(nethreciteArrow, modid + (nethreciteArrow.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(nethreciteBow, modid + (nethreciteBow.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(huntersCompass, modid + (huntersCompass.getUnlocalizedName().substring(5)));
-		
+		GameRegistry.registerItem(whiteList, modid + (whiteList.getUnlocalizedName().substring(5)));
 		
 		GameRegistry.registerItem(tierCraftingItemNethrecite, modid + (tierCraftingItemNethrecite.getUnlocalizedName().substring(5)));
 		GameRegistry.registerItem(tierCraftingItemEndrite, modid + (tierCraftingItemEndrite.getUnlocalizedName().substring(5)));

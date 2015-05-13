@@ -109,11 +109,19 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 				if(wrld.isRemote)
 				{
 					player.addChatMessage(new ChatComponentText("(Client side) This is owned by: "+tileentityClaimBlock.getOwner()));
-				}else{
-					player.addChatMessage(new ChatComponentText("(Server Side) This is owned by: "+tileentityClaimBlock.getOwner()));
+				
+					ItemStack heldItem = player.getHeldItem();
+					
+					//if its the whitelist item then get the list of names from it
+				
 				}   
 		            return true;
        
+		            
+		            
+		            
+		           
+		            
 		    }
 	
 
