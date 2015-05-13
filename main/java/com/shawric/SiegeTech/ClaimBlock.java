@@ -50,17 +50,24 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase placer, ItemStack itmStk)
 		{
-
 			this.owner = ((EntityPlayer) placer).getDisplayName();
-			
 			//((EntityPlayer) placer).addChatMessage(new ChatComponentText("The chunk "+ placedChunk.toString() + " has been claimed by " + this.owner));
-    	   
 				ClaimBlockTileEntity tile = (ClaimBlockTileEntity) world.getTileEntity(x, y, z);
-				
 					tile.setOwner(owner);		
-					
 	    }
 	
+	@Override
+	public void onBlockPreDestroy(World wrld, int x, int y, int z, int p_149664_5_) {
+		
+		System.out.println("!!!!CLAIM BLOCK DESTORYED!!!! REMOVING FROM LIST!!!");
+		
+		if(!wrld.isRemote){
+		ClaimBlockTileEntity tile = (ClaimBlockTileEntity) wrld.getTileEntity(x, y, z);
+		tile.claimBlockDestroyed();
+		}
+		
+	}
+
 	
 	//sets the block texture stored in \src\main\resources\assets\shawric_seigetech\textures\blocks
 		@SideOnly(Side.CLIENT)

@@ -97,6 +97,15 @@ public class ClaimBlockEventHandler {
 		
 		}
 		
+	}
+
+	public static void claimBlockDestroyed(Chunk chunkToRemove) {
+		
+		String chunkLoc = "chunkat"+chunkToRemove.xPosition+chunkToRemove.zPosition;
+		
+		
+		claimBlockList.remove(chunkLoc);
+		
 	} 
 
 }

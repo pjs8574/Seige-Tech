@@ -51,9 +51,9 @@ public class ClaimBlockTileEntity extends TileEntity{
 	   
 	   if (this.timeCheck < 30){
 		   ++this.timeCheck;
-		   this.markDirty();
+		   
 	   }else{  
-				   System.out.println("---!!!SENDING UPDATE TO EH!!!---");
+				   //System.out.println("---!!!SENDING UPDATE TO EH!!!---");
 				   ClaimBlockEventHandler.addClaimBlockToList(this.owner,this.worldObj.getChunkFromBlockCoords(xCoord, zCoord));  
 				   ++this.timeCheck;
 				   this.markDirty();
@@ -129,6 +129,15 @@ public class ClaimBlockTileEntity extends TileEntity{
 		      //already on the whitelist, do nothing
 	   }else{this.whiteList.add(playerName);}
 	   
+   }
+
+   public void claimBlockDestroyed() {
+
+	   if(!this.worldObj.isRemote){
+		   System.out.println("SERVER SIDE --- !!!!CLAIM BLOCK DESTORYED!!!! REMOVING FROM LIST!!!");
+		   ClaimBlockEventHandler.claimBlockDestroyed(this.worldObj.getChunkFromBlockCoords(xCoord, zCoord));
+	   }
+	
    }
    
    
