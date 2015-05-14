@@ -37,9 +37,10 @@ public class ClaimBlockEventHandler {
     	{
 				EntityPlayer theBreaker = event.player;
 				Chunk chunkToCheck = event.world.getChunkFromBlockCoords(event.x, event.z);
-				System.out.println("PLACING BLOCK IN "+chunkToCheck.xPosition+","+chunkToCheck.zPosition);
 				
-			    event.setCanceled(this.checkList(chunkToCheck,theBreaker));	
+				
+			    event.setCanceled(this.checkList(chunkToCheck,theBreaker));
+			    System.out.println("PLACING BLOCK IN "+chunkToCheck.xPosition+","+chunkToCheck.zPosition);
 	    }
     }
     
@@ -116,14 +117,16 @@ public class ClaimBlockEventHandler {
 		
 	}
 
-	public static void claimBlockDestroyed(Chunk chunkToRemove) {
+	public static void claimBlockDestroyed(Chunk chunkToRemove, String owner) {
 		
 		String chunkLoc = "chunkat"+","+chunkToRemove.xPosition+","+chunkToRemove.zPosition;
-		claimBlockList.remove(chunkLoc);
 		
-	} 
+		if(claimBlockList.containsKey(chunkLoc)){
+			if(claimBlockList.get(chunkLoc)==owner){
+				claimBlockList.remove(chunkLoc);	
+			}
+		} 
 
-	
-	
-	
 	}
+	
+}

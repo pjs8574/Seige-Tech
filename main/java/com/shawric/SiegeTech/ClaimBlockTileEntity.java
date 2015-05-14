@@ -32,6 +32,7 @@ public class ClaimBlockTileEntity extends TileEntity{
 
 		System.out.println("---!!!this.sentToEventList!!!---"+this.sentToEventList);
 		System.out.println("---!!!CLAIM BLOCK CONSTRUCTOR TRIGGERED!!!---");
+		this.sentToEventList = false;
 		this.timeCheck = 0;
 
 	}
@@ -44,10 +45,10 @@ public class ClaimBlockTileEntity extends TileEntity{
    @Override
    public void updateEntity(){
 	   
-	   if(!this.worldObj.isRemote){
+	   if(!this.worldObj.isRemote && this.sentToEventList==false){
 	  // System.out.println("---!!!TIMECHECK!!!---"+this.timeCheck);
 	   
-	   if (this.timeCheck < 30){
+	   if (this.timeCheck < 40){
 		   ++this.timeCheck;
 		   
 	   }else{  
@@ -55,10 +56,11 @@ public class ClaimBlockTileEntity extends TileEntity{
 				   ClaimBlockEventHandler.addClaimBlockToList(this.owner,this.worldObj.getChunkFromBlockCoords(xCoord, zCoord));  
 				   ++this.timeCheck;
 				   this.markDirty();
+				   this.sentToEventList = true;
 	        }  
 	   }
 	   
-	   if (this.timeCheck > 30){this.timeCheck=0;}
+	   if (this.timeCheck > 40){this.timeCheck=0;}
    }
    
    
@@ -67,7 +69,7 @@ public class ClaimBlockTileEntity extends TileEntity{
    {
 	   super.writeToNBT(par1);
       par1.setString("Owner", owner);
-      par1.setBoolean("updated",sentToEventList);
+      
 
    }
 
@@ -77,7 +79,7 @@ public class ClaimBlockTileEntity extends TileEntity{
       
 	   super.readFromNBT(par1);
 	   this.owner = par1.getString("Owner");
-	   this.sentToEventList = par1.getBoolean("updated");
+	  
     
    }
    
@@ -133,7 +135,7 @@ public class ClaimBlockTileEntity extends TileEntity{
 
 	   if(!this.worldObj.isRemote){
 		   System.out.println("SERVER SIDE --- !!!!CLAIM BLOCK DESTORYED!!!! REMOVING FROM LIST!!!");
-		   ClaimBlockEventHandler.claimBlockDestroyed(this.worldObj.getChunkFromBlockCoords(xCoord, zCoord));
+		   ClaimBlockEventHandler.claimBlockDestroyed(this.worldObj.getChunkFromBlockCoords(xCoord, zCoord),this.owner);
 	   }
 	
    }
