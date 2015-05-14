@@ -18,26 +18,39 @@ public class ClaimBlockEventHandler {
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
     public void onEvent(BlockEvent.BreakEvent event)
     {
-        // Register extended entity properties
-		
+        //checking the block break, see if player has acces to chunk
+		if(!event.world.isRemote)
+    	{
 		EntityPlayer theBreaker = event.getPlayer();
+		Chunk chunkToCheck = event.world.getChunkFromBlockCoords(event.x, event.z);
 
-        if (theBreaker instanceof EntityPlayerMP)
-        {
-        	theBreaker.addChatMessage(new ChatComponentText("Block Broken By MP Player: "+theBreaker.getDisplayName()));
-        }else{
-        	theBreaker.addChatMessage(new ChatComponentText("Block Broken By Other Player: "+theBreaker.getDisplayName()));
-        }
-        
-        String Loc = ("X: "+event.x +" Y: "+ event.y +" Z: "+ event.z);
-        
-        theBreaker.addChatMessage(new ChatComponentText("Block location: " + Loc));
-        
-        Chunk chunkToCheck = event.world.getChunkFromBlockCoords(event.x, event.z);
-        String chunkLoc = "chunkat"+"|"+chunkToCheck.xPosition+"|"+chunkToCheck.zPosition;
+		
+	        event.setCanceled(this.checkList(chunkToCheck,theBreaker));	
+	    }
+    }
+       
+	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
+	public void onEvent(BlockEvent.PlaceEvent event)
+    {
+        //checking the block place, see if player has access to chunk
+		if(!event.world.isRemote)
+    	{
+				EntityPlayer theBreaker = event.player;
+				Chunk chunkToCheck = event.world.getChunkFromBlockCoords(event.x, event.z);
+				System.out.println("PLACING BLOCK IN "+chunkToCheck.xPosition+","+chunkToCheck.zPosition);
+				
+			    event.setCanceled(this.checkList(chunkToCheck,theBreaker));	
+	    }
+    }
+    
+	public boolean checkList(Chunk chunkToCheck, EntityPlayer theBreaker){
+
+		if(!chunkToCheck.worldObj.isRemote){
+		
+        String chunkLoc = "chunkat"+","+chunkToCheck.xPosition+","+chunkToCheck.zPosition;
         String breakerName =theBreaker.getDisplayName();
         
-        theBreaker.addChatMessage(new ChatComponentText("claimblocklist: "+claimBlockList.toString()));
+        theBreaker.addChatMessage(new ChatComponentText("Current claimblocklist: "+claimBlockList.toString()));
         
         if(this.claimBlockList.containsKey(chunkLoc)){
         	
@@ -45,32 +58,42 @@ public class ClaimBlockEventHandler {
         	
         	if(chunkWhitelist.contains(breakerName)){
         		theBreaker.addChatMessage(new ChatComponentText("You have access to this chunk."));
+        		return false;
         	}else{
         		theBreaker.addChatMessage(new ChatComponentText("You DO NOT have access to this chunk."));
-        		event.setCanceled(true);
+        		return true;
         	}
-        	
-        }
-         
-    }
-
+			
+			}else{theBreaker.addChatMessage(new ChatComponentText("Name not in the list."));
+				  theBreaker.addChatMessage(new ChatComponentText("You have access to this chunk."));
+					return false;}
+		
+		
+		}else{return false;}
+		
+		
+		}
+	
+	
+	
+	
+	
+	
 	public static void addClaimBlockToList(String owner, Chunk placedChunk) {
 		
-		
+		if(!placedChunk.worldObj.isRemote){
+			
 			String ownerList = owner;
-			String chunkLoc = "chunkat"+placedChunk.xPosition+placedChunk.zPosition;
+			String chunkLoc = "chunkat"+","+placedChunk.xPosition+","+placedChunk.zPosition;
 			
-			if(claimBlockList.contains(chunkLoc)){
-			
-			ownerList = (String) claimBlockList.get(chunkLoc);
-			
-				if(ownerList.contains(owner)){
-					System.out.println("Owner already on the chunk list");
-				}
-	
+			if(claimBlockList.containsKey(chunkLoc)){
+				System.out.println("-----CHUNK ALREADY CLAIMED----");
+				
 			}else{
 			claimBlockList.put(chunkLoc,ownerList);
 			}
+			
+		}
 		
 	} 
 	
@@ -85,7 +108,7 @@ public class ClaimBlockEventHandler {
 			if(ownerList.contains(anotherName)){
 				System.out.println("Owner already on the chunk list");
 			}else{
-				ownerList = ownerList + "|" + anotherName;
+				ownerList = ownerList + "," + anotherName;
 				claimBlockList.put(placedChunk,ownerList);
 			}
 		
@@ -95,10 +118,12 @@ public class ClaimBlockEventHandler {
 
 	public static void claimBlockDestroyed(Chunk chunkToRemove) {
 		
-		String chunkLoc = "chunkat"+"|"+chunkToRemove.xPosition+"|"+chunkToRemove.zPosition;
-
+		String chunkLoc = "chunkat"+","+chunkToRemove.xPosition+","+chunkToRemove.zPosition;
 		claimBlockList.remove(chunkLoc);
 		
 	} 
 
-}
+	
+	
+	
+	}

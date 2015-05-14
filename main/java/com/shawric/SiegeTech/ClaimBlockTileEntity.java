@@ -30,12 +30,10 @@ public class ClaimBlockTileEntity extends TileEntity{
 	
 	public ClaimBlockTileEntity() {
 
-		
 		System.out.println("---!!!this.sentToEventList!!!---"+this.sentToEventList);
 		System.out.println("---!!!CLAIM BLOCK CONSTRUCTOR TRIGGERED!!!---");
 		this.timeCheck = 0;
-	
-		
+
 	}
 	
    private void setBlockName(String name) {
@@ -53,7 +51,7 @@ public class ClaimBlockTileEntity extends TileEntity{
 		   ++this.timeCheck;
 		   
 	   }else{  
-				   //System.out.println("---!!!SENDING UPDATE TO EH!!!---");
+				   System.out.println("---!!!SENDING UPDATE TO EH!!!---"+ this.owner);
 				   ClaimBlockEventHandler.addClaimBlockToList(this.owner,this.worldObj.getChunkFromBlockCoords(xCoord, zCoord));  
 				   ++this.timeCheck;
 				   this.markDirty();
@@ -111,10 +109,10 @@ public class ClaimBlockTileEntity extends TileEntity{
 		   this.placedChunk = this.worldObj.getChunkFromBlockCoords(xCoord, zCoord);
 		   this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		  
-		   if(this.owner != null){
-				System.out.println("Owner is NOT NULL, telling the event handler.");
-				ClaimBlockEventHandler.addClaimBlockToList(owner,placedChunk);
-			}
+		  // if(this.owner != null){
+		  //	System.out.println("Owner is NOT NULL, telling the event handler.");
+		  //	ClaimBlockEventHandler.addClaimBlockToList(owner,placedChunk);
+		  //}
 	   }
    }
 

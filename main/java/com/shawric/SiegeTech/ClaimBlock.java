@@ -50,11 +50,15 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase placer, ItemStack itmStk)
 		{
-			this.owner = ((EntityPlayer) placer).getDisplayName();
-			//((EntityPlayer) placer).addChatMessage(new ChatComponentText("The chunk "+ placedChunk.toString() + " has been claimed by " + this.owner));
-				ClaimBlockTileEntity tile = (ClaimBlockTileEntity) world.getTileEntity(x, y, z);
-					tile.setOwner(owner);		
-	    }
+			
+			if(!world.isRemote){
+				this.owner = ((EntityPlayer) placer).getDisplayName();
+				//((EntityPlayer) placer).addChatMessage(new ChatComponentText("The chunk "+ placedChunk.toString() + " has been claimed by " + this.owner));
+					ClaimBlockTileEntity tile = (ClaimBlockTileEntity) world.getTileEntity(x, y, z);
+						tile.setOwner(owner);
+			}
+	    
+		}
 	
 	@Override
 	public void onBlockPreDestroy(World wrld, int x, int y, int z, int p_149664_5_) {
@@ -94,7 +98,7 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 
 		@Override
 		public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-			Minecraft.getMinecraft().thePlayer.sendChatMessage("Tile Ent created.");
+			//Minecraft.getMinecraft().thePlayer.sendChatMessage("Tile Ent created.");
 			return new ClaimBlockTileEntity();
 		
 		}
@@ -106,7 +110,7 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 		        
 			ClaimBlockTileEntity tileentityClaimBlock = (ClaimBlockTileEntity)wrld.getTileEntity(p_149727_2_, p_149727_3_, p_149727_4_);
  
-				if(wrld.isRemote)
+				if(!wrld.isRemote)
 				{
 					player.addChatMessage(new ChatComponentText("(Client side) This is owned by: "+tileentityClaimBlock.getOwner()));
 				
@@ -116,12 +120,7 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 				
 				}   
 		            return true;
-       
-		            
-		            
-		            
-		           
-		            
+      
 		    }
 	
 
