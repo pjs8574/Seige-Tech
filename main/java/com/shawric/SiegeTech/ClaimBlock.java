@@ -108,7 +108,7 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 		 public boolean onBlockActivated(World wrld, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 		    {
 		        
-			ClaimBlockTileEntity tileentityClaimBlock = (ClaimBlockTileEntity)wrld.getTileEntity(p_149727_2_, p_149727_3_, p_149727_4_);
+			ClaimBlockTileEntity tileentityClaimBlock = (ClaimBlockTileEntity)wrld.getTileEntity(x, y, z);
  
 				if(!wrld.isRemote)
 				{

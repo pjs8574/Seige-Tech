@@ -128,7 +128,8 @@ public class ClaimBlockTileEntity extends TileEntity{
 	   if (this.owner.contains(playerName)){
 		      //already on the whitelist, do nothing
 	   }else{
-		   this.owner = this.owner+","+playerName;   
+		   this.owner = this.owner+","+playerName;
+		   this.sentToEventList = false;
 	   }
 	   
    }
