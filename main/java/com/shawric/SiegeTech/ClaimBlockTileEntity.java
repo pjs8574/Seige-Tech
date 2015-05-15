@@ -125,9 +125,11 @@ public class ClaimBlockTileEntity extends TileEntity{
    
    public void  addPlayerToWhitelist(String playerName){
 
-	   if (this.whiteList.contains(playerName)){
+	   if (this.owner.contains(playerName)){
 		      //already on the whitelist, do nothing
-	   }else{this.whiteList.add(playerName);}
+	   }else{
+		   this.owner = this.owner+","+playerName;   
+	   }
 	   
    }
 

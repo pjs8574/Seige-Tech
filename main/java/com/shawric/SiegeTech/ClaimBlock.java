@@ -105,18 +105,43 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 
 		
 		@Override
-		 public boolean onBlockActivated(World wrld, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+		 public boolean onBlockActivated(World wrld, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 		    {
 		        
 			ClaimBlockTileEntity tileentityClaimBlock = (ClaimBlockTileEntity)wrld.getTileEntity(p_149727_2_, p_149727_3_, p_149727_4_);
  
 				if(!wrld.isRemote)
 				{
-					player.addChatMessage(new ChatComponentText("(Client side) This is owned by: "+tileentityClaimBlock.getOwner()));
-				
+					
 					ItemStack heldItem = player.getHeldItem();
 					
 					//if its the whitelist item then get the list of names from it
+					if(heldItem!=null){
+						
+						//player.addChatMessage(new ChatComponentText("UNLOCAL: "+ heldItem.getUnlocalizedName()));
+						
+						if(heldItem.getUnlocalizedName().equalsIgnoreCase("item.whiteList")){
+
+							String nameListToShow="";
+							
+							for(int i = 0; i<4; i++)
+						    {	
+								String index = ""+i;
+								heldItem.stackTagCompound.getString( index );
+								nameListToShow = nameListToShow + heldItem.stackTagCompound.getString( index ) + ",";
+								
+								ClaimBlockTileEntity cbTE =  (ClaimBlockTileEntity) wrld.getTileEntity(x, y, z);
+									
+									if(heldItem.stackTagCompound.getString( index )!=null){
+										cbTE.addPlayerToWhitelist(heldItem.stackTagCompound.getString( index ));
+									}
+						    }
+							
+							player.addChatMessage(new ChatComponentText("The names on the list are "+ nameListToShow));
+						
+						}
+					}else{player.addChatMessage(new ChatComponentText("This is owned by: "+tileentityClaimBlock.getOwner()));}
+					
 				
 				}   
 		            return true;

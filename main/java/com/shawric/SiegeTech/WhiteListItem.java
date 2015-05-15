@@ -3,6 +3,8 @@ package com.shawric.SiegeTech;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,9 +14,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
+
 public class WhiteListItem extends Item{
-	
-	
 
 	private int itemTier;
 	private String nameList=" ";
@@ -37,7 +38,7 @@ public class WhiteListItem extends Item{
 	{
 	par3List.add("Tier: " + this.itemTier + "A List of Names" );
 	par3List.add("Crouch+Left Click on a player to add thier name." );
-	par3List.add("Current List: "+setToolTipList());
+	
 	
 		if( par1ItemStack.stackTagCompound == null )
 		{
@@ -55,13 +56,13 @@ public class WhiteListItem extends Item{
 		    {
 		    	String index = ""+i;
 		    	//System.out.println("On Create Index: "+ index);
-		    par1ItemStack.stackTagCompound.setString( index , "z" );
+		    par1ItemStack.stackTagCompound.setString( index , "" );
 		    }
 		}
 	}
 	
 	
-	private String setToolTipList() {
+	private String getToolTipList() {
 		// TODO Auto-generated method stub
 		return nameList;
 	}
@@ -69,7 +70,6 @@ public class WhiteListItem extends Item{
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target)
 	{
-
 	    	World wld =target.worldObj;
 
 	    	if (player.isSneaking())
@@ -77,8 +77,6 @@ public class WhiteListItem extends Item{
 	    	
 	    	if(!wld.isRemote)
 	    	{
-	    		
-	    		
 	    	if(target instanceof EntityPlayerMP)
 	    	{
 
@@ -101,11 +99,11 @@ public class WhiteListItem extends Item{
 			    		    {	
 			    				String index = ""+i;
 
-			    				if (stack.stackTagCompound.getString(index).equals("z"))
+			    				if (stack.stackTagCompound.getString(index).equals(""))
 				    			{
 			    					player.addChatMessage(new ChatComponentText(targetName+" Has been added to the list."));
-			    				    this.nameList = nameList+targetName+",";
-			    					//System.out.println("Adding target name to whitelist");
+			    				    this.nameList = nameList+targetName+" ";
+			    				    player.addChatMessage(new ChatComponentText("the list:" + this.nameList));
 			    					stack.stackTagCompound.setString( index , targetName );
 			    				i = (this.itemTier+1);
 
@@ -123,13 +121,23 @@ public class WhiteListItem extends Item{
 			
 	}
 	
+	public ItemStack onItemRightClick(ItemStack itmStck, World wrld, EntityPlayer player)
+    {
+		
+		if(wrld.isRemote){
+		
+		String nameListToShow="";
+			for(int i = 0; i<this.itemTier; i++)
+		    {	
+				String index = ""+i;
+				itmStck.stackTagCompound.getString( index );
+				nameListToShow = nameListToShow+itmStck.stackTagCompound.getString( index )+",";
+		    }
+		player.addChatMessage(new ChatComponentText("The list:" + nameListToShow));
+		
+		}
+		return itmStck;
+    }
 	
 	
-	
-	
-	
-	
-	
-	
-
 }

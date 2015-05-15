@@ -77,6 +77,13 @@ public class ShawcreteBlock extends Block {
         return false;
     }
 
+	//concrete can't be silk harvested
+	@Override
+	public boolean canSilkHarvest()
+	{
+	        return false;
+	}
+	
 	//tells the game what to drop when this thing is dug
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)

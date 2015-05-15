@@ -180,6 +180,10 @@ public class SiegeTech {
 		ItemStack arrowStack =new ItemStack(Items.arrow);
 		ItemStack bowStack =new ItemStack(Items.bow);
 		
+		ItemStack paperStack =new ItemStack(Items.paper);
+		ItemStack boneMealStack =new ItemStack(Items.dye,0,15);
+		ItemStack inkSacStack =new ItemStack(Items.dye,0);
+		
 		ItemStack enderPearlStack = new ItemStack(Items.ender_pearl);
 		ItemStack endstoneStack = new ItemStack(Blocks.end_stone);
 		ItemStack netherstarStack = new ItemStack(Items.nether_star);
@@ -220,6 +224,12 @@ public class SiegeTech {
 		
 		//Hunter's Compass
 		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.huntersCompass,1), new Object[] {"NCN", "OEO", "NCN", 'E', enderEyeStack, 'O', obsidianStack, 'N', nethreciteStack, 'C', compassStack});
+		
+		//Claim Block
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.claimBlock,1), new Object[] {"DSD", "SES", "DSD", 'S', basicShawcreteStack, 'E', enderEyeStack, 'D', diamondStack});
+		
+		//white list
+		GameRegistry.addShapedRecipe(new ItemStack(SiegeTech.whiteList,1), new Object[] {"   ", "IPB", "   ", 'P', paperStack, 'B', boneMealStack,'I', inkSacStack});
 		
 		
 		//recipe for Seitersonciexplosive
@@ -309,7 +319,7 @@ public class SiegeTech {
 	    System.out.println("Registering event listeners");
 
 	    MinecraftForge.EVENT_BUS.register(new ClaimBlockEventHandler());
-	    
+	   
 	}
 	
 	
