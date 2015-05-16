@@ -93,23 +93,26 @@ public class ClaimBlockEventHandler {
 	
 	
 	
-	public static void addClaimBlockToList(String owner, Chunk placedChunk) {
+	public static void addClaimBlockToList(String potentialOwner, Chunk placedChunk) {
 		
 		if(!placedChunk.worldObj.isRemote){
 			
-			String ownerList = owner;
+			String ownerList = potentialOwner;
 			String chunkLoc = "chunkat"+","+placedChunk.xPosition+","+placedChunk.zPosition;
 			
 			if(claimBlockList.containsKey(chunkLoc)){
 				System.out.println("-----CHUNK ALREADY CLAIMED AT " + chunkLoc + "----Adding Names?");
 				
-				String checkName = (String) claimBlockList.get(chunkLoc);
-				
+				String actualOwner = (String) claimBlockList.get(chunkLoc);
+				System.out.println("Name to Check -"+actualOwner);
 				//has the owner name, but might have others
-				if(checkName.contains(owner)){
-					
+				if(potentialOwner.contains(actualOwner)){
+					System.out.println("Contains the owner");
 					//if its Different than owner name(has more names) then add it
-					if(!checkName.equalsIgnoreCase(owner)){
+					if(!actualOwner.equalsIgnoreCase(potentialOwner)){
+						
+						System.out.println("if its Different than owner name(has more names) then add it");
+						
 						claimBlockList.put(chunkLoc,ownerList);
 					}
 				}
