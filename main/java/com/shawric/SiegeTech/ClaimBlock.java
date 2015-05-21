@@ -137,7 +137,7 @@ public class ClaimBlock extends Block implements ITileEntityProvider{
 									}
 						    }
 							
-							player.addChatMessage(new ChatComponentText("The names on the list are "+ nameListToShow));
+							player.addChatMessage(new ChatComponentText("Added "+ nameListToShow + " to claim block ownership."));
 						
 						}
 					}else{player.addChatMessage(new ChatComponentText("This is owned by: "+tileentityClaimBlock.getOwner()));}

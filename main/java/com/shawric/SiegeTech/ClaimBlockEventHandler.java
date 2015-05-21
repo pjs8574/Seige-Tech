@@ -71,7 +71,7 @@ public class ClaimBlockEventHandler {
         	String chunkWhitelist = (String) this.claimBlockList.get(chunkLoc);
         	
         	if(chunkWhitelist.contains(breakerName)){
-        		theBreaker.addChatMessage(new ChatComponentText("You have access to this chunk."));
+        		//theBreaker.addChatMessage(new ChatComponentText("You have access to this chunk."));
         		return false;
         	}else{
         		theBreaker.addChatMessage(new ChatComponentText("You DO NOT have access to this chunk."));
@@ -79,7 +79,7 @@ public class ClaimBlockEventHandler {
         	}
 			
 			}else{ //theBreaker.addChatMessage(new ChatComponentText("Name not in the list."));
-				  theBreaker.addChatMessage(new ChatComponentText("You have access to this chunk."));
+				  //theBreaker.addChatMessage(new ChatComponentText("You have access to this chunk."));
 					return false;}
 		
 		
@@ -101,17 +101,17 @@ public class ClaimBlockEventHandler {
 			String chunkLoc = "chunkat"+","+placedChunk.xPosition+","+placedChunk.zPosition;
 			
 			if(claimBlockList.containsKey(chunkLoc)){
-				System.out.println("-----CHUNK ALREADY CLAIMED AT " + chunkLoc + "----Adding Names?");
+				//System.out.println("-----CHUNK ALREADY CLAIMED AT " + chunkLoc + "----Adding Names?");
 				
 				String actualOwner = (String) claimBlockList.get(chunkLoc);
-				System.out.println("Name to Check -"+actualOwner);
+				//System.out.println("Name to Check -"+actualOwner);
 				//has the owner name, but might have others
 				if(potentialOwner.contains(actualOwner)){
-					System.out.println("Contains the owner");
+					//System.out.println("Contains the owner");
 					//if its Different than owner name(has more names) then add it
 					if(!actualOwner.equalsIgnoreCase(potentialOwner)){
 						
-						System.out.println("if its Different than owner name(has more names) then add it");
+						//System.out.println("if its Different than owner name(has more names) then add it");
 						
 						claimBlockList.put(chunkLoc,ownerList);
 					}
@@ -125,26 +125,7 @@ public class ClaimBlockEventHandler {
 		
 	} 
 	
-	
-	//not going to use the methd...maybe.  As it would require a different Update Entitty call.
-	public static void addAddtionalNameToClaimBlock(String anotherName, Chunk placedChunk) {
-		
-		String ownerList = anotherName;
-		
-		if(claimBlockList.contains(placedChunk)){
-			
-			ownerList = (String) claimBlockList.get(placedChunk);
-			
-			if(ownerList.contains(anotherName)){
-				System.out.println("Owner already on the chunk list");
-			}else{
-				ownerList = ownerList + "," + anotherName;
-				claimBlockList.put(placedChunk,ownerList);
-			}
-		
-		}
-		
-	}
+
 
 	public static void claimBlockDestroyed(Chunk chunkToRemove, String owner) {
 		

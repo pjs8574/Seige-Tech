@@ -137,7 +137,7 @@ public class ClaimBlockTileEntity extends TileEntity{
    public void claimBlockDestroyed() {
 
 	   if(!this.worldObj.isRemote){
-		   System.out.println("SERVER SIDE --- !!!!CLAIM BLOCK DESTORYED!!!! REMOVING FROM LIST!!!");
+		   //System.out.println("SERVER SIDE --- !!!!CLAIM BLOCK DESTORYED!!!! REMOVING FROM LIST!!!");
 		   ClaimBlockEventHandler.claimBlockDestroyed(this.worldObj.getChunkFromBlockCoords(xCoord, zCoord),this.owner);
 	   }
 	
