@@ -2,18 +2,24 @@ package com.shawric.SiegeTech;
 
 import java.util.Hashtable;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 
 public class ClaimBlockEventHandler {
+	
+	
+	public boolean enableExplosionProtection=SiegeTech.explProtConfig;
 	
 	private static Hashtable claimBlockList = new Hashtable();
 	
@@ -55,7 +61,30 @@ public class ClaimBlockEventHandler {
 	    }
     }
 	
-	
+	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
+	public void onEvent(ExplosionEvent.Start event)
+    {
+        
+		
+		if(enableExplosionProtection){
+			//checking the block access, see if player has access to chunk
+			if(!event.world.isRemote)
+	    	{
+					Explosion expEnv = event.explosion;
+				
+					EntityLivingBase theBreaker = expEnv.getExplosivePlacedBy();
+					
+					 System.out.println("ATTEMPTING EXPLOSION AT "+expEnv.explosionX+","+expEnv.explosionZ+" BY: "+theBreaker);
+					
+					 	int expX=(int) Math.floor(expEnv.explosionX);
+						int expZ=(int) Math.floor(expEnv.explosionZ);
+						
+						Chunk chunkToCheck = event.world.getChunkFromBlockCoords(expX, expZ);
+					    event.setCanceled(this.checkListExplode(chunkToCheck));
+	   
+		    }
+		}
+    }
 	
 	public boolean checkList(Chunk chunkToCheck, EntityPlayer theBreaker){
 
@@ -88,7 +117,17 @@ public class ClaimBlockEventHandler {
 		
 		}
 	
-	
+	public boolean checkListExplode(Chunk chunkToCheck){
+
+		if(!chunkToCheck.worldObj.isRemote){		
+	        String chunkLoc = "chunkat"+","+chunkToCheck.xPosition+","+chunkToCheck.zPosition;
+	        if(this.claimBlockList.containsKey(chunkLoc)){
+	        		return true;
+	        	}
+			
+		}else{return false;}
+		return false;
+		}
 	
 	
 	

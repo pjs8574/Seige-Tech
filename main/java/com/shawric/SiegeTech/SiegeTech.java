@@ -11,6 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -30,6 +31,8 @@ public class SiegeTech {
 	int entIDCount = 50;
 	
 	public static final String modid = "shawric_siegetech";
+
+	public static boolean explProtConfig;
 	public static CreativeTabs tabMyMod = new SiegetechCreativeTab("tabSiegeTech");
 	
 	public static Block claimBlock;
@@ -65,6 +68,12 @@ public class SiegeTech {
 	public void preInit(FMLPreInitializationEvent event)
 	{
 	
+		
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		config.load();
+		explProtConfig = config.get(Configuration.CATEGORY_GENERAL, "Enable_Explosion_Protection_From_ClaimBlocks", false).getBoolean(false);
+		config.save();
+		
 		//Blocks
 		
 		//create blocks of shawcrete, takes string - Name, Into Tier, int Base HP
